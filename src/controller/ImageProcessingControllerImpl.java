@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ import view.ImageProcessingView;
 
 public class ImageProcessingControllerImpl implements ImageProcessingController {
 
-  //public final ImageProcessingView view;
+  public final ImageProcessingView view;
   public final Readable in;
   public final Scanner scan;
 
@@ -24,13 +25,17 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   Map<String, Function<Scanner, ImageProcessingCommand>> knownCommands = new HashMap<>();
 
 
-  public ImageProcessingControllerImpl(Readable in)
+  public ImageProcessingControllerImpl(Readable in, ImageProcessingView view)
           throws IllegalArgumentException {
     if (in == null) {
       throw new IllegalArgumentException("readable is null");
     }
+    if (view == null) {
+      throw new IllegalArgumentException("view is null");
+    }
 
     this.in = in;
+    this.view = view;
     scan = new Scanner(this.in);
 
     knownCommands.put("load",
@@ -68,6 +73,14 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     } else {
       ImageProcessingCommand c = cmd.apply(scan);
       c.go();
+    }
+  }
+
+  private void printMessage(String message) throws IllegalStateException {
+    try {
+      this.view.renderMessage(message + "\n");
+    } catch (IOException e) {
+      throw new IllegalStateException();
     }
   }
 
