@@ -39,25 +39,25 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     scan = new Scanner(this.in);
 
     knownCommands.put("load",
-            scan -> new Load(scan.next(), images, scan));
+            scan -> new Load(scan.next(), this, scan));
     knownCommands.put("brighten",
-            scan -> new Brighten(scan.next(), images, scan.nextInt(), scan.next()));
+            scan -> new Brighten(scan.next(), this, scan.nextInt(), scan.next()));
     knownCommands.put("horizontal-flip",
-            scan -> new HorizontalFlip(scan.next(), images, scan.next()));
+            scan -> new HorizontalFlip(scan.next(), this, scan.next()));
     knownCommands.put("vertical-flip",
-            scan -> new VerticalFlip(scan.next(), images, scan.next()));
+            scan -> new VerticalFlip(scan.next(), this, scan.next()));
     knownCommands.put("red-component",
-            scan -> new RedComponent(scan.next(), images, scan.nextInt(), scan.next()));
+            scan -> new RedComponent(scan.next(), this, scan.next()));
     knownCommands.put("green-component",
-            scan -> new GreenComponent(scan.next(), images, scan.next()));
+            scan -> new GreenComponent(scan.next(), this, scan.next()));
     knownCommands.put("blue-component",
-            scan -> new BlueComponent(scan.next(), images, scan.next()));
+            scan -> new BlueComponent(scan.next(), this, scan.next()));
     knownCommands.put("value-component",
-            scan -> new ValueComponent(scan.next(), images, scan.next()));
+            scan -> new ValueComponent(scan.next(), this, scan.next()));
     knownCommands.put("intensity-component",
-            scan -> new IntensityComponent(scan.next(), images, scan.next()));
+            scan -> new IntensityComponent(scan.next(), this, scan.next()));
     knownCommands.put("luma-component",
-            scan -> new LumaComponent(scan.next(), images, scan.next()));
+            scan -> new LumaComponent(scan.next(), this, scan.next()));
 
   }
 
@@ -76,12 +76,16 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     }
   }
 
-  private void printMessage(String message) throws IllegalStateException {
+  public void printMessage(String message) throws IllegalStateException {
     try {
       this.view.renderMessage(message + "\n");
     } catch (IOException e) {
       throw new IllegalStateException();
     }
+  }
+
+  public Map<String, ImageProcessingModel> getImages() {
+    return this.images;
   }
 
 

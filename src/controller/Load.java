@@ -11,12 +11,12 @@ import model.Pixel;
 
 public class Load implements ImageProcessingCommand {
   String filename;
-  Map<String, ImageProcessingModel> images;
+  ImageProcessingController controller;
   Scanner scan;
 
-  public Load(String filename, Map<String, ImageProcessingModel> images, Scanner scan) {
+  public Load(String filename, ImageProcessingController controller, Scanner scan) {
     this.filename = filename;
-    this.images = images;
+    this.controller = controller;
     this.scan = scan;
   }
 
@@ -70,6 +70,7 @@ public class Load implements ImageProcessingCommand {
     }
 
     ImageProcessingModel newModel = new ImageModel(imageName, height, width, imagePixels);
-    images.put(imageName, newModel);
+    controller.getImages().put(imageName, newModel);
+    controller.printMessage("Loaded file as " + imageName + ".");
   }
 }

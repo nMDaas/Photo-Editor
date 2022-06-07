@@ -6,19 +6,21 @@ import model.ImageProcessingModel;
 
 public class LumaComponent implements ImageProcessingCommand {
   String image;
-  Map<String, ImageProcessingModel> images;
+  ImageProcessingController controller;
   String newImage;
 
-  public LumaComponent(String image, Map<String, ImageProcessingModel> images, String newImage) {
+  public LumaComponent(String image, ImageProcessingController controller, String newImage) {
     this.image = image;
-    this.images = images;
+    this.controller = controller;
     this.newImage = newImage;
   }
 
   @Override
   public void go() {
+    Map<String, ImageProcessingModel> images = controller.getImages();
     ImageProcessingModel model = images.get(image);
     ImageProcessingModel lumaModel = model.valueComponent(newImage);
     images.put(newImage, lumaModel);
+    controller.printMessage("Luma greyscale of " + image + " created as " + newImage + ".");
   }
 }

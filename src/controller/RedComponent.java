@@ -7,19 +7,21 @@ import model.ImageProcessingModel;
 public class RedComponent implements ImageProcessingCommand {
 
   String image;
-  Map<String, ImageProcessingModel> images;
+  ImageProcessingController controller;
   String newImage;
 
-  public RedComponent(String image, Map<String, ImageProcessingModel> images, int value, String newImage) {
+  public RedComponent(String image, ImageProcessingController controller, String newImage) {
     this.image = image;
-    this.images = images;
+    this.controller = controller;
     this.newImage = newImage;
   }
 
   @Override
   public void go() {
+    Map<String, ImageProcessingModel> images = controller.getImages();
     ImageProcessingModel model = images.get(image);
     ImageProcessingModel redModel = model.redComponent(newImage);
     images.put(newImage, redModel);
+    controller.printMessage(newImage + " created through red channel of " + image + ".");
   }
 }
