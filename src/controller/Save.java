@@ -53,9 +53,12 @@ public class Save implements ImageProcessingCommand {
       Pixel[][] pixels = image.getPixels();
       for(int row=0;row< image.getHeight(); row++){
         for(int column=0;column < image.getWidth(); column++){
-          writer.write(String.format(pixels[row][column].getRed() + " "));
-          writer.write(String.format(pixels[row][column].getGreen() + " "));
-          writer.write(String.format(pixels[row][column].getBlue() + " "));
+          writer.write(String.format(pixels[row][column].getRed() + ""));
+          writer.newLine();
+          writer.write(String.format(pixels[row][column].getGreen() + ""));
+          writer.newLine();
+          writer.write(String.format(pixels[row][column].getBlue() + ""));
+          writer.newLine();
         }
       }
       writer.flush();
