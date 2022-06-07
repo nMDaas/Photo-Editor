@@ -95,9 +95,16 @@ public class ImageModel implements ImageProcessingModel{
   @Override
   public ImageProcessingModel lumaComponent(String dest) {
 
-    // TODO: do this
+    ImageModel lumaImage =
+            new ImageModel(dest, this.height, this.width, this.pixels);
 
-    return this;
+    for (int row = 0; row <= lumaImage.height; row = row + 1) {
+      for (int col = 0; col <= lumaImage.width; col = col + 1) {
+        lumaImage.pixels[row][col].setLumaComponent();
+      }
+    }
+
+    return lumaImage;
 
   }
 

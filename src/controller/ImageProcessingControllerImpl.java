@@ -51,7 +51,8 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
             scan -> new ValueComponent(scan.next(), images, scan.next()));
     knownCommands.put("intensity-component",
             scan -> new IntensityComponent(scan.next(), images, scan.next()));
-    // TODO: add luma component
+    knownCommands.put("luma-component",
+            scan -> new LumaComponent(scan.next(), images, scan.next()));
 
   }
 

@@ -98,4 +98,12 @@ public class Pixel {
     this.blue = intensity;
   }
 
+  public void setLumaComponent() {
+    Double doubleLuma = this.findLuma(); // problem here: intensity is double, pixel rgb is int
+    int luma = doubleLuma.intValue();
+    this.red = luma;
+    this.green = luma;
+    this.blue = luma;
+  }
+
 }
