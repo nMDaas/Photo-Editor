@@ -55,8 +55,8 @@ public class Load implements ImageProcessingCommand {
 
     int width = sc.nextInt();
     int height = sc.nextInt();
-    int maxValue = sc.nextInt();
-    System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
+    //int maxValue = sc.nextInt();
+    //System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
 
     Pixel[][] imagePixels = new Pixel[height][width];
 
