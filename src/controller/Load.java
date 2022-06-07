@@ -55,7 +55,7 @@ public class Load implements ImageProcessingCommand {
 
     int width = sc.nextInt();
     int height = sc.nextInt();
-    //int maxValue = sc.nextInt();
+    int maxValue = sc.nextInt();
     //System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
 
     Pixel[][] imagePixels = new Pixel[height][width];
@@ -69,7 +69,7 @@ public class Load implements ImageProcessingCommand {
       }
     }
 
-    ImageProcessingModel newModel = new ImageModel(imageName, height, width, imagePixels);
+    ImageProcessingModel newModel = new ImageModel(imageName, height, width, imagePixels, maxValue);
     controller.getImages().put(imageName, newModel);
     controller.printMessage("Loaded file as " + imageName + ".");
   }

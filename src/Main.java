@@ -7,6 +7,8 @@ import controller.ImageProcessingControllerImpl;
 import controller.ImageUtil;
 import model.ImageModel;
 import model.ImageProcessingModel;
+import view.ImageProcessingView;
+import view.ImageProcessingViewImpl;
 
 public class Main {
   //demo main
@@ -20,10 +22,11 @@ public class Main {
       filename = "src/Koala.ppm";
     }
 
-    //Reader in = new InputStreamReader(System.in);
-    Reader in = new StringReader("load pics/Koala.ppm koala\n");
+    Reader in = new InputStreamReader(System.in);
+    //Reader in = new StringReader("load pics/Koala.ppm koala blue-component koala koala-blue save pics/koalaBlue.ppm koala-blue");
 
-    ImageProcessingController controller = new ImageProcessingControllerImpl(in);
+    ImageProcessingView view = new ImageProcessingViewImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
     controller.process();
   }
 }

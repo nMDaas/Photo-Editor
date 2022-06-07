@@ -6,6 +6,9 @@ public class Pixel {
   private int green;
 
   public Pixel(int red, int blue, int green) {
+    if (red < 0 || blue < 0 || green < 0) {
+      throw new IllegalArgumentException("rgb values cannot be negative.");
+    }
     this.red = red;
     this.blue = blue;
     this.green = green;
@@ -104,6 +107,18 @@ public class Pixel {
     this.red = luma;
     this.green = luma;
     this.blue = luma;
+  }
+
+  public int getRed(){
+    return this.red;
+  }
+
+  public int getGreen(){
+    return this.green;
+  }
+
+  public int getBlue(){
+    return this.blue;
   }
 
 }

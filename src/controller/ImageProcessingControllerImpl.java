@@ -58,21 +58,27 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
             scan -> new IntensityComponent(scan.next(), this, scan.next()));
     knownCommands.put("luma-component",
             scan -> new LumaComponent(scan.next(), this, scan.next()));
+    knownCommands.put("save",
+            scan -> new Save(this, scan.next(), scan.next()));
 
   }
 
   @Override
   public void process() throws IllegalStateException {
-    String userInstruction = scan.next();
 
-    Function<Scanner, ImageProcessingCommand> cmd =
-            knownCommands.getOrDefault(userInstruction, null);
+    while (scan.hasNext()) {
 
-    if (cmd == null) {
-      throw new IllegalArgumentException("Invalid command.");
-    } else {
-      ImageProcessingCommand c = cmd.apply(scan);
-      c.go();
+      String userInstruction = scan.next();
+
+      Function<Scanner, ImageProcessingCommand> cmd =
+              knownCommands.getOrDefault(userInstruction, null);
+
+      if (cmd == null) {
+        throw new IllegalArgumentException("Invalid command.");
+      } else {
+        ImageProcessingCommand c = cmd.apply(scan);
+        c.go();
+      }
     }
   }
 

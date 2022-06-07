@@ -19,7 +19,7 @@ public class LumaComponent implements ImageProcessingCommand {
   public void go() {
     Map<String, ImageProcessingModel> images = controller.getImages();
     ImageProcessingModel model = images.get(image);
-    ImageProcessingModel lumaModel = model.valueComponent(newImage);
+    ImageProcessingModel lumaModel = model.lumaComponent(newImage);
     images.put(newImage, lumaModel);
     controller.printMessage("Luma greyscale of " + image + " created as " + newImage + ".");
   }

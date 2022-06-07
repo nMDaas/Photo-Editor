@@ -1,12 +1,10 @@
 package view;
 
-// TODO: call view from controller
-
 import java.io.IOException;
 
 public class ImageProcessingViewImpl implements ImageProcessingView {
 
-  public final Appendable appendable;
+  private final Appendable appendable;
 
   public ImageProcessingViewImpl(Appendable appendable) {
     if (appendable == null) {
