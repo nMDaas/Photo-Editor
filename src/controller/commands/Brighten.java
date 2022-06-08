@@ -1,8 +1,6 @@
-package controller;
+package controller.commands;
 
-import java.util.Map;
-
-import model.ImageModel;
+import controller.ImageProcessingController;
 import model.ImageProcessingModel;
 
 public class Brighten extends AbstractCommand {

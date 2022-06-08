@@ -1,7 +1,8 @@
-package controller;
+package controller.commands;
 
 import java.util.Map;
 
+import controller.ImageProcessingController;
 import model.ImageProcessingModel;
 
 abstract public class AbstractCommand implements ImageProcessingCommand {

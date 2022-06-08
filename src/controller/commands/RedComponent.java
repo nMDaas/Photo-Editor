@@ -1,7 +1,7 @@
-package controller;
+package controller.commands;
 
-import java.util.Map;
-
+import controller.ImageProcessingController;
+import controller.commands.AbstractCommand;
 import model.ImageProcessingModel;
 
 public class RedComponent extends AbstractCommand {

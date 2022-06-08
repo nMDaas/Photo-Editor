@@ -1,10 +1,11 @@
-package controller;
+package controller.commands;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Map;
 import java.util.Scanner;
 
+import controller.ImageProcessingController;
+import controller.commands.ImageProcessingCommand;
 import model.ImageModel;
 import model.ImageProcessingModel;
 import model.Pixel;

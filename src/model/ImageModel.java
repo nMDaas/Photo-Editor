@@ -1,11 +1,39 @@
 package model;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.function.Function;
+
+import controller.commands.BlueComponent;
+import controller.commands.Brighten;
+import controller.commands.GreenComponent;
+import controller.commands.HorizontalFlip;
+import controller.commands.ImageProcessingCommand;
+import controller.commands.IntensityComponent;
+import controller.commands.Load;
+import controller.commands.LumaComponent;
+import controller.commands.RedComponent;
+import controller.commands.Save;
+import controller.commands.ValueComponent;
+import controller.commands.VerticalFlip;
+import model.commands.ChangeBrightness;
+import model.commands.IntensityGreyscale;
+import model.commands.LumaGreyscale;
+import model.commands.MakeBlue;
+import model.commands.MakeGreen;
+import model.commands.MakeRed;
+import model.commands.ValueGreyscale;
+import model.commands.modelCommand;
+
 public class ImageModel implements ImageProcessingModel {
 
   private final int height;
   private final int width;
   private final Pixel[][] pixels;
   private int max;
+
+  Map<String, Function<Integer, modelCommand>> imageCommands = new HashMap<>();
 
   public ImageModel(int height, int width, Pixel[][] pixels, int max) {
     if (pixels == null) {
@@ -20,101 +48,70 @@ public class ImageModel implements ImageProcessingModel {
     this.width = width;
     this.pixels = pixels;
     this.max = max;
+
+    imageCommands.put("makeRed",
+            scan -> new MakeRed());
+    imageCommands.put("makeBlue",
+            scan -> new MakeBlue());
+    imageCommands.put("makeGreen",
+            scan -> new MakeGreen());
+    imageCommands.put("valueGreyscale",
+            scan -> new ValueGreyscale());
+    imageCommands.put("lumaGreyscale",
+            scan -> new LumaGreyscale());
+    imageCommands.put("intensityGreyscale",
+            scan -> new IntensityGreyscale());
+    imageCommands.put("brighten",
+            scan -> new ChangeBrightness(scan));
+
   }
 
   @Override
   public ImageProcessingModel redComponent() {
-
-    ImageModel redImage =
-            new ImageModel(this.height, this.width, this.pixels, this.max);
-
-    for (int row = 0; row <= (redImage.height - 1); row = row + 1) {
-      for (int col = 0; col <= (redImage.width - 1); col = col + 1) {
-        redImage.pixels[row][col].setRedComponent();
-      }
-    }
-
-    return redImage;
-
+    Function<Integer, modelCommand> cmd =
+            imageCommands.getOrDefault("makeRed", null);
+    modelCommand c = cmd.apply(0);
+    return c.go(this);
   }
 
   @Override
   public ImageProcessingModel greenComponent() {
-
-    ImageModel greenImage =
-            new ImageModel(this.height, this.width, this.pixels, this.max);
-
-    for (int row = 0; row <= (greenImage.height - 1); row = row + 1) {
-      for (int col = 0; col <= (greenImage.width - 1); col = col + 1) {
-        greenImage.pixels[row][col].setGreenComponent();
-      }
-    }
-
-    return greenImage;
-
+    Function<Integer, modelCommand> cmd =
+            imageCommands.getOrDefault("makeGreen", null);
+    modelCommand c = cmd.apply(0);
+    return c.go(this);
   }
 
   @Override
   public ImageProcessingModel blueComponent() {
-
-    ImageModel blueImage =
-            new ImageModel(this.height, this.width, this.pixels, this.max);
-
-    for (int row = 0; row <= (blueImage.height - 1); row = row + 1) {
-      for (int col = 0; col <= (blueImage.width - 1); col = col + 1) {
-        blueImage.pixels[row][col].setBlueComponent();
-      }
-    }
-
-    return blueImage;
+    Function<Integer, modelCommand> cmd =
+            imageCommands.getOrDefault("makeBlue", null);
+    modelCommand c = cmd.apply(0);
+    return c.go(this);
   }
 
   @Override
   public ImageProcessingModel valueComponent() {
-
-    ImageModel valueImage =
-            new ImageModel(this.height, this.width, this.pixels, this.max);
-
-    for (int row = 0; row <= (valueImage.height - 1); row = row + 1) {
-      for (int col = 0; col <= (valueImage.width - 1); col = col + 1) {
-        valueImage.pixels[row][col].setValueComponent();
-      }
-    }
-
-    return valueImage;
-
+    Function<Integer, modelCommand> cmd =
+            imageCommands.getOrDefault("valueGreyscale", null);
+    modelCommand c = cmd.apply(0);
+    return c.go(this);
   }
 
   @Override
   public ImageProcessingModel intensityComponent() {
-
-    ImageModel intensityImage =
-            new ImageModel(this.height, this.width, this.pixels, this.max);
-
-    for (int row = 0; row <= (intensityImage.height - 1); row = row + 1) {
-      for (int col = 0; col <= (intensityImage.width - 1); col = col + 1) {
-        intensityImage.pixels[row][col].setIntensityComponent();
-      }
-    }
-
-    return intensityImage;
-
+    Function<Integer, modelCommand> cmd =
+            imageCommands.getOrDefault("intensityGreyscale", null);
+    modelCommand c = cmd.apply(0);
+    return c.go(this);
   }
 
   @Override
   public ImageProcessingModel lumaComponent() {
-
-    ImageModel lumaImage =
-            new ImageModel(this.height, this.width, this.pixels, this.max);
-
-    for (int row = 0; row <= (lumaImage.height - 1); row = row + 1) {
-      for (int col = 0; col <= (lumaImage.width - 1); col = col + 1) {
-        lumaImage.pixels[row][col].setLumaComponent();
-      }
-    }
-
-    return lumaImage;
-
+    Function<Integer, modelCommand> cmd =
+            imageCommands.getOrDefault("lumaGreyscale", null);
+    modelCommand c = cmd.apply(0);
+    return c.go(this);
   }
 
   @Override
@@ -165,17 +162,10 @@ public class ImageModel implements ImageProcessingModel {
 
   @Override
   public ImageProcessingModel brighten(int val) {
-
-    ImageModel brightenImage =
-            new ImageModel(this.height, this.width, this.pixels, this.max);
-
-    for (int row = 0; row <= (this.height - 1); row = row + 1) {
-      for (int col = 0; col <= (this.width - 1); col = col + 1) {
-        this.pixels[row][col].brighten(val);
-      }
-    }
-
-    return brightenImage;
+    Function<Integer, modelCommand> cmd =
+            imageCommands.getOrDefault("brighten", null);
+    modelCommand c = cmd.apply(val);
+    return c.go(this);
   }
 
   @Override

@@ -1,17 +1,24 @@
 package controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 
-import model.ImageModel;
+import controller.commands.BlueComponent;
+import controller.commands.Brighten;
+import controller.commands.GreenComponent;
+import controller.commands.HorizontalFlip;
+import controller.commands.ImageProcessingCommand;
+import controller.commands.IntensityComponent;
+import controller.commands.Load;
+import controller.commands.LumaComponent;
+import controller.commands.RedComponent;
+import controller.commands.Save;
+import controller.commands.ValueComponent;
+import controller.commands.VerticalFlip;
 import model.ImageProcessingModel;
-import model.Pixel;
 import view.ImageProcessingView;
 
 public class ImageProcessingControllerImpl implements ImageProcessingController {
