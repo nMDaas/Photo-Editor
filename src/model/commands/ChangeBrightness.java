@@ -1,6 +1,6 @@
 package model.commands;
 
-import model.Pixel;
+import model.pixel.Pixel;
 
 public class ChangeBrightness extends AbstractModelCommand {
   int val;

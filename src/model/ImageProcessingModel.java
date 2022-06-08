@@ -1,5 +1,7 @@
 package model;
 
+import model.pixel.Pixel;
+
 public interface ImageProcessingModel {
   ImageProcessingModel redComponent();
   ImageProcessingModel greenComponent();

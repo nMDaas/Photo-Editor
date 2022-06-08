@@ -5,10 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import controller.ImageProcessingController;
-import controller.commands.ImageProcessingCommand;
 import model.ImageModel;
 import model.ImageProcessingModel;
-import model.Pixel;
+import model.pixel.Pixel;
+import model.pixel.RGBPixel;
 
 public class Load implements ImageProcessingCommand {
   String filename;
@@ -77,7 +77,7 @@ public class Load implements ImageProcessingCommand {
           int r = sc.nextInt();
           int g = sc.nextInt();
           int b = sc.nextInt();
-          imagePixels[row][col] = new Pixel(r, g, b);
+          imagePixels[row][col] = new RGBPixel(r, g, b);
         }
       }
 

@@ -7,9 +7,8 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
 import controller.ImageProcessingController;
-import controller.commands.ImageProcessingCommand;
 import model.ImageProcessingModel;
-import model.Pixel;
+import model.pixel.Pixel;
 
 public class Save implements ImageProcessingCommand {
 
@@ -63,11 +62,11 @@ public class Save implements ImageProcessingCommand {
       for(int row=0;row< image.getHeight(); row++){
         for(int col=0;col < image.getWidth(); col++){
           Pixel thePixel = image.getPixelAt(row, col);
-          writer.write(String.format(thePixel.getRed() + ""));
+          writer.write(String.format(thePixel.getColor(0) + ""));
           writer.newLine();
-          writer.write(String.format(thePixel.getGreen() + ""));
+          writer.write(String.format(thePixel.getColor(1) + ""));
           writer.newLine();
-          writer.write(String.format(thePixel.getBlue() + ""));
+          writer.write(String.format(thePixel.getColor(2) + ""));
           writer.newLine();
         }
       }

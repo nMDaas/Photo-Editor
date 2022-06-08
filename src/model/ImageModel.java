@@ -2,21 +2,8 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.function.Function;
 
-import controller.commands.BlueComponent;
-import controller.commands.Brighten;
-import controller.commands.GreenComponent;
-import controller.commands.HorizontalFlip;
-import controller.commands.ImageProcessingCommand;
-import controller.commands.IntensityComponent;
-import controller.commands.Load;
-import controller.commands.LumaComponent;
-import controller.commands.RedComponent;
-import controller.commands.Save;
-import controller.commands.ValueComponent;
-import controller.commands.VerticalFlip;
 import model.commands.ChangeBrightness;
 import model.commands.IntensityGreyscale;
 import model.commands.LumaGreyscale;
@@ -25,6 +12,7 @@ import model.commands.MakeGreen;
 import model.commands.MakeRed;
 import model.commands.ValueGreyscale;
 import model.commands.modelCommand;
+import model.pixel.Pixel;
 
 public class ImageModel implements ImageProcessingModel {
 
@@ -191,14 +179,14 @@ public class ImageModel implements ImageProcessingModel {
     for (int row = 0; row <= (this.height - 1); row = row + 1) {
       for (int col = 0; col <= (this.width - 1); col = col + 1) {
         Pixel thePixel = this.pixels[row][col];
-        if (thePixel.getRed() > max) {
-          max = thePixel.getRed();
+        if (thePixel.getColor(0) > max) {
+          max = thePixel.getColor(0);
         }
-        if (thePixel.getGreen() > max) {
-          max = thePixel.getGreen();
+        if (thePixel.getColor(1) > max) {
+          max = thePixel.getColor(1);
         }
-        if (thePixel.getBlue() > max) {
-          max = thePixel.getBlue();
+        if (thePixel.getColor(2) > max) {
+          max = thePixel.getColor(2);
         }
       }
     }

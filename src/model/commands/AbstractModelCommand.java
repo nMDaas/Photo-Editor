@@ -2,7 +2,7 @@ package model.commands;
 
 import model.ImageModel;
 import model.ImageProcessingModel;
-import model.Pixel;
+import model.pixel.Pixel;
 
 abstract public class AbstractModelCommand implements modelCommand {
   @Override

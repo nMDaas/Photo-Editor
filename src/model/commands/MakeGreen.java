@@ -1,10 +1,10 @@
 package model.commands;
 
-import model.Pixel;
+import model.pixel.Pixel;
 
 public class MakeGreen extends AbstractModelCommand {
   @Override
   public void doCommand(Pixel p) {
-    p.setGreenComponent();
+    p.setColor(1);
   }
 }
