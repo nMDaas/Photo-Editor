@@ -1,14 +1,21 @@
 package model;
 
 public class ImageModel implements ImageProcessingModel{
-  private final String name;
+
   private final int height;
   private final int width;
   private final Pixel[][] pixels;
   private int max;
 
-  public ImageModel(String name, int height, int width, Pixel[][] pixels, int max) {
-    this.name = name;
+  public ImageModel(int height, int width, Pixel[][] pixels, int max) {
+    if (pixels == null){
+      throw new IllegalArgumentException();
+    }
+
+    if (height < 0 || width < 0 || max < 0 || max > 255){
+      throw new IllegalArgumentException();
+    }
+
     this.height = height;
     this.width = width;
     this.pixels = pixels;
@@ -16,10 +23,10 @@ public class ImageModel implements ImageProcessingModel{
   }
 
   @Override
-  public ImageProcessingModel redComponent(String dest) {
+  public ImageProcessingModel redComponent() {
 
     ImageModel redImage =
-            new ImageModel(dest, this.height, this.width, this.pixels, this.max);
+            new ImageModel(this.height, this.width, this.pixels, this.max);
 
     for (int row = 0; row <= (redImage.height - 1); row = row + 1) {
       for (int col = 0; col <= (redImage.width - 1); col = col + 1) {
@@ -32,10 +39,10 @@ public class ImageModel implements ImageProcessingModel{
   }
 
   @Override
-  public ImageProcessingModel greenComponent(String dest) {
+  public ImageProcessingModel greenComponent() {
 
     ImageModel greenImage =
-            new ImageModel(dest, this.height, this.width, this.pixels, this.max);
+            new ImageModel(this.height, this.width, this.pixels, this.max);
 
     for (int row = 0; row <= (greenImage.height - 1); row = row + 1) {
       for (int col = 0; col <= (greenImage.width - 1); col = col + 1) {
@@ -48,10 +55,10 @@ public class ImageModel implements ImageProcessingModel{
   }
 
   @Override
-  public ImageProcessingModel blueComponent(String dest) {
+  public ImageProcessingModel blueComponent() {
 
     ImageModel blueImage =
-            new ImageModel(dest, this.height, this.width, this.pixels, this.max);
+            new ImageModel( this.height, this.width, this.pixels, this.max);
 
     for (int row = 0; row <= (blueImage.height - 1); row = row + 1) {
       for (int col = 0; col <= (blueImage.width - 1); col = col + 1) {
@@ -63,10 +70,10 @@ public class ImageModel implements ImageProcessingModel{
   }
 
   @Override
-  public ImageProcessingModel valueComponent(String dest) {
+  public ImageProcessingModel valueComponent() {
 
     ImageModel valueImage =
-            new ImageModel(dest, this.height, this.width, this.pixels, this.max);
+            new ImageModel( this.height, this.width, this.pixels, this.max);
 
     for (int row = 0; row <= (valueImage.height - 1); row = row + 1) {
       for (int col = 0; col <= (valueImage.width - 1); col = col + 1) {
@@ -79,10 +86,10 @@ public class ImageModel implements ImageProcessingModel{
   }
 
   @Override
-  public ImageProcessingModel intensityComponent(String dest) {
+  public ImageProcessingModel intensityComponent() {
 
     ImageModel intensityImage =
-            new ImageModel(dest, this.height, this.width, this.pixels, this.max);
+            new ImageModel( this.height, this.width, this.pixels, this.max);
 
     for (int row = 0; row <= (intensityImage.height - 1); row = row + 1) {
       for (int col = 0; col <= (intensityImage.width - 1); col = col + 1) {
@@ -95,10 +102,10 @@ public class ImageModel implements ImageProcessingModel{
   }
 
   @Override
-  public ImageProcessingModel lumaComponent(String dest) {
+  public ImageProcessingModel lumaComponent() {
 
     ImageModel lumaImage =
-            new ImageModel(dest, this.height, this.width, this.pixels, this.max);
+            new ImageModel(this.height, this.width, this.pixels, this.max);
 
     for (int row = 0; row <= (lumaImage.height - 1); row = row + 1) {
       for (int col = 0; col <= (lumaImage.width - 1); col = col + 1) {
@@ -111,21 +118,21 @@ public class ImageModel implements ImageProcessingModel{
   }
 
   @Override
-  public ImageProcessingModel flipHorizontal(String dest) {
+  public ImageProcessingModel flipHorizontal() {
 
     ImageModel horizontalImage =
-            new ImageModel(dest, this.height, this.width, this.pixels, this.max);
+            new ImageModel(this.height, this.width, this.pixels, this.max);
 
-    double midpoint = (horizontalImage.width / 2) - 0.5;
+    double midpoint = (Double.valueOf(horizontalImage.width) / 2.0) - 0.5;
 
     for (int row = 0; row <= (horizontalImage.height - 1); row = row + 1) {
       for (int col = 0; col <= midpoint; col = col + 1) {
         Pixel pixelLeft = horizontalImage.pixels[row][col];
-        int colRight = (int) ((int) midpoint + (midpoint - col));
+        int colRight = (int) (midpoint + (midpoint - col));
         Pixel pixelRight = horizontalImage.pixels[row][colRight];
         Pixel tempPixel = pixelRight;
-        pixelRight = pixelLeft;
-        pixelLeft = tempPixel;
+        horizontalImage.pixels[row][colRight] = pixelLeft;
+        horizontalImage.pixels[row][col] = tempPixel;
       }
     }
 
@@ -134,21 +141,21 @@ public class ImageModel implements ImageProcessingModel{
   }
 
   @Override
-  public ImageProcessingModel flipVertical(String dest) {
+  public ImageProcessingModel flipVertical() {
 
     ImageModel verticalImage =
-            new ImageModel(dest, this.height, this.width, this.pixels, this.max);
+            new ImageModel(this.height, this.width, this.pixels, this.max);
 
-    double midpoint = (verticalImage.height / 2) - 0.5;
+    double midpoint = (Double.valueOf(verticalImage.height) / 2.0) - 0.5;
 
     for (int row = 0; row <= midpoint; row = row + 1) {
       for (int col = 0; col <= (verticalImage.width - 1); col = col + 1) {
         Pixel pixelUp = verticalImage.pixels[row][col];
-        int rowDown = (int) ((int) midpoint + (midpoint - row));
-        Pixel pixelDown = verticalImage.pixels[row][rowDown];
+        int rowDown = (int) (midpoint + (midpoint - row));
+        Pixel pixelDown = verticalImage.pixels[rowDown][col];
         Pixel tempPixel = pixelDown;
-        pixelDown = pixelUp;
-        pixelUp = tempPixel;
+        verticalImage.pixels[rowDown][col] = pixelUp;
+        verticalImage.pixels[row][col] = tempPixel;
       }
     }
 
@@ -157,10 +164,10 @@ public class ImageModel implements ImageProcessingModel{
   }
 
   @Override
-  public ImageProcessingModel brighten(int val, String dest) {
+  public ImageProcessingModel brighten(int val) {
 
     ImageModel brightenImage =
-            new ImageModel(dest, this.height, this.width, this.pixels, this.max);
+            new ImageModel(this.height, this.width, this.pixels, this.max);
 
     for (int row = 0; row <= (this.height - 1); row = row + 1) {
       for (int col = 0; col <= (this.width - 1); col = col + 1) {
@@ -182,8 +189,8 @@ public class ImageModel implements ImageProcessingModel{
   }
 
   @Override
-  public Pixel[][] getPixels() {
-    return this.pixels;
+  public Pixel getPixelAt(int row, int col) {
+    return this.pixels[row][col];
   }
 
   @Override

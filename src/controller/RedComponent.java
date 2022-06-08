@@ -20,7 +20,7 @@ public class RedComponent implements ImageProcessingCommand {
   public void go() {
     Map<String, ImageProcessingModel> images = controller.getImages();
     ImageProcessingModel model = images.get(image);
-    ImageProcessingModel redModel = model.redComponent(newImage);
+    ImageProcessingModel redModel = model.redComponent();
     images.put(newImage, redModel);
     controller.printMessage(newImage + " created through red channel of " + image + ".");
   }

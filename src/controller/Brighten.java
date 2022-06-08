@@ -21,7 +21,7 @@ public class Brighten implements ImageProcessingCommand {
   public void go() {
     Map<String, ImageProcessingModel> images = controller.getImages();
     ImageProcessingModel model = images.get(image);
-    ImageProcessingModel brightenedModel = model.brighten(value, newImage);
+    ImageProcessingModel brightenedModel = model.brighten(value);
     images.put(newImage, brightenedModel);
     controller.printMessage("Brightened image " + image + " to " + newImage + ".");
   }

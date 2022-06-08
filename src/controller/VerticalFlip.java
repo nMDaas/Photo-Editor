@@ -21,7 +21,7 @@ public class VerticalFlip implements ImageProcessingCommand {
   public void go() {
     Map<String, ImageProcessingModel> images = controller.getImages();
     ImageProcessingModel model = images.get(image);
-    ImageProcessingModel verticallyFlippedModel = model.flipVertical(this.newImage);
+    ImageProcessingModel verticallyFlippedModel = model.flipVertical();
     images.put(newImage, verticallyFlippedModel);
     controller.printMessage("Vertically flipped image " + image + " to " + newImage + ".");
   }

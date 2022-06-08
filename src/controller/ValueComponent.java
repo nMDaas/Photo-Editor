@@ -19,7 +19,7 @@ public class ValueComponent implements ImageProcessingCommand {
   public void go() {
     Map<String, ImageProcessingModel> images = controller.getImages();
     ImageProcessingModel model = images.get(image);
-    ImageProcessingModel valueModel = model.valueComponent(newImage);
+    ImageProcessingModel valueModel = model.valueComponent();
     images.put(newImage, valueModel);
     controller.printMessage("Value greyscale of " + image + " created as " + newImage + ".");
   }

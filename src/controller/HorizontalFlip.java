@@ -21,7 +21,7 @@ public class HorizontalFlip implements ImageProcessingCommand {
   public void go() {
     Map<String, ImageProcessingModel> images = controller.getImages();
     ImageProcessingModel model = images.get(image);
-    ImageProcessingModel horizontallyFlippedModel = model.flipHorizontal(this.newImage);
+    ImageProcessingModel horizontallyFlippedModel = model.flipHorizontal();
     images.put(newImage, horizontallyFlippedModel);
     controller.printMessage("Horizontally flipped image " + image + " to " + newImage + ".");
   }

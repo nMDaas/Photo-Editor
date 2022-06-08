@@ -69,7 +69,7 @@ public class Load implements ImageProcessingCommand {
       }
     }
 
-    ImageProcessingModel newModel = new ImageModel(imageName, height, width, imagePixels, maxValue);
+    ImageProcessingModel newModel = new ImageModel(height, width, imagePixels, maxValue);
     controller.getImages().put(imageName, newModel);
     controller.printMessage("Loaded file as " + imageName + ".");
   }

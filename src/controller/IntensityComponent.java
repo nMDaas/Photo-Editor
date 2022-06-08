@@ -19,7 +19,7 @@ public class IntensityComponent implements ImageProcessingCommand {
   public void go() {
     Map<String, ImageProcessingModel> images = controller.getImages();
     ImageProcessingModel model = images.get(image);
-    ImageProcessingModel intensityComponent = model.intensityComponent(newImage);
+    ImageProcessingModel intensityComponent = model.intensityComponent();
     images.put(newImage, intensityComponent);
     controller.printMessage("Intensity greyscale of " + image + " created as " + newImage + ".");
   }

@@ -1,19 +1,19 @@
 package model;
 
 public interface ImageProcessingModel {
-  ImageProcessingModel redComponent(String dest);
-  ImageProcessingModel greenComponent(String dest);
-  ImageProcessingModel blueComponent(String dest);
-  ImageProcessingModel valueComponent(String dest);
-  ImageProcessingModel intensityComponent(String dest);
-  ImageProcessingModel lumaComponent(String dest);
-  ImageProcessingModel flipHorizontal(String dest);
+  ImageProcessingModel redComponent();
+  ImageProcessingModel greenComponent();
+  ImageProcessingModel blueComponent();
+  ImageProcessingModel valueComponent();
+  ImageProcessingModel intensityComponent();
+  ImageProcessingModel lumaComponent();
+  ImageProcessingModel flipHorizontal();
 
-  ImageProcessingModel flipVertical(String dest);
+  ImageProcessingModel flipVertical();
 
-  ImageProcessingModel brighten(int val, String dest);
+  ImageProcessingModel brighten(int val);
   int getHeight();
   int getWidth();
-  Pixel [][] getPixels();
+  Pixel getPixelAt(int row, int col);
   int getMax();
 }

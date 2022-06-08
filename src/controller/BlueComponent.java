@@ -19,7 +19,7 @@ public class BlueComponent implements ImageProcessingCommand {
   public void go() {
     Map<String, ImageProcessingModel> images = controller.getImages();
     ImageProcessingModel model = images.get(image);
-    ImageProcessingModel blueModel = model.blueComponent(newImage);
+    ImageProcessingModel blueModel = model.blueComponent();
     images.put(newImage, blueModel);
     controller.printMessage(newImage + " created through blue channel of " + image + ".");
   }

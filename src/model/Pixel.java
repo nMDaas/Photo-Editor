@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Pixel {
   private int red;
   private int blue;
@@ -9,44 +11,32 @@ public class Pixel {
     if (red < 0 || blue < 0 || green < 0) {
       throw new IllegalArgumentException("rgb values cannot be negative.");
     }
+
+    if (red > 255 || blue > 255 || green > 255) {
+      throw new IllegalArgumentException("rgb values cannot greater than 255.");
+    }
     this.red = red;
     this.blue = blue;
     this.green = green;
   }
 
   public void brighten(int val){
+    this.red = this.setValue(this.red, val);
+    this.blue = this.setValue(this.blue, val);
+    this.green = this.setValue(this.green, val);
+  }
 
-    int redNew = this.red + val;
-    int blueNew = this.blue + val;
-    int greenNew = this.green + val;
-
-    if (redNew > 255){
-      redNew = 255;
+  private int setValue(int currentVal, int valAdd){
+    int sum = currentVal + valAdd;
+    if (sum > 255){
+      return 255;
     }
-
-    if (redNew < 0){
-      redNew = 0;
+    else if (sum < 0){
+      return 0;
     }
-
-    if (blueNew > 255){
-      blueNew = 255;
+    else {
+      return sum;
     }
-
-    if (blueNew < 0){
-      blueNew = 0;
-    }
-
-    if (greenNew > 255){
-      greenNew = 255;
-    }
-
-    if (greenNew < 0){
-      greenNew = 0;
-    }
-
-    this.red = redNew;
-    this.blue = blueNew;
-    this.green = greenNew;
   }
 
   public int findValue() {
@@ -64,11 +54,13 @@ public class Pixel {
   }
 
   public double findIntensity() {
-    return (this.red + this.blue + this.green)/3;
+    return (this.red + this.blue + this.green)/3.0;
   }
 
   public double findLuma() {
-    return (0.2126 * this.red) + (0.7152 * this.green) + (0.0722 * this.blue);
+    return (0.2126 * Double.valueOf(this.red)) +
+            (0.7152 * Double.valueOf(this.green)) +
+            (0.0722 * Double.valueOf(this.blue));
   }
 
   public void setRedComponent() {
@@ -95,7 +87,7 @@ public class Pixel {
 
   public void setIntensityComponent() {
     Double doubleIntensity = this.findIntensity(); // problem here: intensity is double, pixel rgb is int
-    int intensity = doubleIntensity.intValue();
+    int intensity = (int)Math.round(doubleIntensity);
     this.red = intensity;
     this.green = intensity;
     this.blue = intensity;
@@ -103,7 +95,7 @@ public class Pixel {
 
   public void setLumaComponent() {
     Double doubleLuma = this.findLuma(); // problem here: intensity is double, pixel rgb is int
-    int luma = doubleLuma.intValue();
+    int luma = (int)Math.round(doubleLuma);
     this.red = luma;
     this.green = luma;
     this.blue = luma;
@@ -119,6 +111,26 @@ public class Pixel {
 
   public int getBlue(){
     return this.blue;
+  }
+
+  @Override
+  public boolean equals(Object that) {
+    if (this == that) {
+      return true;
+    }
+
+    if (!(that instanceof Pixel)) {
+      return false;
+    }
+
+    return ((Pixel) that).red == this.red
+            && ((Pixel) that).green == this.green
+            && ((Pixel) that).blue == this.blue;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(red, green, blue);
   }
 
 }

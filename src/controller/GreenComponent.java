@@ -19,7 +19,7 @@ public class GreenComponent implements ImageProcessingCommand{
   public void go() {
     Map<String, ImageProcessingModel> images = controller.getImages();
     ImageProcessingModel model = images.get(image);
-    ImageProcessingModel greenModel = model.greenComponent(newImage);
+    ImageProcessingModel greenModel = model.greenComponent();
     images.put(newImage, greenModel);
     controller.printMessage(newImage + " created through green channel of " + image + ".");
   }
