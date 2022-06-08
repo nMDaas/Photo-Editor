@@ -4,23 +4,18 @@ import java.util.Map;
 
 import model.ImageProcessingModel;
 
-public class ValueComponent implements ImageProcessingCommand {
+public class ValueComponent extends AbstractCommand {
   String image;
   ImageProcessingController controller;
   String newImage;
 
   public ValueComponent(String image, ImageProcessingController controller, String newImage) {
-    this.image = image;
-    this.controller = controller;
-    this.newImage = newImage;
+    super (image, controller, newImage);
   }
 
   @Override
-  public void go() {
-    Map<String, ImageProcessingModel> images = controller.getImages();
-    ImageProcessingModel model = images.get(image);
-    ImageProcessingModel valueModel = model.valueComponent();
-    images.put(newImage, valueModel);
-    controller.printMessage("Value greyscale of " + image + " created as " + newImage + ".");
+  public ImageProcessingModel doCommand(ImageProcessingModel model) {
+    controller.printMessage(newImage + " created through value greyscale of " + image + ".");
+    return model.valueComponent();
   }
 }

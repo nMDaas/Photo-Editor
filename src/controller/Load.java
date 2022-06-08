@@ -15,6 +15,12 @@ public class Load implements ImageProcessingCommand {
   Scanner scan;
 
   public Load(String filename, ImageProcessingController controller, Scanner scan) {
+    if (filename.equals("")) {
+      throw new IllegalArgumentException("Invalid file path.");
+    }
+    if (controller == null || scan == null) {
+      throw new IllegalArgumentException("Controller and scanner cannot be null.");
+    }
     this.filename = filename;
     this.controller = controller;
     this.scan = scan;

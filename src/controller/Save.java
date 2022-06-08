@@ -20,6 +20,15 @@ public class Save implements ImageProcessingCommand {
   String path;
 
   public Save(ImageProcessingController controller, String path, String image) {
+    if (path.equals("")) {
+      throw new IllegalArgumentException("Invalid file path..");
+    }
+    if (image.equals("")) {
+      throw new IllegalArgumentException("Image name cannot be empty.");
+    }
+    if (controller == null) {
+      throw new IllegalArgumentException("Controller and scanner cannot be null.");
+    }
     this.image = image;
     this.controller = controller;
     this.path = path;
@@ -28,6 +37,9 @@ public class Save implements ImageProcessingCommand {
   @Override
   public void go() {
     ImageProcessingModel image = controller.getImages().get(this.image);
+    if (image == null) {
+      throw new IllegalArgumentException("This image does not exist.");
+    }
 
     File file = new File(this.path);
     FileOutputStream fs;

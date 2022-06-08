@@ -5,24 +5,19 @@ import java.util.Map;
 import model.ImageModel;
 import model.ImageProcessingModel;
 
-public class HorizontalFlip implements ImageProcessingCommand {
+public class HorizontalFlip extends AbstractCommand {
 
   String image;
   ImageProcessingController controller;
   String newImage;
 
   public HorizontalFlip(String image, ImageProcessingController controller, String newImage) {
-    this.image = image;
-    this.controller = controller;
-    this.newImage = newImage;
+    super(image, controller, newImage);
   }
 
   @Override
-  public void go() {
-    Map<String, ImageProcessingModel> images = controller.getImages();
-    ImageProcessingModel model = images.get(image);
-    ImageProcessingModel horizontallyFlippedModel = model.flipHorizontal();
-    images.put(newImage, horizontallyFlippedModel);
-    controller.printMessage("Horizontally flipped image " + image + " to " + newImage + ".");
+  public ImageProcessingModel doCommand(ImageProcessingModel model) {
+    controller.printMessage(newImage + " created by horizontally flipping" + image + ".");
+    return model.flipHorizontal();
   }
 }

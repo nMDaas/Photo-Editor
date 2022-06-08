@@ -5,24 +5,19 @@ import java.util.Map;
 import model.ImageModel;
 import model.ImageProcessingModel;
 
-public class Brighten implements ImageProcessingCommand {
+public class Brighten extends AbstractCommand {
   String image;
   ImageProcessingController controller;
   int value;
   String newImage;
   public Brighten(String image, ImageProcessingController controller, int value, String newImage) {
-    this.image = image;
-    this.controller = controller;
+    super(image, controller, newImage);
     this.value = value;
-    this.newImage = newImage;
   }
 
   @Override
-  public void go() {
-    Map<String, ImageProcessingModel> images = controller.getImages();
-    ImageProcessingModel model = images.get(image);
-    ImageProcessingModel brightenedModel = model.brighten(value);
-    images.put(newImage, brightenedModel);
-    controller.printMessage("Brightened image " + image + " to " + newImage + ".");
+  public ImageProcessingModel doCommand(ImageProcessingModel model) {
+    controller.printMessage(newImage + " created by changing brightness of " + image + ".");
+    return model.brighten(this.value);
   }
 }

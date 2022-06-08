@@ -4,23 +4,18 @@ import java.util.Map;
 
 import model.ImageProcessingModel;
 
-public class BlueComponent implements ImageProcessingCommand {
+public class BlueComponent extends AbstractCommand {
   String image;
   ImageProcessingController controller;
   String newImage;
 
   public BlueComponent(String image, ImageProcessingController controller, String newImage) {
-    this.image = image;
-    this.controller = controller;
-    this.newImage = newImage;
+    super(image, controller, newImage);
   }
 
   @Override
-  public void go() {
-    Map<String, ImageProcessingModel> images = controller.getImages();
-    ImageProcessingModel model = images.get(image);
-    ImageProcessingModel blueModel = model.blueComponent();
-    images.put(newImage, blueModel);
+  public ImageProcessingModel doCommand(ImageProcessingModel model) {
     controller.printMessage(newImage + " created through blue channel of " + image + ".");
+    return model.blueComponent();
   }
 }
