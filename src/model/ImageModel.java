@@ -1,6 +1,6 @@
 package model;
 
-public class ImageModel implements ImageProcessingModel{
+public class ImageModel implements ImageProcessingModel {
 
   private final int height;
   private final int width;
@@ -8,11 +8,11 @@ public class ImageModel implements ImageProcessingModel{
   private int max;
 
   public ImageModel(int height, int width, Pixel[][] pixels, int max) {
-    if (pixels == null){
+    if (pixels == null) {
       throw new IllegalArgumentException();
     }
 
-    if (height < 0 || width < 0 || max < 0 || max > 255){
+    if (height < 0 || width < 0 || max < 0 || max > 255) {
       throw new IllegalArgumentException();
     }
 
@@ -58,7 +58,7 @@ public class ImageModel implements ImageProcessingModel{
   public ImageProcessingModel blueComponent() {
 
     ImageModel blueImage =
-            new ImageModel( this.height, this.width, this.pixels, this.max);
+            new ImageModel(this.height, this.width, this.pixels, this.max);
 
     for (int row = 0; row <= (blueImage.height - 1); row = row + 1) {
       for (int col = 0; col <= (blueImage.width - 1); col = col + 1) {
@@ -73,7 +73,7 @@ public class ImageModel implements ImageProcessingModel{
   public ImageProcessingModel valueComponent() {
 
     ImageModel valueImage =
-            new ImageModel( this.height, this.width, this.pixels, this.max);
+            new ImageModel(this.height, this.width, this.pixels, this.max);
 
     for (int row = 0; row <= (valueImage.height - 1); row = row + 1) {
       for (int col = 0; col <= (valueImage.width - 1); col = col + 1) {
@@ -89,7 +89,7 @@ public class ImageModel implements ImageProcessingModel{
   public ImageProcessingModel intensityComponent() {
 
     ImageModel intensityImage =
-            new ImageModel( this.height, this.width, this.pixels, this.max);
+            new ImageModel(this.height, this.width, this.pixels, this.max);
 
     for (int row = 0; row <= (intensityImage.height - 1); row = row + 1) {
       for (int col = 0; col <= (intensityImage.width - 1); col = col + 1) {
@@ -195,6 +195,24 @@ public class ImageModel implements ImageProcessingModel{
 
   @Override
   public int getMax() {
-    return this.max;
+
+    int max = -1;
+
+    for (int row = 0; row <= (this.height - 1); row = row + 1) {
+      for (int col = 0; col <= (this.width - 1); col = col + 1) {
+        Pixel thePixel = this.pixels[row][col];
+        if (thePixel.getRed() > max) {
+          max = thePixel.getRed();
+        }
+        if (thePixel.getGreen() > max) {
+          max = thePixel.getGreen();
+        }
+        if (thePixel.getBlue() > max) {
+          max = thePixel.getBlue();
+        }
+      }
+    }
+
+    return max;
   }
 }

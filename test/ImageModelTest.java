@@ -46,7 +46,6 @@ public class ImageModelTest {
 
     assertEquals(10, model.getWidth());
     assertEquals(10, model.getHeight());
-    assertEquals(255, model.getMax());
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -246,7 +245,7 @@ public class ImageModelTest {
 
     assertEquals(2, modelBright.getHeight());
     assertEquals(2, modelBright.getWidth());
-    //assertEquals(10, modelBright.getMax());
+    assertEquals(20, modelBright.getMax());
     assertEquals(new Pixel(10, 20, 20), modelBright.getPixelAt(0, 0));
     assertEquals(new Pixel(20, 10, 10), modelBright.getPixelAt(0, 1));
     assertEquals(new Pixel(10, 20, 10), modelBright.getPixelAt(1, 0));
@@ -259,7 +258,7 @@ public class ImageModelTest {
 
     assertEquals(2, modelBright.getHeight());
     assertEquals(2, modelBright.getWidth());
-    //assertEquals(10, modelBright.getMax());
+    assertEquals(255, modelBright.getMax());
     assertEquals(new Pixel(246, 255, 255), modelBright.getPixelAt(0, 0));
     assertEquals(new Pixel(255, 246, 246), modelBright.getPixelAt(0, 1));
     assertEquals(new Pixel(246, 255, 246), modelBright.getPixelAt(1, 0));
@@ -272,7 +271,7 @@ public class ImageModelTest {
 
     assertEquals(2, modelDark.getHeight());
     assertEquals(2, modelDark.getWidth());
-    //assertEquals(10, modelBright.getMax());
+    assertEquals(5, modelDark.getMax());
     assertEquals(new Pixel(0, 5, 5), modelDark.getPixelAt(0, 0));
     assertEquals(new Pixel(5, 0, 0), modelDark.getPixelAt(0, 1));
     assertEquals(new Pixel(0, 5, 0), modelDark.getPixelAt(1, 0));
@@ -287,6 +286,17 @@ public class ImageModelTest {
   @Test
   public void testGetHeight() {
     assertEquals(2, model.getHeight());
+  }
+
+  @Test
+  public void testGetMax() {
+    assertEquals(10, model.getMax());
+
+    model.brighten(15);
+    assertEquals(25, model.getMax());
+
+    model.brighten(-5);
+    assertEquals(20, model.getMax());
   }
 
   @Test

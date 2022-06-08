@@ -1,10 +1,10 @@
-package controller;
-
 import org.junit.Test;
 
 import java.io.Reader;
 import java.io.StringReader;
 
+import controller.ImageProcessingController;
+import controller.ImageProcessingControllerImpl;
 import view.ImageProcessingView;
 import view.ImageProcessingViewImpl;
 

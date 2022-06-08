@@ -63,29 +63,29 @@ public class Pixel {
             (0.0722 * Double.valueOf(this.blue));
   }
 
-  public void setRedComponent() {
+  protected void setRedComponent() {
     this.green = this.red;
     this.blue = this.red;
   }
 
-  public void setGreenComponent() {
+  protected void setGreenComponent() {
     this.red = this.green;
     this.blue = this.green;
   }
 
-  public void setBlueComponent() {
+  protected void setBlueComponent() {
     this.red = this.blue;
     this.green = this.blue;
   }
 
-  public void setValueComponent() {
+  protected void setValueComponent() {
     int value = this.findValue();
     this.red = value;
     this.green = value;
     this.blue = value;
   }
 
-  public void setIntensityComponent() {
+  protected void setIntensityComponent() {
     Double doubleIntensity = this.findIntensity(); // problem here: intensity is double, pixel rgb is int
     int intensity = (int)Math.round(doubleIntensity);
     this.red = intensity;
@@ -93,7 +93,7 @@ public class Pixel {
     this.blue = intensity;
   }
 
-  public void setLumaComponent() {
+  protected void setLumaComponent() {
     Double doubleLuma = this.findLuma(); // problem here: intensity is double, pixel rgb is int
     int luma = (int)Math.round(doubleLuma);
     this.red = luma;
