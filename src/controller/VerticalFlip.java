@@ -14,7 +14,8 @@ public class VerticalFlip extends AbstractCommand {
   }
 
   @Override
-  public ImageProcessingModel doCommand(ImageProcessingModel model) {
+  public ImageProcessingModel doCommand(ImageProcessingModel model,
+                                        ImageProcessingController controller) {
     controller.printMessage(newImage + " created by vertically flipping " + image + ".");
     return model.flipVertical();
   }

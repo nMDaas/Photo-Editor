@@ -57,26 +57,38 @@ public class Load implements ImageProcessingCommand {
       System.out.println("Invalid PPM file: plain RAW file should begin with P3");
     }
 
-    String imageName = scan.next();
+    try {
 
-    int width = sc.nextInt();
-    int height = sc.nextInt();
-    int maxValue = sc.nextInt();
-    //System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
-
-    Pixel[][] imagePixels = new Pixel[height][width];
-
-    for (int row = 0; row < height; row++) {
-      for (int col = 0; col < width; col++) {
-        int r = sc.nextInt();
-        int g = sc.nextInt();
-        int b = sc.nextInt();
-        imagePixels[row][col] = new Pixel(r, g, b);
+      String imageName = scan.next();
+      if (imageName.equals("")) {
+        throw new IllegalArgumentException("Image name cannot be empty.");
       }
-    }
 
-    ImageProcessingModel newModel = new ImageModel(height, width, imagePixels, maxValue);
-    controller.getImages().put(imageName, newModel);
-    controller.printMessage("Loaded file as " + imageName + ".");
+      int width = sc.nextInt();
+      int height = sc.nextInt();
+      int maxValue = sc.nextInt();
+      //System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
+
+      Pixel[][] imagePixels = new Pixel[height][width];
+
+      for (int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+          int r = sc.nextInt();
+          int g = sc.nextInt();
+          int b = sc.nextInt();
+          imagePixels[row][col] = new Pixel(r, g, b);
+        }
+      }
+
+      ImageProcessingModel newModel = new ImageModel(height, width, imagePixels, maxValue);
+      controller.getImages().put(imageName, newModel);
+      controller.printMessage("Loaded file as " + imageName + ".");
+    }
+    catch (IllegalStateException e) {
+      throw new IllegalStateException("Ran out of input.");
+    }
+    catch (NumberFormatException e) {
+      throw new NumberFormatException("Height, Width, Max and Pixel RGB values must all be int.");
+    }
   }
 }

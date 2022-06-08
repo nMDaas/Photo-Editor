@@ -14,7 +14,8 @@ public class RedComponent extends AbstractCommand {
   }
 
   @Override
-  public ImageProcessingModel doCommand(ImageProcessingModel model) {
+  public ImageProcessingModel doCommand(ImageProcessingModel model,
+                                        ImageProcessingController controller) {
     controller.printMessage(newImage + " created through red channel of " + image + ".");
     return model.redComponent();
   }

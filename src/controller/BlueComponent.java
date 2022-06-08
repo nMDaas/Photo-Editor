@@ -14,7 +14,8 @@ public class BlueComponent extends AbstractCommand {
   }
 
   @Override
-  public ImageProcessingModel doCommand(ImageProcessingModel model) {
+  public ImageProcessingModel doCommand(ImageProcessingModel model,
+                                        ImageProcessingController controller) {
     controller.printMessage(newImage + " created through blue channel of " + image + ".");
     return model.blueComponent();
   }

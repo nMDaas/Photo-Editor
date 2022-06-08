@@ -14,7 +14,8 @@ public class GreenComponent extends AbstractCommand {
   }
 
   @Override
-  public ImageProcessingModel doCommand(ImageProcessingModel model) {
+  public ImageProcessingModel doCommand(ImageProcessingModel model,
+                                        ImageProcessingController controller) {
     controller.printMessage(newImage + " created through green channel of " + image + ".");
     return model.greenComponent();
   }

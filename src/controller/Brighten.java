@@ -16,7 +16,8 @@ public class Brighten extends AbstractCommand {
   }
 
   @Override
-  public ImageProcessingModel doCommand(ImageProcessingModel model) {
+  public ImageProcessingModel doCommand(ImageProcessingModel model,
+                                        ImageProcessingController controller) {
     controller.printMessage(newImage + " created by changing brightness of " + image + ".");
     return model.brighten(this.value);
   }

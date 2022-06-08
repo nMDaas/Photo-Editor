@@ -31,9 +31,10 @@ abstract public class AbstractCommand implements ImageProcessingCommand {
     if (model == null) {
       throw new IllegalArgumentException("This image does not exist.");
     }
-    ImageProcessingModel modifiedModel = doCommand(model);
+    ImageProcessingModel modifiedModel = doCommand(model, controller);
     images.put(newImage, modifiedModel);
   }
 
-  abstract public ImageProcessingModel doCommand(ImageProcessingModel model);
+  abstract public ImageProcessingModel doCommand(ImageProcessingModel model,
+                                                 ImageProcessingController control);
 }

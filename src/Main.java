@@ -1,5 +1,6 @@
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringReader;
 
 import controller.ImageProcessingController;
 import controller.ImageProcessingControllerImpl;
