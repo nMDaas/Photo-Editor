@@ -292,12 +292,12 @@ public class ImageModelTest {
     assertEquals(pixel2, modelFlipped.getPixelAt(2, 1));
 
     // check original model is contact
-    assertEquals(pixel1, model.getPixelAt(0, 0));
-    assertEquals(pixel2, model.getPixelAt(0, 1));
-    assertEquals(pixel3, model.getPixelAt(1, 0));
-    assertEquals(pixel4, model.getPixelAt(1, 1));
-    assertEquals(pixel5, model.getPixelAt(2, 0));
-    assertEquals(pixel6, model.getPixelAt(2, 1));
+    assertEquals(pixel1, modelOriginal.getPixelAt(0, 0));
+    assertEquals(pixel2, modelOriginal.getPixelAt(0, 1));
+    assertEquals(pixel3, modelOriginal.getPixelAt(1, 0));
+    assertEquals(pixel4, modelOriginal.getPixelAt(1, 1));
+    assertEquals(pixel5, modelOriginal.getPixelAt(2, 0));
+    assertEquals(pixel6, modelOriginal.getPixelAt(2, 1));
   }
 
   @Test

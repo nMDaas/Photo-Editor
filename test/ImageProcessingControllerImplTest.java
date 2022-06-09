@@ -52,14 +52,19 @@ public class ImageProcessingControllerImplTest {
   }
 
   // general tests
-  @Test (expected = IllegalArgumentException.class)
+  @Test
   public void testInvalidCommand() {
-    Reader in = new StringReader("3 pics/test4x4.ppm test"
-            + " test value\n");
+    Reader in = new StringReader("3 pics/test4x4.ppm test");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 4);
+    assertEquals("Invalid command.", outArray[0]);
+    assertEquals("Invalid command.", outArray[1]);
+    assertEquals("Invalid command.", outArray[2]);
+
   }
 
   // tests for valueComponent
@@ -108,13 +113,17 @@ public class ImageProcessingControllerImplTest {
     c.process();
   }
 
-  @Test (expected = IllegalStateException.class)
+  @Test
   public void testValueInvalidNoMoreInput() {
     Reader in = new StringReader("load res/test4x4.ppm test value-component test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("More input required.", finalOut);
   }
 
   // tests for intensityComponent()
@@ -163,13 +172,17 @@ public class ImageProcessingControllerImplTest {
     c.process();
   }
 
-  @Test (expected = IllegalStateException.class)
+  @Test
   public void testIntensityInvalidNoMoreInput() {
     Reader in = new StringReader("load res/test4x4.ppm test intensity-component test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("More input required.", finalOut);
   }
 
   // tests for lumaComponent()
@@ -217,13 +230,17 @@ public class ImageProcessingControllerImplTest {
     c.process();
   }
 
-  @Test (expected = IllegalStateException.class)
+  @Test
   public void testLumaInvalidNoMoreInput() {
     Reader in = new StringReader("load res/test4x4.ppm test luma-component test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("More input required.", finalOut);
   }
 
 
@@ -267,7 +284,7 @@ public class ImageProcessingControllerImplTest {
     assertEquals("", outArray[1]);
   }
 
-  @Test(expected = IllegalStateException.class)
+  @Test
   public void testNoMoreInput() {
     Reader in = new StringReader("load res/test4x4.ppm test save invalid/test.ppm\n");
     StringBuilder output = new StringBuilder();
@@ -275,11 +292,12 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
     String outString = output.toString();
-    String[] outArray = outString.split("\n", 2);
-    String finalOut = outArray[0];
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("More input required.", finalOut);
   }
 
-  @Test(expected = IllegalStateException.class)
+
   public void testNoMoreInput2() {
     Reader in = new StringReader("load res/test4x4.ppm test save\n");
     StringBuilder output = new StringBuilder();
@@ -289,6 +307,7 @@ public class ImageProcessingControllerImplTest {
     String outString = output.toString();
     String[] outArray = outString.split("\n", 2);
     String finalOut = outArray[0];
+    assertEquals("hello", outString);
   }
 
   // tests for PrintMessage()
