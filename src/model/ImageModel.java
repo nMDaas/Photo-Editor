@@ -1,17 +1,13 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
-
 import model.commands.ChangeBrightness;
 import model.commands.IntensityGreyscale;
 import model.commands.LumaGreyscale;
 import model.commands.MakeBlue;
 import model.commands.MakeGreen;
 import model.commands.MakeRed;
+import model.commands.PixelWiseProcessor;
 import model.commands.ValueGreyscale;
-import model.commands.ModelCommand;
 import model.pixel.Pixel;
 
 public class ImageModel implements ImageProcessingModel {
@@ -38,38 +34,38 @@ public class ImageModel implements ImageProcessingModel {
 
   @Override
   public ImageProcessingModel redComponent() {
-    ModelCommand cmd = new MakeRed();
-    return cmd.go(this);
+    PixelWiseProcessor p = new MakeRed();
+    return p.go(this);
   }
 
   @Override
   public ImageProcessingModel greenComponent() {
-    ModelCommand cmd = new MakeGreen();
-    return cmd.go(this);
+    PixelWiseProcessor p = new MakeGreen();
+    return p.go(this);
   }
 
   @Override
   public ImageProcessingModel blueComponent() {
-    ModelCommand cmd = new MakeBlue();
-    return cmd.go(this);
+    PixelWiseProcessor p = new MakeBlue();
+    return p.go(this);
   }
 
   @Override
   public ImageProcessingModel valueComponent() {
-    ModelCommand cmd = new ValueGreyscale();
-    return cmd.go(this);
+    PixelWiseProcessor p = new ValueGreyscale();
+    return p.go(this);
   }
 
   @Override
   public ImageProcessingModel intensityComponent() {
-    ModelCommand cmd = new IntensityGreyscale();
-    return cmd.go(this);
+    PixelWiseProcessor p = new IntensityGreyscale();
+    return p.go(this);
   }
 
   @Override
   public ImageProcessingModel lumaComponent() {
-    ModelCommand cmd = new LumaGreyscale();
-    return cmd.go(this);
+    PixelWiseProcessor p = new LumaGreyscale();
+    return p.go(this);
   }
 
   @Override
@@ -120,8 +116,8 @@ public class ImageModel implements ImageProcessingModel {
 
   @Override
   public ImageProcessingModel brighten(int val) {
-    ModelCommand cmd = new ChangeBrightness(val);
-    return cmd.go(this);
+    PixelWiseProcessor p = new ChangeBrightness(val);
+    return p.go(this);
   }
 
   @Override

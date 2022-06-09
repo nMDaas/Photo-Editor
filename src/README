@@ -95,13 +95,8 @@ all its inherited methods.
 
 MODEL.COMMANDS PACKAGE
 
-ModelCommand - This interface is an interface for all of
-ImageModel's commands that apply the same mutation to each pixel in the image.
-The interface has only one method - go(ImageProcessingModel model) - that executes
-the command on the model.
-
-AbstractModelCommand - AbstractModelCommand implements ModelCommand. It supports
-two methods:
+PixelWiseProcessor - PixelWise processor processes each image's pixels and supports the
+following methods:
 - go(ImageProcessingModel model) - this creates a new model and through a for loop,
   mutates each pixel by calling the abstract doCommand(Pixel p)
 - doCommand(Pixel p) - this is a factory method that mutates p based on the command

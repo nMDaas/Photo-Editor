@@ -2,7 +2,7 @@ package model.commands;
 
 import model.pixel.Pixel;
 
-public class ChangeBrightness extends AbstractModelCommand {
+public class ChangeBrightness extends PixelWiseProcessor {
   int val;
 
   public ChangeBrightness(int val){
