@@ -6,7 +6,7 @@ import model.ImageProcessingModel;
 public class Brighten extends AbstractCommand {
 
   int value;
-  String newImage;
+
   public Brighten(String image, ImageProcessingController controller, int value, String newImage) {
     super(image, controller, newImage);
     this.value = value;

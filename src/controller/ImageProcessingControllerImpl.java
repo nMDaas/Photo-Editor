@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.function.Function;
 
@@ -83,8 +84,13 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
       if (cmd == null) {
         throw new IllegalArgumentException("Invalid command.");
       } else {
-        ImageProcessingCommand c = cmd.apply(scan);
-        c.go();
+        try {
+          ImageProcessingCommand c = cmd.apply(scan);
+          c.go();
+        }
+        catch (NoSuchElementException e) {
+          throw new IllegalStateException();
+        }
       }
     }
   }

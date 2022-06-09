@@ -77,7 +77,18 @@ public class ImageModelTest {
             new ImageModel( 10, 10, new Pixel[10][10], 256);
   }
 
-  // test red-component
+  @Test
+  public void testCreateCopy() {
+    ImageProcessingModel copy = model.createCopy();
+
+    assertEquals(2, copy.getHeight());
+    assertEquals(2, copy.getWidth());
+    assertEquals(10, copy.getMax());
+    assertEquals(new RGBPixel(0, 10, 10), copy.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(10, 0, 0), copy.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(0, 10, 0), copy.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(10, 10, 10), copy.getPixelAt(1, 1));
+  }
 
   @Test
   public void testRedComponent() {
@@ -307,11 +318,23 @@ public class ImageModelTest {
   }
 
   @Test
-  public void testGetPixels() {
+  public void testGetPixelAt() {
     assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0,0));
     assertEquals(new RGBPixel(10, 0, 0), model.getPixelAt(0,1));
     assertEquals(new RGBPixel(0, 10, 0), model.getPixelAt(1,0));
     assertEquals(new RGBPixel(10, 10, 10), model.getPixelAt(1,1));
+  }
+
+  @Test
+  public void testSetPixelAt() {
+    model.setPixelAt(0,0, pixel1);
+    model.setPixelAt(0,1, pixel1);
+    model.setPixelAt(1,0, pixel1);
+    model.setPixelAt(1,1, pixel1);
+    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0,0));
+    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0,1));
+    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(1,0));
+    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(1,1));
   }
 
 }

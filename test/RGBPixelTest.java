@@ -196,4 +196,20 @@ public class RGBPixelTest {
     assertEquals(70, p4.getColor(2));
   }
 
+  @Test
+  public void testCreateCopy(){
+    Pixel newPixel = p4.createCopy();
+    assertEquals(50, newPixel.getColor(0));
+    assertEquals(70, newPixel.getColor(1));
+    assertEquals(70, newPixel.getColor(2));
+  }
+
+  @Test
+  public void testEquals(){
+    Pixel newPixel = p4.createCopy();
+    assertEquals(true, p4.equals(newPixel));
+    assertEquals(false, p4.equals(p3));
+    assertEquals(false, p4.equals(3));
+  }
+
 }

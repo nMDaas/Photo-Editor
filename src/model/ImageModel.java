@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 import model.commands.ChangeBrightness;
 import model.commands.IntensityGreyscale;
 import model.commands.LumaGreyscale;
@@ -9,6 +11,7 @@ import model.commands.MakeRed;
 import model.commands.PixelWiseProcessor;
 import model.commands.ValueGreyscale;
 import model.pixel.Pixel;
+import model.pixel.RGBPixel;
 
 public class ImageModel implements ImageProcessingModel {
 

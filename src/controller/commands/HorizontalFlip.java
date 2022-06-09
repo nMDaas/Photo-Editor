@@ -12,7 +12,7 @@ public class HorizontalFlip extends AbstractCommand {
   @Override
   public ImageProcessingModel doCommand(ImageProcessingModel model,
                                         ImageProcessingController controller) {
-    controller.printMessage(newImage + " created by horizontally flipping" + image + ".");
+    controller.printMessage(newImage + " created by horizontally flipping " + image + ".");
     return model.flipHorizontal();
   }
 }

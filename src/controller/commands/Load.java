@@ -77,7 +77,7 @@ public class Load implements ImageProcessingCommand {
           int r = sc.nextInt();
           int g = sc.nextInt();
           int b = sc.nextInt();
-          imagePixels[row][col] = new RGBPixel(r, g, b);
+          imagePixels[row][col] = new RGBPixel(r, b, g);
         }
       }
 
