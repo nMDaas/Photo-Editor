@@ -163,3 +163,6 @@ ImageProcessingViewImpl - ImageProcessingViewImpl implements ImageProcessingView
 only takes in an appendable and only implements renderMessage(String message).
 An IOException is thrown if there is one.
 
+IMAGE CITATION
+test4x4.ppm was obtained from (link example4p6) :
+http://people.uncw.edu/tompkinsj/112/texnh/assignments/imageFormat.html
