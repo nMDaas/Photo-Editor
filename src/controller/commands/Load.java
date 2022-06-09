@@ -36,7 +36,7 @@ public class Load implements ImageProcessingCommand {
     }
     catch (
             FileNotFoundException e) {
-      System.out.println("File "+ this.filename + " not found!");
+      controller.printMessage("File "+ this.filename + " not found!");
       return;
     }
     StringBuilder builder = new StringBuilder();
@@ -55,15 +55,12 @@ public class Load implements ImageProcessingCommand {
 
     token = sc.next();
     if (!token.equals("P3")) {
-      System.out.println("Invalid PPM file: plain RAW file should begin with P3");
+      controller.printMessage("Invalid PPM file: plain RAW file should begin with P3");
     }
 
     try {
 
       String imageName = scan.next();
-      if (imageName.equals("")) {
-        throw new IllegalArgumentException("Image name cannot be empty.");
-      }
 
       int width = sc.nextInt();
       int height = sc.nextInt();
@@ -86,10 +83,10 @@ public class Load implements ImageProcessingCommand {
       controller.printMessage("Loaded file as " + imageName + ".");
     }
     catch (IllegalStateException e) {
-      throw new IllegalStateException("Ran out of input.");
+      controller.printMessage("Ran out of input");
     }
     catch (NumberFormatException e) {
-      throw new NumberFormatException("Height, Width, Max and Pixel RGB values must all be int.");
+      controller.printMessage("Height, Width, Max and Pixel RGB values must all be int.");
     }
   }
 }

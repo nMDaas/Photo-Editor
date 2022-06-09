@@ -18,5 +18,5 @@ abstract public class PixelWiseProcessor {
     return newImage;
   }
 
-  abstract public void doCommand(Pixel p);
+  abstract protected void doCommand(Pixel p);
 }

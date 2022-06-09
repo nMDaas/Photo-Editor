@@ -36,6 +36,6 @@ abstract public class AbstractCommand implements ImageProcessingCommand {
     images.put(newImage, modifiedModel);
   }
 
-  abstract public ImageProcessingModel doCommand(ImageProcessingModel model,
+  abstract protected ImageProcessingModel doCommand(ImageProcessingModel model,
                                                  ImageProcessingController control);
 }

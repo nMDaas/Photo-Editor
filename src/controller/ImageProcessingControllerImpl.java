@@ -82,14 +82,17 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
               knownCommands.getOrDefault(userInstruction, null);
 
       if (cmd == null) {
-        throw new IllegalArgumentException("Invalid command.");
+        this.printMessage("Invalid command.");
       } else {
         try {
           ImageProcessingCommand c = cmd.apply(scan);
           c.go();
         }
         catch (NoSuchElementException e) {
-          throw new IllegalStateException();
+          this.printMessage("More input required.");
+        }
+        catch (NumberFormatException e) {
+          this.printMessage("Invalid number input.");
         }
       }
     }
