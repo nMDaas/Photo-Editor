@@ -166,3 +166,44 @@ An IOException is thrown if there is one.
 IMAGE CITATION
 test4x4.ppm was obtained from (link example4p6) :
 http://people.uncw.edu/tompkinsj/112/texnh/assignments/imageFormat.html
+
+INSTRUCTIONS TO USE THE IMAGE PROCESSOR
+- Run the main method in the Main class
+- Copy paste series of commands based on instruction
+
+COMMANDS - STEP BY STEP - COPY PASTE EACH COMMAND INDIVIDUALLY TO SEE CHANGES
+- Load command:
+load res/test3x4.ppm test
+- Increase Brightness and Save command:
+brighten test 50 brighter save res/testOutput/brighter.ppm brighter
+- Decrease Brightness and Save command:
+brighten test -50 darker save res/testOutput/darker.ppm darker
+- Horizontally flip and Save command:
+horizontal-flip test hflip save res/testOutput/horizontalFlip.ppm hflip
+- Vertically flip and Save command:
+vertical-flip test vflip save res/testOutput/verticalFlip.ppm vflip
+- Channel Red Greyscale and Save command:
+red-component test testRed save res/testOutput/testRed.ppm testRed
+- Channel Green Greyscale and Save command:
+green-component test testGreen save res/testOutput/testGreen.ppm testGreen
+- Channel Blue Greyscale and Save command:
+blue-component test testBlue save res/testOutput/testBlue.ppm testBlue
+- Channel Value Greyscale and Save command:
+value-component test testValue save res/testOutput/testValue.ppm testValue
+- Channel Intensity Greyscale and Save command:
+intensity-component test intensity save res/testOutput/testIntensity.ppm intensity
+- Channel Luma Greyscale and Save command:
+luma-component test testLuma save res/testOutput/testLuma.ppm testLuma
+
+COMMANDS - ALL COMMANDS - COPY PASTE ENTIRE SCRIPT
+load res/test3x4.ppm test
+brighten test 50 brighter save res/testOutput/brighter.ppm brighter
+brighten test -50 darker save res/testOutput/darker.ppm darker
+horizontal-flip test hflip save res/testOutput/horizontalFlip.ppm hflip
+vertical-flip test vflip save res/testOutput/verticalFlip.ppm vflip
+red-component test testRed save res/testOutput/testRed.ppm testRed
+green-component test testGreen save res/testOutput/testGreen.ppm testGreen
+blue-component test testBlue save res/testOutput/testBlue.ppm testBlue
+value-component test testValue save res/testOutput/testValue.ppm testValue
+intensity-component test intensity save res/testOutput/testIntensity.ppm intensity
+luma-component test testLuma save res/testOutput/testLuma.ppm testLuma\n
