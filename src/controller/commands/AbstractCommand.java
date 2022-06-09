@@ -6,9 +6,9 @@ import controller.ImageProcessingController;
 import model.ImageProcessingModel;
 
 abstract public class AbstractCommand implements ImageProcessingCommand {
-  String image;
-  ImageProcessingController controller;
-  String newImage;
+  protected String image;
+  protected ImageProcessingController controller;
+  protected String newImage;
 
   public AbstractCommand(String image, ImageProcessingController controller, String newImage) {
     if (image.equals("")) {

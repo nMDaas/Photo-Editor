@@ -20,7 +20,8 @@ public class Main {
     }
 
     Reader in = new InputStreamReader(System.in);
-    //Reader in = new StringReader("load pics/Koala.ppm koala red-component koala koala-red save pics/koalaRed.ppm koala-red");
+    //Reader in = new StringReader("load pics/smallNew.ppm small red-component small smallRed save pics/red.ppm smallRed" +
+           // " horizontal-flip small hor save pics/hor.ppm hor\n");
 
     ImageProcessingView view = new ImageProcessingViewImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);

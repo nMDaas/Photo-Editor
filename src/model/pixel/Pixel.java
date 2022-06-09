@@ -9,5 +9,6 @@ public interface Pixel {
   public void setIntensityComponent();
   public void setLumaComponent();
   public int getColor(int index);
+  public Pixel createCopy();
 
 }

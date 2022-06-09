@@ -182,6 +182,14 @@ public class ImageModelTest {
     assertEquals(pixel6, modelFlipped.getPixelAt(1, 0));
     assertEquals(pixel5, modelFlipped.getPixelAt(1, 1));
     assertEquals(pixel4, modelFlipped.getPixelAt(1, 2));
+
+    // check that original image is intact
+    assertEquals(pixel1, modelOriginal.getPixelAt(0, 0));
+    assertEquals(pixel2, modelOriginal.getPixelAt(0, 1));
+    assertEquals(pixel3, modelOriginal.getPixelAt(0, 2));
+    assertEquals(pixel4, modelOriginal.getPixelAt(1, 0));
+    assertEquals(pixel5, modelOriginal.getPixelAt(1, 1));
+    assertEquals(pixel6, modelOriginal.getPixelAt(1, 2));
   }
 
   @Test
@@ -291,11 +299,11 @@ public class ImageModelTest {
   public void testGetMax() {
     assertEquals(10, model.getMax());
 
-    model.brighten(15);
-    assertEquals(25, model.getMax());
+    ImageProcessingModel brighter = model.brighten(15);
+    assertEquals(25, brighter.getMax());
 
-    model.brighten(-5);
-    assertEquals(20, model.getMax());
+    ImageProcessingModel darker = brighter.brighten(-5);
+    assertEquals(20, darker.getMax());
   }
 
   @Test

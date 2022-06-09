@@ -33,6 +33,21 @@ public class ImageModel implements ImageProcessingModel {
   }
 
   @Override
+  public ImageProcessingModel createCopy() {
+    Pixel [][] newPixels = new Pixel [this.height][this.width];
+
+    for (int row = 0; row < this.height; row ++) {
+      for (int col = 0; col < this.width; col ++) {
+        Pixel oldPixel = this.getPixelAt(row, col);
+        Pixel newPixel = oldPixel.createCopy();
+        newPixels[row][col] = newPixel;
+      }
+    }
+
+    return new ImageModel(this.height, this.width, newPixels, this.max);
+  }
+
+  @Override
   public ImageProcessingModel redComponent() {
     PixelWiseProcessor p = new MakeRed();
     return p.go(this);
@@ -71,19 +86,18 @@ public class ImageModel implements ImageProcessingModel {
   @Override
   public ImageProcessingModel flipHorizontal() {
 
-    ImageModel horizontalImage =
-            new ImageModel(this.height, this.width, this.pixels, this.max);
+    ImageProcessingModel horizontalImage = this.createCopy();
 
-    double midpoint = (Double.valueOf(horizontalImage.width) / 2.0) - 0.5;
+    double midpoint = (Double.valueOf(horizontalImage.getWidth()) / 2.0) - 0.5;
 
-    for (int row = 0; row <= (horizontalImage.height - 1); row = row + 1) {
+    for (int row = 0; row <= (horizontalImage.getHeight() - 1); row = row + 1) {
       for (int col = 0; col <= midpoint; col = col + 1) {
-        Pixel pixelLeft = horizontalImage.pixels[row][col];
+        Pixel pixelLeft = horizontalImage.getPixelAt(row, col);
         int colRight = (int) (midpoint + (midpoint - col));
-        Pixel pixelRight = horizontalImage.pixels[row][colRight];
+        Pixel pixelRight = horizontalImage.getPixelAt(row, colRight);
         Pixel tempPixel = pixelRight;
-        horizontalImage.pixels[row][colRight] = pixelLeft;
-        horizontalImage.pixels[row][col] = tempPixel;
+        horizontalImage.setPixelAt(row, colRight, pixelLeft.createCopy());
+        horizontalImage.setPixelAt(row, col, tempPixel.createCopy());
       }
     }
 
@@ -94,19 +108,18 @@ public class ImageModel implements ImageProcessingModel {
   @Override
   public ImageProcessingModel flipVertical() {
 
-    ImageModel verticalImage =
-            new ImageModel(this.height, this.width, this.pixels, this.max);
+    ImageProcessingModel verticalImage = this.createCopy();
 
-    double midpoint = (Double.valueOf(verticalImage.height) / 2.0) - 0.5;
+    double midpoint = (Double.valueOf(verticalImage.getHeight()) / 2.0) - 0.5;
 
     for (int row = 0; row <= midpoint; row = row + 1) {
-      for (int col = 0; col <= (verticalImage.width - 1); col = col + 1) {
-        Pixel pixelUp = verticalImage.pixels[row][col];
+      for (int col = 0; col <= (verticalImage.getWidth() - 1); col = col + 1) {
+        Pixel pixelUp = verticalImage.getPixelAt(row, col);
         int rowDown = (int) (midpoint + (midpoint - row));
-        Pixel pixelDown = verticalImage.pixels[rowDown][col];
+        Pixel pixelDown = verticalImage.getPixelAt(rowDown, col);
         Pixel tempPixel = pixelDown;
-        verticalImage.pixels[rowDown][col] = pixelUp;
-        verticalImage.pixels[row][col] = tempPixel;
+        verticalImage.setPixelAt(rowDown, col, pixelUp.createCopy());
+        verticalImage.setPixelAt(row, col, tempPixel.createCopy());
       }
     }
 
@@ -133,6 +146,11 @@ public class ImageModel implements ImageProcessingModel {
   @Override
   public Pixel getPixelAt(int row, int col) {
     return this.pixels[row][col];
+  }
+
+  @Override
+  public void setPixelAt(int row, int col, Pixel p) {
+    this.pixels[row][col] = p;
   }
 
   @Override

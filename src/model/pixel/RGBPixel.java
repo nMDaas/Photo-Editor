@@ -97,6 +97,11 @@ public class RGBPixel implements Pixel {
   }
 
   @Override
+  public Pixel createCopy() {
+    return new RGBPixel(this.getColor(0), this.getColor(2), this.getColor(1));
+  }
+
+  @Override
   public boolean equals(Object that) {
     if (this == that) {
       return true;

@@ -3,6 +3,7 @@ package model;
 import model.pixel.Pixel;
 
 public interface ImageProcessingModel {
+  ImageProcessingModel createCopy();
   ImageProcessingModel redComponent();
   ImageProcessingModel greenComponent();
   ImageProcessingModel blueComponent();
@@ -17,5 +18,6 @@ public interface ImageProcessingModel {
   int getHeight();
   int getWidth();
   Pixel getPixelAt(int row, int col);
+  void setPixelAt(int row, int col, Pixel p);
   int getMax();
 }
