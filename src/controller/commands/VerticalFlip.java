@@ -5,9 +5,6 @@ import controller.commands.AbstractCommand;
 import model.ImageProcessingModel;
 
 public class VerticalFlip extends AbstractCommand {
-  String image;
-  ImageProcessingController controller;
-  String newImage;
 
   public VerticalFlip(String image, ImageProcessingController controller, String newImage) {
     super (image, controller, newImage);

@@ -5,10 +5,6 @@ import model.ImageProcessingModel;
 
 public class HorizontalFlip extends AbstractCommand {
 
-  String image;
-  ImageProcessingController controller;
-  String newImage;
-
   public HorizontalFlip(String image, ImageProcessingController controller, String newImage) {
     super(image, controller, newImage);
   }

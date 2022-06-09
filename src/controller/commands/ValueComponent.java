@@ -5,9 +5,6 @@ import controller.commands.AbstractCommand;
 import model.ImageProcessingModel;
 
 public class ValueComponent extends AbstractCommand {
-  String image;
-  ImageProcessingController controller;
-  String newImage;
 
   public ValueComponent(String image, ImageProcessingController controller, String newImage) {
     super (image, controller, newImage);

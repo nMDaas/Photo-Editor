@@ -4,9 +4,6 @@ import controller.ImageProcessingController;
 import model.ImageProcessingModel;
 
 public class GreenComponent extends AbstractCommand {
-  String image;
-  ImageProcessingController controller;
-  String newImage;
 
   public GreenComponent(String image, ImageProcessingController controller, String newImage) {
     super(image, controller, newImage);

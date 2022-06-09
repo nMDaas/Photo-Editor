@@ -5,10 +5,6 @@ import controller.commands.AbstractCommand;
 import model.ImageProcessingModel;
 
 public class IntensityComponent extends AbstractCommand {
-  String image;
-  ImageProcessingController controller;
-  String newImage;
-
   public IntensityComponent(String image, ImageProcessingController controller, String newImage) {
     super(image, controller, newImage);
   }
