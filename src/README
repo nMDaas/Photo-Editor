@@ -91,8 +91,7 @@ following methods:
 - getMax() - returns the max value of a pixel in the image
 
 ImageModel - ImageModel is an implementation of ImageProcessingModel and implements
-all its inherited methods. It is initialized with a hashmap of commands that all
-involve the same mutation of each pixel in the image.
+all its inherited methods.
 
 MODEL.COMMANDS PACKAGE
 

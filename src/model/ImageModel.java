@@ -21,8 +21,6 @@ public class ImageModel implements ImageProcessingModel {
   private final Pixel[][] pixels;
   private int max;
 
-  Map<String, Function<Integer, ModelCommand>> imageCommands = new HashMap<>();
-
   public ImageModel(int height, int width, Pixel[][] pixels, int max) {
     if (pixels == null) {
       throw new IllegalArgumentException();
@@ -36,70 +34,42 @@ public class ImageModel implements ImageProcessingModel {
     this.width = width;
     this.pixels = pixels;
     this.max = max;
-
-    imageCommands.put("makeRed",
-            scan -> new MakeRed());
-    imageCommands.put("makeBlue",
-            scan -> new MakeBlue());
-    imageCommands.put("makeGreen",
-            scan -> new MakeGreen());
-    imageCommands.put("valueGreyscale",
-            scan -> new ValueGreyscale());
-    imageCommands.put("lumaGreyscale",
-            scan -> new LumaGreyscale());
-    imageCommands.put("intensityGreyscale",
-            scan -> new IntensityGreyscale());
-    imageCommands.put("brighten",
-            scan -> new ChangeBrightness(scan));
-
   }
 
   @Override
   public ImageProcessingModel redComponent() {
-    Function<Integer, ModelCommand> cmd =
-            imageCommands.getOrDefault("makeRed", null);
-    ModelCommand c = cmd.apply(0);
-    return c.go(this);
+    ModelCommand cmd = new MakeRed();
+    return cmd.go(this);
   }
 
   @Override
   public ImageProcessingModel greenComponent() {
-    Function<Integer, ModelCommand> cmd =
-            imageCommands.getOrDefault("makeGreen", null);
-    ModelCommand c = cmd.apply(0);
-    return c.go(this);
+    ModelCommand cmd = new MakeGreen();
+    return cmd.go(this);
   }
 
   @Override
   public ImageProcessingModel blueComponent() {
-    Function<Integer, ModelCommand> cmd =
-            imageCommands.getOrDefault("makeBlue", null);
-    ModelCommand c = cmd.apply(0);
-    return c.go(this);
+    ModelCommand cmd = new MakeBlue();
+    return cmd.go(this);
   }
 
   @Override
   public ImageProcessingModel valueComponent() {
-    Function<Integer, ModelCommand> cmd =
-            imageCommands.getOrDefault("valueGreyscale", null);
-    ModelCommand c = cmd.apply(0);
-    return c.go(this);
+    ModelCommand cmd = new ValueGreyscale();
+    return cmd.go(this);
   }
 
   @Override
   public ImageProcessingModel intensityComponent() {
-    Function<Integer, ModelCommand> cmd =
-            imageCommands.getOrDefault("intensityGreyscale", null);
-    ModelCommand c = cmd.apply(0);
-    return c.go(this);
+    ModelCommand cmd = new IntensityGreyscale();
+    return cmd.go(this);
   }
 
   @Override
   public ImageProcessingModel lumaComponent() {
-    Function<Integer, ModelCommand> cmd =
-            imageCommands.getOrDefault("lumaGreyscale", null);
-    ModelCommand c = cmd.apply(0);
-    return c.go(this);
+    ModelCommand cmd = new LumaGreyscale();
+    return cmd.go(this);
   }
 
   @Override
@@ -150,10 +120,8 @@ public class ImageModel implements ImageProcessingModel {
 
   @Override
   public ImageProcessingModel brighten(int val) {
-    Function<Integer, ModelCommand> cmd =
-            imageCommands.getOrDefault("brighten", null);
-    ModelCommand c = cmd.apply(val);
-    return c.go(this);
+    ModelCommand cmd = new ChangeBrightness(val);
+    return cmd.go(this);
   }
 
   @Override
