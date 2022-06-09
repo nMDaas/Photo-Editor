@@ -4,7 +4,7 @@ import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
 
-abstract public class AbstractModelCommand implements modelCommand {
+abstract public class AbstractModelCommand implements ModelCommand {
   @Override
   public ImageProcessingModel go(ImageProcessingModel model) {
     Pixel[][] newPixels = new Pixel [model.getHeight()][model.getWidth()];
