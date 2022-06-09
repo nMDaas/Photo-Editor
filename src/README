@@ -88,7 +88,10 @@ following methods:
 - getWidth() - return's the image's width
 - getHeight() - return's the image's height
 - getPixelAt(int row, int col) - returns the pixel at a certain row and column
+- setPixelAt(int row, int col, Pixel p) - sets the pixel at a certain row
+  and column to a given pixel
 - getMax() - returns the max value of a pixel in the image
+- createCopy() - returns a copy of the ImageProcessingModel
 
 ImageModel - ImageModel is an implementation of ImageProcessingModel and implements
 all its inherited methods.
@@ -134,6 +137,7 @@ Its implementations inherit the following methods:
 - setValueComponent() - converts the pixel to greyscale based on value
 - setIntensityComponent() - converts the pixel to greyscale based on intensity
 - setLumaComponent() - converts the pixel to greyscale based on luma
+- createCopy() - returns a copy of the Pixel
 
 RGBPixel - RGBPixel implements the Pixel interface and represents a pixel that
 is contains red, blue and green values. These colors are held in the colors array
