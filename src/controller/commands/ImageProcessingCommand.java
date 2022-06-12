@@ -1,10 +1,13 @@
 package controller.commands;
 
-import java.util.Map;
-
-import model.ImageModel;
-import model.ImageProcessingModel;
-
+/**
+ * Represents the interface for the different known commands the user can input except
+ * for load and save.
+ */
 public interface ImageProcessingCommand {
-  void go();
+
+  /**
+   * Helps to implement the commands the user inputs.
+   */
+  void execute();
 }

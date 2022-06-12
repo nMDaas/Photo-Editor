@@ -22,6 +22,9 @@ import controller.commands.VerticalFlip;
 import model.ImageProcessingModel;
 import view.ImageProcessingView;
 
+/**
+ * Represents a ImageProcessingControllerImpl, which helps the user interact with the image.
+ */
 public class ImageProcessingControllerImpl implements ImageProcessingController {
 
   public final ImageProcessingView view;
@@ -32,7 +35,13 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
 
   Map<String, Function<Scanner, ImageProcessingCommand>> knownCommands = new HashMap<>();
 
-
+  /**
+   * Constructs a {@code ImageProcessingControllerImpl} with its fields initialized to themselves.
+   *
+   * @param in   the string the user inputs.
+   * @param view the view.
+   * @throws IllegalArgumentException if readable or view are null.
+   */
   public ImageProcessingControllerImpl(Readable in, ImageProcessingView view)
           throws IllegalArgumentException {
     if (in == null) {
@@ -47,30 +56,35 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     scan = new Scanner(this.in);
 
     knownCommands.put("load",
-            scan -> new Load(scan.next(), this, scan));
+        scan -> new Load(scan.next(), this, scan));
     knownCommands.put("brighten",
-            scan -> new Brighten(scan.next(), this, scan.nextInt(), scan.next()));
+        scan -> new Brighten(scan.next(), this, scan.nextInt(), scan.next()));
     knownCommands.put("horizontal-flip",
-            scan -> new HorizontalFlip(scan.next(), this, scan.next()));
+        scan -> new HorizontalFlip(scan.next(), this, scan.next()));
     knownCommands.put("vertical-flip",
-            scan -> new VerticalFlip(scan.next(), this, scan.next()));
+        scan -> new VerticalFlip(scan.next(), this, scan.next()));
     knownCommands.put("red-component",
-            scan -> new RedComponent(scan.next(), this, scan.next()));
+        scan -> new RedComponent(scan.next(), this, scan.next()));
     knownCommands.put("green-component",
-            scan -> new GreenComponent(scan.next(), this, scan.next()));
+        scan -> new GreenComponent(scan.next(), this, scan.next()));
     knownCommands.put("blue-component",
-            scan -> new BlueComponent(scan.next(), this, scan.next()));
+        scan -> new BlueComponent(scan.next(), this, scan.next()));
     knownCommands.put("value-component",
-            scan -> new ValueComponent(scan.next(), this, scan.next()));
+        scan -> new ValueComponent(scan.next(), this, scan.next()));
     knownCommands.put("intensity-component",
-            scan -> new IntensityComponent(scan.next(), this, scan.next()));
+        scan -> new IntensityComponent(scan.next(), this, scan.next()));
     knownCommands.put("luma-component",
-            scan -> new LumaComponent(scan.next(), this, scan.next()));
+        scan -> new LumaComponent(scan.next(), this, scan.next()));
     knownCommands.put("save",
-            scan -> new Save(this, scan.next(), scan.next()));
+        scan -> new Save(this, scan.next(), scan.next()));
 
   }
 
+  /**
+   * Processes the user's input and applies the respective command.
+   *
+   * @throws IllegalStateException if the command is invalid.
+   */
   @Override
   public void process() throws IllegalStateException {
 
@@ -86,18 +100,22 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
       } else {
         try {
           ImageProcessingCommand c = cmd.apply(scan);
-          c.go();
-        }
-        catch (NoSuchElementException e) {
+          c.execute();
+        } catch (NoSuchElementException e) {
           this.printMessage("More input required.");
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
           this.printMessage("Invalid number input.");
         }
       }
     }
   }
 
+  /**
+   * Prints the message according the input.
+   *
+   * @param message the message.
+   * @throws IllegalStateException if unable to print the message.
+   */
   public void printMessage(String message) throws IllegalStateException {
     try {
       this.view.renderMessage(message + "\n");
@@ -106,6 +124,11 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     }
   }
 
+  /**
+   * Returns the hashmap of stored images.
+   *
+   * @return the hashmap of stored images.
+   */
   public Map<String, ImageProcessingModel> getImages() {
     return this.images;
   }

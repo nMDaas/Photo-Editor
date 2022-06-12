@@ -1,12 +1,21 @@
 package model.commands;
 
-import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
-import model.pixel.RGBPixel;
 
+/**
+ * An abstract class for methods that create a new image that involve
+ * mutating each pixel in the image the same way.
+ */
 abstract public class PixelWiseProcessor {
-  public ImageProcessingModel go(ImageProcessingModel model) {
+
+  /**
+   * Creates a new ImageProcessingModel based on the command.
+   *
+   * @param model the model being manipulated.
+   * @return the new ImageProcessingModel.
+   */
+  public ImageProcessingModel changePixels(ImageProcessingModel model) {
     ImageProcessingModel newImage = model.createCopy();
 
     for (int row = 0; row <= (newImage.getHeight() - 1); row = row + 1) {
@@ -18,5 +27,10 @@ abstract public class PixelWiseProcessor {
     return newImage;
   }
 
+  /**
+   * Implements the command on the pixel.
+   *
+   * @param p the pixel.
+   */
   abstract protected void doCommand(Pixel p);
 }

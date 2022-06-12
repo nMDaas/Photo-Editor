@@ -4,8 +4,12 @@ import org.junit.Test;
 import model.pixel.Pixel;
 import model.pixel.RGBPixel;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+
+/**
+ * tests for RGBPixel.
+ */
 public class RGBPixelTest {
 
   Pixel p1;
@@ -18,7 +22,7 @@ public class RGBPixelTest {
     this.p1 = new RGBPixel(50, 130, 115);
     this.p2 = new RGBPixel(255, 30, 190);
     this.p3 = new RGBPixel(130, 130, 40);
-    this.p4 = new RGBPixel (50, 70, 70);
+    this.p4 = new RGBPixel(50, 70, 70);
   }
 
   @Test
@@ -186,7 +190,7 @@ public class RGBPixelTest {
   }
 
   @Test
-  public void testGetColor(){
+  public void testGetColor() {
     assertEquals(130, p3.getColor(0));
     assertEquals(40, p3.getColor(1));
     assertEquals(130, p3.getColor(2));
@@ -197,7 +201,7 @@ public class RGBPixelTest {
   }
 
   @Test
-  public void testCreateCopy(){
+  public void testCreateCopy() {
     Pixel newPixel = p4.createCopy();
     assertEquals(50, newPixel.getColor(0));
     assertEquals(70, newPixel.getColor(1));
@@ -205,7 +209,7 @@ public class RGBPixelTest {
   }
 
   @Test
-  public void testEquals(){
+  public void testEquals() {
     Pixel newPixel = p4.createCopy();
     assertEquals(true, p4.equals(newPixel));
     assertEquals(false, p4.equals(p3));

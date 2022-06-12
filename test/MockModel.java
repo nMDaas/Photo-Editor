@@ -3,12 +3,17 @@ import java.util.Objects;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
 
+/**
+ * A MockModel created to test the controller in isolation. This returns log
+ * values to check correct pass of input.
+ */
 public class MockModel implements ImageProcessingModel {
 
   final StringBuilder log;
 
   /**
    * Makes a MockView by taking a log.
+   *
    * @param log a StringBuilder used by the MockView
    */
   public MockModel(StringBuilder log) {

@@ -10,12 +10,22 @@ import controller.ImageProcessingController;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
 
+/**
+ * Represents the save class which helps create an image by saving it.
+ */
 public class Save implements ImageProcessingCommand {
 
   String image;
   ImageProcessingController controller;
   String path;
 
+  /**
+   * Constructs a {@code Save} with its fields initialized to themselves.
+   *
+   * @param controller the controller.
+   * @param path       the path name.
+   * @param image      the image name.
+   */
   public Save(ImageProcessingController controller, String path, String image) {
     if (path.equals("")) {
       throw new IllegalArgumentException("Invalid file path..");
@@ -31,8 +41,11 @@ public class Save implements ImageProcessingCommand {
     this.path = path;
   }
 
+  /**
+   * Helps to save the image.
+   */
   @Override
-  public void go() {
+  public void execute() {
     ImageProcessingModel image = controller.getImages().get(this.image);
     if (image == null) {
       throw new IllegalArgumentException("This image does not exist.");
@@ -43,9 +56,8 @@ public class Save implements ImageProcessingCommand {
 
     try {
       fs = new FileOutputStream(file);
-    }
-    catch (FileNotFoundException e) {
-      System.out.println("File "+ this.path + " not found!");
+    } catch (FileNotFoundException e) {
+      System.out.println("File " + this.path + " not found!");
       return;
     }
 
@@ -59,8 +71,8 @@ public class Save implements ImageProcessingCommand {
       writer.newLine();
       writer.write(String.format(image.getMax() + ""));
       writer.newLine();
-      for(int row=0;row< image.getHeight(); row++){
-        for(int col=0;col < image.getWidth(); col++){
+      for (int row = 0; row < image.getHeight(); row++) {
+        for (int col = 0; col < image.getWidth(); col++) {
           Pixel thePixel = image.getPixelAt(row, col);
           writer.write(String.format(thePixel.getColor(0) + ""));
           writer.newLine();

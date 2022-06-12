@@ -10,11 +10,21 @@ import model.ImageProcessingModel;
 import model.pixel.Pixel;
 import model.pixel.RGBPixel;
 
+/**
+ * Represents the load class which helps create an image by loading it.
+ */
 public class Load implements ImageProcessingCommand {
   String filename;
   ImageProcessingController controller;
   Scanner scan;
 
+  /**
+   * Constructs {@code Load} with its fields initialized to themselves.
+   *
+   * @param filename   the name of the file path.
+   * @param controller the controller.
+   * @param scan       the scanner.
+   */
   public Load(String filename, ImageProcessingController controller, Scanner scan) {
     if (filename.equals("")) {
       throw new IllegalArgumentException("Invalid file path.");
@@ -27,24 +37,26 @@ public class Load implements ImageProcessingCommand {
     this.scan = scan;
   }
 
+  /**
+   * Helps to load the image.
+   */
   @Override
-  public void go() {
+  public void execute() {
     Scanner sc;
 
     try {
       sc = new Scanner(new FileInputStream(this.filename));
-    }
-    catch (
-            FileNotFoundException e) {
-      controller.printMessage("File "+ this.filename + " not found!");
+    } catch (
+    FileNotFoundException e) {
+      controller.printMessage("File " + this.filename + " not found!");
       return;
     }
     StringBuilder builder = new StringBuilder();
     //read the file line by line, and populate a string. This will throw away any comment lines
     while (sc.hasNextLine()) {
       String s = sc.nextLine();
-      if (s.charAt(0)!='#') {
-        builder.append(s+System.lineSeparator());
+      if (s.charAt(0) != '#') {
+        builder.append(s + System.lineSeparator());
       }
     }
 
@@ -81,11 +93,9 @@ public class Load implements ImageProcessingCommand {
       ImageProcessingModel newModel = new ImageModel(height, width, imagePixels, maxValue);
       controller.getImages().put(imageName, newModel);
       controller.printMessage("Loaded file as " + imageName + ".");
-    }
-    catch (IllegalStateException e) {
+    } catch (IllegalStateException e) {
       controller.printMessage("Ran out of input");
-    }
-    catch (NumberFormatException e) {
+    } catch (NumberFormatException e) {
       controller.printMessage("Height, Width, Max and Pixel RGB values must all be int.");
     }
   }

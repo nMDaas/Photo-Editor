@@ -8,6 +8,9 @@ import model.pixel.RGBPixel;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * tests for ImageModel.
+ */
 public class ImageModelTest {
 
   Pixel pixel1;
@@ -16,7 +19,7 @@ public class ImageModelTest {
   Pixel pixel4;
   Pixel pixel5;
   Pixel pixel6;
-  Pixel [][] pixels;
+  Pixel[][] pixels;
   ImageProcessingModel model;
 
   @Before
@@ -33,7 +36,7 @@ public class ImageModelTest {
     pixels[0][1] = pixel2;
     pixels[1][0] = pixel3;
     pixels[1][1] = pixel4;
-    model = new ImageModel(2,2, pixels,10);
+    model = new ImageModel(2, 2, pixels, 10);
   }
 
   // tests for constructor
@@ -41,7 +44,7 @@ public class ImageModelTest {
   @Test
   public void testConstructor1() {
     ImageProcessingModel model =
-            new ImageModel( 10, 10, new Pixel[10][10], 255);
+            new ImageModel(10, 10, new Pixel[10][10], 255);
 
     assertEquals(10, model.getWidth());
     assertEquals(10, model.getHeight());
@@ -56,25 +59,25 @@ public class ImageModelTest {
   @Test(expected = IllegalArgumentException.class)
   public void testDisallowsNegHeight() {
     ImageProcessingModel model =
-            new ImageModel( -1, 10, new Pixel[10][10], 255);
+            new ImageModel(-1, 10, new Pixel[10][10], 255);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testDisallowsNegWidth() {
     ImageProcessingModel model =
-            new ImageModel( 10, -1, new Pixel[10][10], 255);
+            new ImageModel(10, -1, new Pixel[10][10], 255);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testDisallowsNegMax() {
     ImageProcessingModel model =
-            new ImageModel( 10, 10, new Pixel[10][10], -1);
+            new ImageModel(10, 10, new Pixel[10][10], -1);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testDisallowsInvalidMax() {
     ImageProcessingModel model =
-            new ImageModel( 10, 10, new Pixel[10][10], 256);
+            new ImageModel(10, 10, new Pixel[10][10], 256);
   }
 
   @Test
@@ -122,10 +125,10 @@ public class ImageModelTest {
     assertEquals(2, modelGreen.getHeight());
     assertEquals(2, modelGreen.getWidth());
     assertEquals(10, modelGreen.getMax());
-    assertEquals(new RGBPixel(10, 10, 10), modelGreen.getPixelAt(0,0));
-    assertEquals(new RGBPixel(0, 0, 0),modelGreen.getPixelAt(0,1));
-    assertEquals(new RGBPixel(0, 0, 0), modelGreen.getPixelAt(1,0));
-    assertEquals(new RGBPixel(10, 10, 10), modelGreen.getPixelAt(1,1));
+    assertEquals(new RGBPixel(10, 10, 10), modelGreen.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(0, 0, 0), modelGreen.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(0, 0, 0), modelGreen.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(10, 10, 10), modelGreen.getPixelAt(1, 1));
 
     // check original model is contact
     assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0, 0));
@@ -141,10 +144,10 @@ public class ImageModelTest {
     assertEquals(2, modelBlue.getHeight());
     assertEquals(2, modelBlue.getWidth());
     assertEquals(10, modelBlue.getMax());
-    assertEquals(new RGBPixel(10, 10, 10), modelBlue.getPixelAt(0,0));
-    assertEquals(new RGBPixel(0, 0, 0), modelBlue.getPixelAt(0,1));
-    assertEquals(new RGBPixel(10, 10, 10), modelBlue.getPixelAt(1,0));
-    assertEquals(new RGBPixel(10, 10, 10), modelBlue.getPixelAt(1,1));
+    assertEquals(new RGBPixel(10, 10, 10), modelBlue.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(0, 0, 0), modelBlue.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(10, 10, 10), modelBlue.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(10, 10, 10), modelBlue.getPixelAt(1, 1));
 
     // check original model is contact
     assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0, 0));
@@ -182,7 +185,7 @@ public class ImageModelTest {
     assertEquals(new RGBPixel(7, 7, 7), modelIntensity.getPixelAt(0, 0));
     assertEquals(new RGBPixel(3, 3, 3), modelIntensity.getPixelAt(0, 1));
     assertEquals(new RGBPixel(3, 3, 3), modelIntensity.getPixelAt(1, 0));
-    assertEquals(new RGBPixel(10, 10, 10),modelIntensity.getPixelAt(1, 1));
+    assertEquals(new RGBPixel(10, 10, 10), modelIntensity.getPixelAt(1, 1));
 
     // check original model is contact
     assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0, 0));
@@ -212,7 +215,7 @@ public class ImageModelTest {
 
   @Test
   public void testFlipHorizontalOddWidth() {
-    Pixel [][] pixelsOriginal = new Pixel[2][3];
+    Pixel[][] pixelsOriginal = new Pixel[2][3];
     pixelsOriginal[0][0] = pixel1;
     pixelsOriginal[0][1] = pixel2;
     pixelsOriginal[0][2] = pixel3;
@@ -221,7 +224,7 @@ public class ImageModelTest {
     pixelsOriginal[1][2] = pixel6;
 
     ImageProcessingModel modelOriginal =
-            new ImageModel(2,3, pixelsOriginal,10);
+            new ImageModel(2, 3, pixelsOriginal, 10);
 
 
     ImageProcessingModel modelFlipped = modelOriginal.flipHorizontal();
@@ -267,7 +270,7 @@ public class ImageModelTest {
 
   @Test
   public void testFlipVerticalOddWidth() {
-    Pixel [][] pixelsOriginal = new Pixel[3][2];
+    Pixel[][] pixelsOriginal = new Pixel[3][2];
     pixelsOriginal[0][0] = pixel1;
     pixelsOriginal[0][1] = pixel2;
     pixelsOriginal[1][0] = pixel3;
@@ -276,7 +279,7 @@ public class ImageModelTest {
     pixelsOriginal[2][1] = pixel6;
 
     ImageProcessingModel modelOriginal =
-            new ImageModel(3,2, pixelsOriginal,10);
+            new ImageModel(3, 2, pixelsOriginal, 10);
 
 
     ImageProcessingModel modelFlipped = modelOriginal.flipVertical();
@@ -399,22 +402,22 @@ public class ImageModelTest {
 
   @Test
   public void testGetPixelAt() {
-    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0,0));
-    assertEquals(new RGBPixel(10, 0, 0), model.getPixelAt(0,1));
-    assertEquals(new RGBPixel(0, 10, 0), model.getPixelAt(1,0));
-    assertEquals(new RGBPixel(10, 10, 10), model.getPixelAt(1,1));
+    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(10, 0, 0), model.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(0, 10, 0), model.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(10, 10, 10), model.getPixelAt(1, 1));
   }
 
   @Test
   public void testSetPixelAt() {
-    model.setPixelAt(0,0, pixel1);
-    model.setPixelAt(0,1, pixel1);
-    model.setPixelAt(1,0, pixel1);
-    model.setPixelAt(1,1, pixel1);
-    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0,0));
-    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0,1));
-    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(1,0));
-    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(1,1));
+    model.setPixelAt(0, 0, pixel1);
+    model.setPixelAt(0, 1, pixel1);
+    model.setPixelAt(1, 0, pixel1);
+    model.setPixelAt(1, 1, pixel1);
+    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(1, 1));
   }
 
 }

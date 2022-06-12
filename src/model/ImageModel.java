@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Objects;
-
 import model.commands.ChangeBrightness;
 import model.commands.IntensityGreyscale;
 import model.commands.LumaGreyscale;
@@ -11,8 +9,11 @@ import model.commands.MakeRed;
 import model.commands.PixelWiseProcessor;
 import model.commands.ValueGreyscale;
 import model.pixel.Pixel;
-import model.pixel.RGBPixel;
 
+/**
+ * ImageModel is an implementation of ImageProcessingModel that has a height, width,
+ * an array of pixels and a max value. It implements all its inherited methods.
+ */
 public class ImageModel implements ImageProcessingModel {
 
   private final int height;
@@ -20,6 +21,13 @@ public class ImageModel implements ImageProcessingModel {
   private final Pixel[][] pixels;
   private int max;
 
+  /**
+   * creates a new ImageModel.
+   * @param height image height
+   * @param width image width
+   * @param pixels image's pixels
+   * @param max image's max value
+   */
   public ImageModel(int height, int width, Pixel[][] pixels, int max) {
     if (pixels == null) {
       throw new IllegalArgumentException();
@@ -37,10 +45,10 @@ public class ImageModel implements ImageProcessingModel {
 
   @Override
   public ImageProcessingModel createCopy() {
-    Pixel [][] newPixels = new Pixel [this.height][this.width];
+    Pixel[][] newPixels = new Pixel[this.height][this.width];
 
-    for (int row = 0; row < this.height; row ++) {
-      for (int col = 0; col < this.width; col ++) {
+    for (int row = 0; row < this.height; row++) {
+      for (int col = 0; col < this.width; col++) {
         Pixel oldPixel = this.getPixelAt(row, col);
         Pixel newPixel = oldPixel.createCopy();
         newPixels[row][col] = newPixel;
@@ -53,37 +61,37 @@ public class ImageModel implements ImageProcessingModel {
   @Override
   public ImageProcessingModel redComponent() {
     PixelWiseProcessor p = new MakeRed();
-    return p.go(this);
+    return p.changePixels(this);
   }
 
   @Override
   public ImageProcessingModel greenComponent() {
     PixelWiseProcessor p = new MakeGreen();
-    return p.go(this);
+    return p.changePixels(this);
   }
 
   @Override
   public ImageProcessingModel blueComponent() {
     PixelWiseProcessor p = new MakeBlue();
-    return p.go(this);
+    return p.changePixels(this);
   }
 
   @Override
   public ImageProcessingModel valueComponent() {
     PixelWiseProcessor p = new ValueGreyscale();
-    return p.go(this);
+    return p.changePixels(this);
   }
 
   @Override
   public ImageProcessingModel intensityComponent() {
     PixelWiseProcessor p = new IntensityGreyscale();
-    return p.go(this);
+    return p.changePixels(this);
   }
 
   @Override
   public ImageProcessingModel lumaComponent() {
     PixelWiseProcessor p = new LumaGreyscale();
-    return p.go(this);
+    return p.changePixels(this);
   }
 
   @Override
@@ -133,7 +141,7 @@ public class ImageModel implements ImageProcessingModel {
   @Override
   public ImageProcessingModel brighten(int val) {
     PixelWiseProcessor p = new ChangeBrightness(val);
-    return p.go(this);
+    return p.changePixels(this);
   }
 
   @Override
