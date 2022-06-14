@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 
 import controller.commands.BlueComponent;
+import controller.commands.Blur;
 import controller.commands.Brighten;
 import controller.commands.GreenComponent;
 import controller.commands.HorizontalFlip;
@@ -15,8 +16,11 @@ import controller.commands.ImageProcessingCommand;
 import controller.commands.IntensityComponent;
 import controller.commands.Load;
 import controller.commands.LumaComponent;
+import controller.commands.MakeGreyscale;
+import controller.commands.MakeSepia;
 import controller.commands.RedComponent;
 import controller.commands.Save;
+import controller.commands.Sharpen;
 import controller.commands.ValueComponent;
 import controller.commands.VerticalFlip;
 import model.ImageProcessingModel;
@@ -77,7 +81,14 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
         scan -> new LumaComponent(scan.next(), this, scan.next()));
     knownCommands.put("save",
         scan -> new Save(this, scan.next(), scan.next()));
-
+    knownCommands.put("blur",
+            scan -> new Blur(scan.next(), this, scan.next()));
+    knownCommands.put("sharpen",
+            scan -> new Sharpen(scan.next(), this, scan.next()));
+    knownCommands.put("make-greyscale",
+            scan -> new MakeGreyscale(scan.next(), this, scan.next()));
+    knownCommands.put("make-sepia",
+            scan -> new MakeSepia(scan.next(), this, scan.next()));
   }
 
   /**

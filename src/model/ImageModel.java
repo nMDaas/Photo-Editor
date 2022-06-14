@@ -7,6 +7,8 @@ import model.commands.MakeBlue;
 import model.commands.MakeGreen;
 import model.commands.MakeRed;
 import model.commands.PixelWiseProcessor;
+import model.commands.SetGreyscale;
+import model.commands.SetSepia;
 import model.commands.ValueGreyscale;
 import model.pixel.Pixel;
 
@@ -185,5 +187,101 @@ public class ImageModel implements ImageProcessingModel {
     }
 
     return max;
+  }
+
+  @Override
+  public ImageProcessingModel blurImage() {
+
+    ImageProcessingModel blurredImage = this.createCopy();
+
+    for (int row = 0; row <= (blurredImage.getHeight() - 1); row = row + 1) {
+      for (int col = 0; col <= (blurredImage.getWidth() - 1); col = col + 1) {
+        Posn [] kernel = new Posn[9];
+        Posn topLeft = new Posn(row - 1, col - 1, 0.0625);
+        kernel[0] = topLeft;
+        Posn top = new Posn(row - 1, col, 0.125);
+        kernel[1] = top;
+        Posn topRight = new Posn(row - 1, col + 1, 0.0625);
+        kernel[2] = topRight;
+        Posn left = new Posn(row, col - 1, 0.125);
+        kernel[3] = left;
+        kernel[4] = new Posn(row, col, 0.25);
+        Posn right = new Posn(row, col + 1, 0.125);
+        kernel[5] = right;
+        Posn bottomLeft = new Posn(row + 1, col - 1, 0.0625);
+        kernel[6] = bottomLeft;
+        Posn bottom = new Posn(row + 1, col, 0.125);
+        kernel[7] = bottom;
+        Posn bottomRight = new Posn(row + 1, col + 1, 0.0625);
+        kernel[8] = bottomRight;
+
+        blurredImage = this.applyMultiples(kernel, blurredImage);
+      }
+    }
+
+    return blurredImage;
+  }
+
+  @Override
+  public ImageProcessingModel sharpenImage() {
+
+    ImageProcessingModel sharpImage = this.createCopy();
+
+    for (int row = 0; row <= (sharpImage.getHeight() - 1); row = row + 1) {
+      for (int col = 0; col <= (sharpImage.getWidth() - 1); col = col + 1) {
+        Posn [] kernel = new Posn[25];
+        kernel[0] = new Posn(row - 2, col - 2, -0.125);
+        kernel[1] = new Posn(row - 2, col - 1, -0.125);
+        kernel[2] = new Posn(row - 2, col, -0.125);
+        kernel[3] = new Posn(row - 2, col + 1, -0.125);
+        kernel[4] = new Posn(row - 2, col + 2, -0.125);
+        kernel[5] = new Posn(row - 1, col - 2, -0.125);
+        kernel[6] = new Posn(row - 1, col - 1, 0.25);
+        kernel[7] = new Posn(row - 1, col, 0.25);
+        kernel[8] = new Posn(row - 1, col + 1, 0.25);
+        kernel[9] = new Posn(row - 1, col + 2, -0.125);
+        kernel[10] = new Posn(row, col - 2, -0.125);
+        kernel[11] = new Posn(row, col - 1, 0.25);
+        kernel[12] = new Posn(row, col, 1);
+        kernel[13] = new Posn(row, col + 1, 0.25);
+        kernel[14] = new Posn(row, col + 2, -0.125);
+        kernel[15] = new Posn(row + 1, col - 2, -0.125);
+        kernel[16] = new Posn(row + 1, col - 1, 0.25);
+        kernel[17] = new Posn(row + 1, col, 0.25);
+        kernel[18] = new Posn(row + 1, col + 1, 0.25);
+        kernel[19] = new Posn(row + 1, col + 2, -0.125);
+        kernel[20] = new Posn(row + 2, col - 2, -0.125);
+        kernel[21] = new Posn(row + 2, col - 1, -0.125);
+        kernel[22] = new Posn(row + 2, col, -0.125);
+        kernel[23] = new Posn(row + 2, col + 1, -0.125);
+        kernel[24] = new Posn(row + 2, col + 2, -0.125);
+
+        sharpImage = this.applyMultiples(kernel, sharpImage);
+      }
+    }
+
+    return sharpImage;
+  }
+
+  @Override
+  public ImageProcessingModel setGreyscale() {
+    PixelWiseProcessor p = new SetGreyscale();
+    return p.changePixels(this);
+  }
+
+  @Override
+  public ImageProcessingModel setSepia() {
+    PixelWiseProcessor p = new SetSepia();
+    return p.changePixels(this);
+  }
+
+  private ImageProcessingModel applyMultiples(Posn [] kernel, ImageProcessingModel model) {
+    for (Posn p : kernel) {
+      if (p.checkValid(model.getHeight(), model.getWidth())) {
+        model.getPixelAt(p.row, p.col).multiplyPixel(p.multiple);
+      }
+    }
+
+    return model;
   }
 }

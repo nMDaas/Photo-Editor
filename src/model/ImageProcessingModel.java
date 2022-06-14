@@ -116,4 +116,11 @@ public interface ImageProcessingModel {
    * @return the max value as an int
    */
   int getMax();
+
+  ImageProcessingModel blurImage();
+
+  ImageProcessingModel sharpenImage();
+
+  ImageProcessingModel setGreyscale();
+  ImageProcessingModel setSepia();
 }

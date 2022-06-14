@@ -1,5 +1,6 @@
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringReader;
 
 import controller.ImageProcessingController;
 import controller.ImageProcessingControllerImpl;
@@ -16,7 +17,8 @@ public class Main {
    * @param args String input
    */
   public static void main(String[] args) {
-    Reader in = new InputStreamReader(System.in);
+    //Reader in = new InputStreamReader(System.in);
+    Readable in = new StringReader("load pics/smallNew.ppm small blur small blurred\n");
     ImageProcessingView view = new ImageProcessingViewImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
     controller.process();

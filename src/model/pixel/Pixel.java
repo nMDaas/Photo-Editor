@@ -49,4 +49,9 @@ public interface Pixel {
    */
   public Pixel createCopy();
 
+  public void multiplyPixel(double multiple);
+
+  public void setGreyscale();
+
+  public void setSepia();
 }

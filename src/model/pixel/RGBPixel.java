@@ -163,6 +163,57 @@ public class RGBPixel implements Pixel {
     return new RGBPixel(this.getColor(0), this.getColor(2), this.getColor(1));
   }
 
+  @Override
+  public void multiplyPixel(double multiple) {
+    for (int c = 0; c < this.colors.length; c++) {
+      Double newVal = this.colors[c] * multiple;
+      int intVal = (int) Math.round(newVal);
+      this.colors[c] = intVal;
+    }
+  }
+
+  @Override
+  public void setGreyscale() {
+    this.colors[0] = findGreyscale(this.colors[0]);
+    this.colors[1] = findGreyscale(this.colors[1]);
+    this.colors[2] = findGreyscale(this.colors[2]);
+  }
+
+  private int findGreyscale(int val) {
+    Double doubleGreyscale = (val * 0.2126) +
+            (val * 0.7152) +
+            (val * 0.0722);
+    return (int) Math.round(doubleGreyscale);
+  }
+
+  @Override
+  public void setSepia() {
+    this.colors[0] = findSepia(0);
+    this.colors[1] = findSepia(1);
+    this.colors[2] = findSepia(2);
+  }
+
+  private int findSepia (int index) {
+    int oldRed = this.colors[0];
+    int oldGreen = this.colors[1];
+    int oldBlue = this.colors[2];
+
+    double newVal = 0;
+
+    if (index == 0) {
+      newVal = (oldRed * 0.393) + (oldGreen * 0.769) + (oldBlue * 0.189);
+    }
+    else if (index == 1) {
+      newVal = (oldRed * 0.349) + (oldGreen * 0.686) + (oldBlue * 0.168);
+    }
+    else {
+      newVal = (oldRed * 0.272) + (oldGreen * 0.534) + (oldBlue * 0.131);
+    }
+
+    return (int) Math.round(newVal);
+
+  }
+
   /**
    * Overrides equals.
    *
