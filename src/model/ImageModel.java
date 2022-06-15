@@ -11,6 +11,7 @@ import model.commands.SetGreyscale;
 import model.commands.SetSepia;
 import model.commands.ValueGreyscale;
 import model.pixel.Pixel;
+import model.pixel.RGBPixel;
 
 /**
  * ImageModel is an implementation of ImageProcessingModel that has a height, width,
@@ -189,6 +190,8 @@ public class ImageModel implements ImageProcessingModel {
     return max;
   }
 
+  // this creates an array of Posns that contains the row, col of all the aligning pixels along
+  // with its respective multiple. This is passed onto apply multiples
   @Override
   public ImageProcessingModel blurImage() {
 
@@ -215,7 +218,7 @@ public class ImageModel implements ImageProcessingModel {
         Posn bottomRight = new Posn(row + 1, col + 1, 0.0625);
         kernel[8] = bottomRight;
 
-        blurredImage = this.applyMultiples(kernel, blurredImage);
+        blurredImage = this.applyKernel(kernel, blurredImage, row, col);
       }
     }
 
@@ -256,7 +259,7 @@ public class ImageModel implements ImageProcessingModel {
         kernel[23] = new Posn(row + 2, col + 1, -0.125);
         kernel[24] = new Posn(row + 2, col + 2, -0.125);
 
-        sharpImage = this.applyMultiples(kernel, sharpImage);
+        sharpImage = this.applyKernel(kernel, sharpImage, row, col);
       }
     }
 
@@ -275,13 +278,37 @@ public class ImageModel implements ImageProcessingModel {
     return p.changePixels(this);
   }
 
-  private ImageProcessingModel applyMultiples(Posn [] kernel, ImageProcessingModel model) {
+  // for each posn p, create a copy of a pixel and apply multiplications
+  // add these multiplications to respective running totals of channels
+  // set model's pixel to sum of those values
+  private ImageProcessingModel applyKernel(Posn [] kernel, ImageProcessingModel model, int row, int col) {
+    int runningRed = 0;
+    int runningGreen = 0;
+    int runningBlue = 0;
     for (Posn p : kernel) {
       if (p.checkValid(model.getHeight(), model.getWidth())) {
-        model.getPixelAt(p.row, p.col).multiplyPixel(p.multiple);
+        Pixel tempPixel = model.getPixelAt(p.row, p.col).createCopy();
+        tempPixel.multiplyPixel(p.multiple);
+        runningRed = runningRed + tempPixel.getColor(0);
+        runningGreen = runningGreen + tempPixel.getColor(1);
+        runningBlue = runningBlue + tempPixel.getColor(2);
       }
     }
+    Pixel newPixel = new RGBPixel(this.clipValue(runningRed),
+            this.clipValue(runningBlue),
+    this.clipValue(runningGreen));
 
+    model.setPixelAt(row, col, newPixel);
     return model;
+  }
+
+  private int clipValue(int value) {
+    if (value > 255) {
+      return 255;
+    } else if (value < 0) {
+      return 0;
+    } else {
+      return value;
+    }
   }
 }

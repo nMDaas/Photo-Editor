@@ -201,6 +201,41 @@ public class RGBPixelTest {
   }
 
   @Test
+  public void testGreyscale() {
+    init();
+
+    p1.setLumaComponent();
+    p2.setLumaComponent();
+
+    assertEquals(102, p1.getColor(0), 0.001);
+    assertEquals(102, p1.getColor(1), 0.001);
+    assertEquals(102, p1.getColor(2), 0.001);
+
+
+    assertEquals(192, p2.getColor(0), 0.001);
+    assertEquals(192, p2.getColor(1), 0.001);
+    assertEquals(192, p2.getColor(2), 0.001);
+  }
+
+  @Test
+  public void testSepia() {
+    init();
+    //this.p3 = new RGBPixel(130, 130, 40);
+    //this.p4 = new RGBPixel(50, 70, 70);
+    p3.setSepia();
+    p4.setSepia();
+
+    assertEquals(106, p3.getColor(0), 0.001);
+    assertEquals(95, p3.getColor(1), 0.001);
+    assertEquals(74, p3.getColor(2), 0.001);
+
+
+    assertEquals(87, p4.getColor(0), 0.001);
+    assertEquals(77, p4.getColor(1), 0.001);
+    assertEquals(60, p4.getColor(2), 0.001);
+  }
+
+  @Test
   public void testCreateCopy() {
     Pixel newPixel = p4.createCopy();
     assertEquals(50, newPixel.getColor(0));

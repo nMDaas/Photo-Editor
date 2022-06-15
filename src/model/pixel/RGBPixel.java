@@ -181,9 +181,13 @@ public class RGBPixel implements Pixel {
 
   @Override
   public void setSepia() {
-    this.colors[0] = findSepia(0);
-    this.colors[1] = findSepia(1);
-    this.colors[2] = findSepia(2);
+    int newRed = findSepia(0);
+    int newGreen = findSepia(1);
+    int newBlue = findSepia(2);
+
+    this.colors[0] = newRed;
+    this.colors[1] = newGreen;
+    this.colors[2] = newBlue;
   }
 
   private int findSepia (int index) {

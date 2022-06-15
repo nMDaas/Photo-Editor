@@ -97,4 +97,24 @@ public class MockModel implements ImageProcessingModel {
   public int getMax() {
     return 0;
   }
+
+  @Override
+  public ImageProcessingModel blurImage() {
+    return null;
+  }
+
+  @Override
+  public ImageProcessingModel sharpenImage() {
+    return null;
+  }
+
+  @Override
+  public ImageProcessingModel setGreyscale() {
+    return null;
+  }
+
+  @Override
+  public ImageProcessingModel setSepia() {
+    return null;
+  }
 }
