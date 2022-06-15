@@ -383,13 +383,38 @@ public class ImageModelTest {
   public void testSetGreyscale() {
     ImageProcessingModel modelGreyscale = model.setGreyscale();
 
-    assertEquals(modelGreyscale.getHeight(), 2);
-    assertEquals(modelGreyscale.getWidth(), 2);
-    assertEquals(modelGreyscale.getMax(), 10);
+    assertEquals(2, modelGreyscale.getHeight());
+    assertEquals(2, modelGreyscale.getWidth());
+    assertEquals(10, modelGreyscale.getMax());
     assertEquals(new RGBPixel(8, 8, 8), modelGreyscale.getPixelAt(0, 0));
     assertEquals(new RGBPixel(2, 2, 2), modelGreyscale.getPixelAt(0, 1));
     assertEquals(new RGBPixel(1, 1, 1), modelGreyscale.getPixelAt(1, 0));
     assertEquals(new RGBPixel(10, 10, 10), modelGreyscale.getPixelAt(1, 1));
+
+
+    assertEquals(new RGBPixel(8, 8, 8), modelGreyscale.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(2, 2, 2), modelGreyscale.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(1, 1, 1), modelGreyscale.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(10, 10, 10), modelGreyscale.getPixelAt(1, 1));
+
+    // check original model is contact
+    assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(10, 0, 0), model.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(0, 10, 0), model.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(10, 10, 10), model.getPixelAt(1, 1));
+  }
+
+  @Test
+  public void testSetSepia() {
+    ImageProcessingModel modelSepia = model.setSepia();
+
+    assertEquals(modelSepia.getHeight(), 2);
+    assertEquals(modelSepia.getWidth(), 2);
+    assertEquals(modelSepia.getMax(), 14);
+    assertEquals(new RGBPixel(10, 7, 9), modelSepia.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(4, 3, 3), modelSepia.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(2, 1, 2), modelSepia.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(14, 9, 12), modelSepia.getPixelAt(1, 1));
 
     // check original model is contact
     assertEquals(new RGBPixel(0, 10, 10), model.getPixelAt(0, 0));

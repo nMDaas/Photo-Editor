@@ -167,15 +167,23 @@ public class RGBPixel implements Pixel {
 
   @Override
   public void setGreyscale() {
-    this.colors[0] = findGreyscale(this.colors[0]);
-    this.colors[1] = findGreyscale(this.colors[1]);
-    this.colors[2] = findGreyscale(this.colors[2]);
+    int newRed = findGreyscale();
+    int newGreen = findGreyscale();
+    int newBlue = findGreyscale();
+
+    this.colors[0] = newRed;
+    this.colors[1] = newGreen;
+    this.colors[2] = newBlue;
   }
 
-  private int findGreyscale(int val) {
-    Double doubleGreyscale = (val * 0.2126) +
-            (val * 0.7152) +
-            (val * 0.0722);
+  private int findGreyscale() {
+    int oldRed = this.colors[0];
+    int oldGreen = this.colors[1];
+    int oldBlue = this.colors[2];
+
+    Double doubleGreyscale = (oldRed * 0.2126) +
+            (oldGreen * 0.7152) +
+            (oldBlue * 0.0722);
     return this.clipValue((int) Math.round(doubleGreyscale));
   }
 

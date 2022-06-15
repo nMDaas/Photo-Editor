@@ -48,7 +48,7 @@ public class Save implements ImageProcessingCommand {
   public void execute() {
     ImageProcessingModel image = controller.getImages().get(this.image);
     if (image == null) {
-      throw new IllegalArgumentException("This image does not exist.");
+      controller.printMessage("This image does not exist.");
     }
 
     File file = new File(this.path);
