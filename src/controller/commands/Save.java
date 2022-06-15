@@ -1,14 +1,6 @@
 package controller.commands;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-
 import controller.ImageProcessingController;
-import model.ImageProcessingModel;
-import model.pixel.Pixel;
 
 /**
  * Represents the save class which helps create an image by saving it.
@@ -46,46 +38,20 @@ public class Save implements ImageProcessingCommand {
    */
   @Override
   public void execute() {
-    ImageProcessingModel image = controller.getImages().get(this.image);
-    if (image == null) {
-      controller.printMessage("This image does not exist.");
+
+    String fileFormat = path.substring(path.length() - 4, path.length());
+    if (fileFormat.contains("ppm")) {
+      new SavePPM(image, controller, path).saveFile();
     }
-
-    File file = new File(this.path);
-    FileOutputStream fs;
-
-    try {
-      fs = new FileOutputStream(file);
-    } catch (FileNotFoundException e) {
-      System.out.println("File " + this.path + " not found!");
-      return;
+    else if (fileFormat.contains("jpeg") ||
+            fileFormat.contains("jpg")) {
+      new SaveJPEG(image, controller, path).saveFile();
     }
-
-    OutputStreamWriter ow = new OutputStreamWriter(fs);
-    BufferedWriter writer = new BufferedWriter(ow);
-
-    try {
-      writer.write("P3");
-      writer.newLine();
-      writer.write(image.getWidth() + " " + image.getHeight());
-      writer.newLine();
-      writer.write(String.format(image.getMax() + ""));
-      writer.newLine();
-      for (int row = 0; row < image.getHeight(); row++) {
-        for (int col = 0; col < image.getWidth(); col++) {
-          Pixel thePixel = image.getPixelAt(row, col);
-          writer.write(String.format(thePixel.getColor(0) + ""));
-          writer.newLine();
-          writer.write(String.format(thePixel.getColor(1) + ""));
-          writer.newLine();
-          writer.write(String.format(thePixel.getColor(2) + ""));
-          writer.newLine();
-        }
-      }
-      writer.flush();
-      writer.close();
-    } catch (Exception e) {
-      e.printStackTrace();
+    else if (fileFormat.contains("png")) {
+      new SavePNG(image, controller, path).saveFile();
+    }
+    else {
+      controller.printMessage("File format is not supported.");
     }
 
     controller.printMessage("Saved image " + this.image + ".");
