@@ -37,26 +37,19 @@ public class RGBPixel implements Pixel {
    * @param val the value the pixel is being brightened by.
    */
   public void brighten(int val) {
-    this.colors[0] = this.setValue(this.colors[0], val);
-    this.colors[1] = this.setValue(this.colors[1], val);
-    this.colors[2] = this.setValue(this.colors[2], val);
+    this.colors[0] = this.clipValue(this.colors[0] + val);
+    this.colors[1] = this.clipValue(this.colors[1] + val);
+    this.colors[2] = this.clipValue(this.colors[2] + val);
   }
 
-  /**
-   * Sets the value of the pixel to a new value.
-   *
-   * @param currentVal the current value of the pixel.
-   * @param valAdd     the value to be added by.
-   * @return the sum of currentVal and valAdd.
-   */
-  private int setValue(int currentVal, int valAdd) {
-    int sum = currentVal + valAdd;
-    if (sum > 255) {
+
+  private int clipValue(int value) {
+    if (value > 255) {
       return 255;
-    } else if (sum < 0) {
+    } else if (value < 0) {
       return 0;
     } else {
-      return sum;
+      return value;
     }
   }
 
@@ -127,9 +120,9 @@ public class RGBPixel implements Pixel {
   public void setIntensityComponent() {
     Double doubleIntensity = this.findIntensity();
     int intensity = (int) Math.round(doubleIntensity);
-    this.colors[0] = intensity;
-    this.colors[1] = intensity;
-    this.colors[2] = intensity;
+    this.colors[0] = this.clipValue(intensity);
+    this.colors[1] = this.clipValue(intensity);
+    this.colors[2] = this.clipValue(intensity);
   }
 
   /**
@@ -138,9 +131,9 @@ public class RGBPixel implements Pixel {
   public void setLumaComponent() {
     Double doubleLuma = this.findLuma();
     int luma = (int) Math.round(doubleLuma);
-    this.colors[0] = luma;
-    this.colors[1] = luma;
-    this.colors[2] = luma;
+    this.colors[0] = this.clipValue(luma);
+    this.colors[1] = this.clipValue(luma);
+    this.colors[2] = this.clipValue(luma);
   }
 
   /**
@@ -183,7 +176,7 @@ public class RGBPixel implements Pixel {
     Double doubleGreyscale = (val * 0.2126) +
             (val * 0.7152) +
             (val * 0.0722);
-    return (int) Math.round(doubleGreyscale);
+    return this.clipValue((int) Math.round(doubleGreyscale));
   }
 
   @Override
@@ -210,7 +203,7 @@ public class RGBPixel implements Pixel {
       newVal = (oldRed * 0.272) + (oldGreen * 0.534) + (oldBlue * 0.131);
     }
 
-    return (int) Math.round(newVal);
+    return this.clipValue((int) Math.round(newVal));
 
   }
 
