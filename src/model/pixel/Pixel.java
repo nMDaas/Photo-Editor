@@ -54,4 +54,6 @@ public interface Pixel {
   public void setGreyscale();
 
   public void setSepia();
+
+  public int clipValue(int value);
 }

@@ -289,7 +289,7 @@ public class ImageModel implements ImageProcessingModel {
     double doubleGreen = 0;
     double doubleBlue = 0;
     for (Posn p : kernel) {
-      if (p.checkValid(model.getHeight(), model.getWidth())) {
+      if (p.isValid(model.getHeight(), model.getWidth())) {
         Pixel pixel = this.getPixelAt(p.row, p.col);
         doubleRed = pixel.getColor(0) * p.multiple;
         doubleGreen = pixel.getColor(1) * p.multiple;
@@ -300,21 +300,13 @@ public class ImageModel implements ImageProcessingModel {
         runningBlue = runningBlue + doubleBlue;
       }
     }
-    Pixel newPixel = new RGBPixel(this.clipValue((int) Math.round(runningRed)),
-            this.clipValue((int) Math.round(runningBlue)),
-    this.clipValue((int) Math.round(runningGreen)));
-
+    Pixel newPixel = new RGBPixel(0, 0, 0);
+    int red = newPixel.clipValue((int) Math.round(runningRed));
+    int green = newPixel.clipValue((int) Math.round(runningGreen));
+    int blue = newPixel.clipValue((int) Math.round(runningBlue));
+    newPixel = new RGBPixel(red, blue, green);
     model.setPixelAt(row, col, newPixel);
     return model;
   }
 
-  private int clipValue(int value) {
-    if (value > 255) {
-      return 255;
-    } else if (value < 0) {
-      return 0;
-    } else {
-      return value;
-    }
-  }
 }

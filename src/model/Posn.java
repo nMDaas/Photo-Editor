@@ -11,7 +11,7 @@ public class Posn {
     this.multiple = multiple;
   }
 
-  boolean checkValid(int height, int width) {
+  boolean isValid(int height, int width) {
     return !(this.row < 0 || this.col < 0 || this.row >= height || this.col >= width);
   }
 }

@@ -43,7 +43,7 @@ public class RGBPixel implements Pixel {
   }
 
 
-  private int clipValue(int value) {
+  public int clipValue(int value) {
     if (value > 255) {
       return 255;
     } else if (value < 0) {
