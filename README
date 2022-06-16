@@ -101,15 +101,19 @@ returns an image horizontally flipped and prints a message of completion.
 VerticalFlip - VerticalFlip extends AbstractCommand. Its doCommand() implementation
 returns an image vertically flipped and prints a message of completion.
 
+** NEW **
 Blur - Blur extends AbstractCommand. Its doCommand() implementation
 returns a blurred image and prints a message of completion.
 
+** NEW **
 Sharpen - Sharpen extends AbstractCommand. Its doCommand() implementation
 returns a sharpened image and prints a message of completion.
 
+** NEW **
 MakeGreyscale - MakeGreyscale extends AbstractCommand. Its doCommand() implementation
 returns a greyscale image and prints a message of completion.
 
+** NEW **
 MakeSepia - MakeSepia extends AbstractCommand. Its doCommand() implementation
 returns an image with a sepia filter and prints a message of completion.
 
@@ -133,13 +137,16 @@ following methods:
   and column to a given pixel
 - getMax() - returns the max value of a pixel in the image
 - createCopy() - returns a copy of the ImageProcessingModel
-- blurImage() - creates a blurred image (*NEW*)
-- sharpenImage() - creates a sharpened image (*NEW*)
-- setGreyscale() - creates a greyscale image (*NEW*)
-- setSepia() - creates an image with a sepia filter (*NEW*)
+- blurImage() - creates a blurred image (** NEW **)
+- sharpenImage() - creates a sharpened image (** NEW **)
+- setGreyscale() - creates a greyscale image(** NEW **)
+- setSepia() - creates an image with a sepia filter (** NEW **)
 
 ImageModel - ImageModel is an implementation of ImageProcessingModel and implements
-all its inherited methods.
+all its inherited methods. It also implements applyKernel()
+- applyKernel(Posn [] kernel, ImageProcessingModel model, int row, int col) - returns
+  an ImageProcessingModel with a kernel applied to a pixel at a specific row and column (col)
+  (** NEW **)
 
 MODEL.COMMANDS PACKAGE
 
@@ -171,11 +178,11 @@ MakeBlue - MakeBlue extends AbstractModelCommand. It implements
 doCommand(Pixel p) that converts pixel p to a blue channel.
 
 *NEW*
-setGreyscale - setGreyscale extends AbstractModelCommand. It implements
+SetGreyscale - setGreyscale extends AbstractModelCommand. It implements
 doCommand(Pixel p) that converts pixel p to its greyscale version
 
 *NEW*
-setSepia - setSepia extends AbstractModelCommand. It implements
+SetSepia - setSepia extends AbstractModelCommand. It implements
 doCommand(Pixel p) that converts pixel p to a pixel with a sepia filter
 
 PIXELS PACKAGE
@@ -215,6 +222,13 @@ its inherited methods along with:
 - equals(Object that) - Overrides the equals method to set two pixels to be equal to
   each other if their r values, g values and b values are equal
 - hashCode - Overrides the hashCode() method
+
+*NEW*
+Posn - Posn represents a cell or pixel in a kernel. It has a row, column and a
+multiple. It has only one method. This class was made to ensure a cleaner design and produce
+more readable code with less duplication.
+- isValid(int height, int width) - Confirms whether this pixel is valid, based on the
+imageProcessingModel's height and width
 
 VIEW PACKAGE
 
