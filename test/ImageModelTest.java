@@ -380,6 +380,130 @@ public class ImageModelTest {
   }
 
   @Test
+  public void testBlurLowerBoundary() {
+    Pixel[][] pixelsOriginal = new Pixel[2][3];
+    pixelsOriginal[0][0] = new RGBPixel(0, 0, 0);
+    pixelsOriginal[0][1] = new RGBPixel(0, 0, 0);
+    pixelsOriginal[0][2] = pixel3;
+    pixelsOriginal[1][0] = pixel4;
+    pixelsOriginal[1][1] = pixel5;
+    pixelsOriginal[1][2] = pixel6;
+
+    ImageProcessingModel modelOriginal =
+            new ImageModel(2, 3, pixelsOriginal, 10);
+
+    ImageProcessingModel blurredModel = modelOriginal.blurImage();
+
+    assertEquals(new RGBPixel(2, 2, 2), blurredModel.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(1, 3, 2), blurredModel.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(0, 4, 2), blurredModel.getPixelAt(0, 2));
+    assertEquals(new RGBPixel(3, 4, 3), blurredModel.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(3, 5, 4), blurredModel.getPixelAt(1, 1));
+    assertEquals(new RGBPixel(1, 4, 3), blurredModel.getPixelAt(1, 2));
+
+    // check original model is contact
+    assertEquals(new RGBPixel(0, 0, 0), modelOriginal.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(0, 0, 0), modelOriginal.getPixelAt(0, 1));
+    assertEquals(pixel3, modelOriginal.getPixelAt(0, 2));
+    assertEquals(pixel4, modelOriginal.getPixelAt(1, 0));
+    assertEquals(pixel5, modelOriginal.getPixelAt(1, 1));
+    assertEquals(pixel6, modelOriginal.getPixelAt(1, 2));
+
+  }
+
+  @Test
+  public void testBlurUpperBoundary() {
+    Pixel[][] pixelsOriginal = new Pixel[3][3];
+    pixelsOriginal[0][0] = new RGBPixel(255, 255, 255);
+    pixelsOriginal[0][1] = new RGBPixel(255, 255, 255);
+    pixelsOriginal[0][2] = new RGBPixel(255, 255, 255);
+    pixelsOriginal[1][0] = new RGBPixel(255, 255, 255);
+    pixelsOriginal[1][1] = new RGBPixel(255, 255, 255);
+    pixelsOriginal[1][2] = new RGBPixel(255, 255, 255);
+    pixelsOriginal[2][0] = new RGBPixel(255, 255, 255);
+    pixelsOriginal[2][1] = new RGBPixel(255, 255, 255);
+    pixelsOriginal[2][2] = new RGBPixel(255, 255, 255);
+
+    ImageProcessingModel modelOriginal =
+            new ImageModel(3, 3, pixelsOriginal, 10);
+
+    ImageProcessingModel blurredModel = modelOriginal.blurImage();
+
+    assertEquals(new RGBPixel(143, 143, 143), blurredModel.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(191, 191, 191), blurredModel.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(143, 143, 143), blurredModel.getPixelAt(0, 2));
+    assertEquals(new RGBPixel(191, 191, 191), blurredModel.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(255, 255, 255), blurredModel.getPixelAt(1, 1));
+    assertEquals(new RGBPixel(191, 191, 191), blurredModel.getPixelAt(1, 2));
+    assertEquals(new RGBPixel(143, 143, 143), blurredModel.getPixelAt(2, 0));
+    assertEquals(new RGBPixel(191, 191, 191), blurredModel.getPixelAt(2, 1));
+    assertEquals(new RGBPixel(143, 143, 143), blurredModel.getPixelAt(2, 2));
+
+    // check original model is contact
+    assertEquals(new RGBPixel(255, 255, 255), modelOriginal.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(255, 255, 255), modelOriginal.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(255, 255, 255), modelOriginal.getPixelAt(0, 2));
+    assertEquals(new RGBPixel(255, 255, 255), modelOriginal.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(255, 255, 255), modelOriginal.getPixelAt(1, 1));
+    assertEquals(new RGBPixel(255, 255, 255), modelOriginal.getPixelAt(1, 2));
+    assertEquals(new RGBPixel(255, 255, 255), modelOriginal.getPixelAt(2, 0));
+    assertEquals(new RGBPixel(255, 255, 255), modelOriginal.getPixelAt(2, 1));
+    assertEquals(new RGBPixel(255, 255, 255), modelOriginal.getPixelAt(2, 2));
+
+  }
+
+  @Test
+  public void testSharpen() {
+    Pixel[][] pixelsOriginal = new Pixel[3][4];
+    pixelsOriginal[0][0] = pixel1;
+    pixelsOriginal[0][1] = pixel2;
+    pixelsOriginal[0][2] = pixel3;
+    pixelsOriginal[0][3] = pixel4;
+    pixelsOriginal[1][0] = pixel5;
+    pixelsOriginal[1][1] = pixel6;
+    pixelsOriginal[1][2] = new RGBPixel(10, 11, 11);
+    pixelsOriginal[1][3] = new RGBPixel(30, 30, 200);
+    pixelsOriginal[2][0] = new RGBPixel(50, 11, 11);
+    pixelsOriginal[2][1] = new RGBPixel(10, 255, 11);
+    pixelsOriginal[2][2] = new RGBPixel(255, 11, 16);
+    pixelsOriginal[2][3] = new RGBPixel(10, 11, 11);
+
+    ImageProcessingModel modelOriginal =
+            new ImageModel(3, 4, pixelsOriginal, 255);
+
+    ImageProcessingModel sharpModel = modelOriginal.sharpenImage();
+
+    assertEquals(new RGBPixel(0, 0, 8), sharpModel.getPixelAt(0, 0));
+    assertEquals(new RGBPixel(0, 0, 0), sharpModel.getPixelAt(0, 1));
+    assertEquals(new RGBPixel(0, 0, 50), sharpModel.getPixelAt(0, 2));
+    assertEquals(new RGBPixel(0, 0, 57), sharpModel.getPixelAt(0, 3));
+    assertEquals(new RGBPixel(0, 76, 14), sharpModel.getPixelAt(1, 0));
+    assertEquals(new RGBPixel(79, 78, 0), sharpModel.getPixelAt(1, 1));
+    assertEquals(new RGBPixel(84, 90, 72), sharpModel.getPixelAt(1, 2));
+    assertEquals(new RGBPixel(99, 11, 209), sharpModel.getPixelAt(1, 3));
+    assertEquals(new RGBPixel(19, 73, 13), sharpModel.getPixelAt(2, 0));
+    assertEquals(new RGBPixel(83, 255, 0), sharpModel.getPixelAt(2, 1));
+    assertEquals(new RGBPixel(255, 83, 72), sharpModel.getPixelAt(2, 2));
+    assertEquals(new RGBPixel(80, 0, 64), sharpModel.getPixelAt(2, 3));
+
+
+    // check original model is contact
+    assertEquals(pixel1, modelOriginal.getPixelAt(0, 0));
+    assertEquals(pixel2, modelOriginal.getPixelAt(0, 1));
+    assertEquals(pixel3, modelOriginal.getPixelAt(0, 2));
+    assertEquals(pixel4, modelOriginal.getPixelAt(0, 3));
+    assertEquals(pixel5, modelOriginal.getPixelAt(1, 0));
+    assertEquals(pixel6, modelOriginal.getPixelAt(1, 1));
+    assertEquals(new RGBPixel(10, 11, 11), modelOriginal.getPixelAt(1, 2));
+    assertEquals(new RGBPixel(30, 30, 200), modelOriginal.getPixelAt(1, 3));
+    assertEquals(new RGBPixel(50, 11, 11), modelOriginal.getPixelAt(2, 0));
+    assertEquals(new RGBPixel(10, 255, 11), modelOriginal.getPixelAt(2, 1));
+    assertEquals(new RGBPixel(255, 11, 16), modelOriginal.getPixelAt(2, 2));
+    assertEquals(new RGBPixel(10, 11, 11), modelOriginal.getPixelAt(2, 3));
+
+  }
+
+  @Test
   public void testSetGreyscale() {
     ImageProcessingModel modelGreyscale = model.setGreyscale();
 

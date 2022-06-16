@@ -12,6 +12,6 @@ public class Posn {
   }
 
   boolean checkValid(int height, int width) {
-    return !(this.row < 0 || this.col < 0 || this.row > height || this.col > width);
+    return !(this.row < 0 || this.col < 0 || this.row >= height || this.col >= width);
   }
 }

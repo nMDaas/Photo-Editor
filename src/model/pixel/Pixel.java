@@ -49,7 +49,7 @@ public interface Pixel {
    */
   public Pixel createCopy();
 
-  public void multiplyPixel(double multiple);
+  public double multiplyPixel(double value, double multiple);
 
   public void setGreyscale();
 

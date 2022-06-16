@@ -157,12 +157,8 @@ public class RGBPixel implements Pixel {
   }
 
   @Override
-  public void multiplyPixel(double multiple) {
-    for (int c = 0; c < this.colors.length; c++) {
-      Double newVal = this.colors[c] * multiple;
-      int intVal = (int) Math.round(newVal);
-      this.colors[c] = intVal;
-    }
+  public double multiplyPixel(double value, double multiple) {
+    return value * multiple;
   }
 
   @Override

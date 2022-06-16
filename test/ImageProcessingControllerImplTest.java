@@ -988,7 +988,7 @@ public class ImageProcessingControllerImplTest {
   // tests for valueComponent
 
   @Test
-  public void testValueComponent() {
+  public void testValueComponentPPM() {
     Reader in = new StringReader("load res/test4x4.ppm test value-component test value\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -1021,6 +1021,32 @@ public class ImageProcessingControllerImplTest {
     assertEquals(blackValue, images.get("value").getPixelAt(3, 3));
   }
 
+  @Test
+  public void testValueComponentJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg test value-component test value\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("value created through value greyscale of test.", finalOut);
+  }
+
+  @Test
+  public void testValueComponentPNG() {
+    Reader in = new StringReader("load pics/icons.png test value-component test value\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("value created through value greyscale of test.", finalOut);
+  }
+
   @Test(expected = IllegalArgumentException.class)
   public void testValueInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test value-component"
@@ -1032,8 +1058,34 @@ public class ImageProcessingControllerImplTest {
   }
 
   @Test
-  public void testValueInvalidNoMoreInput() {
+  public void testValueInvalidNoMoreInputPPM() {
     Reader in = new StringReader("load res/test4x4.ppm test value-component test\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("More input required.", finalOut);
+  }
+
+  @Test
+  public void testValueInvalidNoMoreInputPNG() {
+    Reader in = new StringReader("load pics/icons.png test value-component test\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("More input required.", finalOut);
+  }
+
+  @Test
+  public void testValueInvalidNoMoreInputJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg test value-component test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1078,6 +1130,32 @@ public class ImageProcessingControllerImplTest {
     assertEquals(blackIntensity, images.get("intensity").getPixelAt(3, 1));
     assertEquals(blackIntensity, images.get("intensity").getPixelAt(3, 2));
     assertEquals(blackIntensity, images.get("intensity").getPixelAt(3, 3));
+  }
+
+  @Test
+  public void testIntensityComponentJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg test intensity-component test value\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("value created through intensity greyscale of test.", finalOut);
+  }
+
+  @Test
+  public void testIntensityComponentPNG() {
+    Reader in = new StringReader("load pics/icons.png test intensity-component test value\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("value created through intensity greyscale of test.", finalOut);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -1139,6 +1217,32 @@ public class ImageProcessingControllerImplTest {
     assertEquals(blackLuma, images.get("luma").getPixelAt(3, 3));
   }
 
+  @Test
+  public void testLumaComponentJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg test luma-component test value\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("value created through luma greyscale of test.", finalOut);
+  }
+
+  @Test
+  public void testLumaComponentPNG() {
+    Reader in = new StringReader("load pics/icons.png test luma-component test value\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("value created through luma greyscale of test.", finalOut);
+  }
+
   @Test(expected = IllegalArgumentException.class)
   public void testLumaInvalidImage() {
     Reader in = new StringReader("load res/invalid.ppm test luma-component test luma\n");
@@ -1161,11 +1265,177 @@ public class ImageProcessingControllerImplTest {
     assertEquals("More input required.", finalOut);
   }
 
+  // test MakeGreyscale
+  @Test
+  public void testMakeGreyscalePPM() {
+    Reader in = new StringReader("load res/test4x4.ppm test make-greyscale test grey\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+
+    Pixel blackLuma = new RGBPixel(0, 0, 0);
+    Pixel pinkLuma = new RGBPixel(73, 73, 73);
+    Pixel greenLuma = new RGBPixel(191, 191, 191);
+
+    Map<String, ImageProcessingModel> images = c.getImages();
+    assertEquals(4, images.get("grey").getHeight());
+    assertEquals(4, images.get("grey").getWidth());
+    assertEquals(191, images.get("grey").getMax());
+    assertEquals(blackLuma, images.get("grey").getPixelAt(0, 0));
+    assertEquals(blackLuma, images.get("grey").getPixelAt(0, 1));
+    assertEquals(blackLuma, images.get("grey").getPixelAt(0, 2));
+    assertEquals(pinkLuma, images.get("grey").getPixelAt(0, 3));
+    assertEquals(blackLuma, images.get("grey").getPixelAt(1, 0));
+    assertEquals(greenLuma, images.get("grey").getPixelAt(1, 1));
+    assertEquals(blackLuma, images.get("grey").getPixelAt(1, 2));
+    assertEquals(blackLuma, images.get("grey").getPixelAt(1, 3));
+    assertEquals(blackLuma, images.get("grey").getPixelAt(2, 0));
+    assertEquals(blackLuma, images.get("grey").getPixelAt(2, 1));
+    assertEquals(greenLuma, images.get("grey").getPixelAt(2, 2));
+    assertEquals(blackLuma, images.get("grey").getPixelAt(2, 3));
+    assertEquals(pinkLuma, images.get("grey").getPixelAt(3, 0));
+    assertEquals(blackLuma, images.get("grey").getPixelAt(3, 1));
+    assertEquals(blackLuma, images.get("grey").getPixelAt(3, 2));
+    assertEquals(blackLuma, images.get("grey").getPixelAt(3, 3));
+  }
+
+  @Test
+  public void testMakeGreyscaleComponentJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg test make-greyscale test grey\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("grey created through greyscale of test.", finalOut);
+  }
+
+  @Test
+  public void testMakeGreyscaleComponentPNG() {
+    Reader in = new StringReader("load pics/icons.png test make-greyscale test grey\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("grey created through greyscale of test.", finalOut);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testMakeGreyscaleInvalidImage() {
+    Reader in = new StringReader("load res/invalid.ppm test make-greyscale test luma\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+  }
+
+  @Test
+  public void testGreyscaleInvalidNoMoreInput() {
+    Reader in = new StringReader("load res/test4x4.ppm test make-greyscale test\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("More input required.", finalOut);
+  }
+
+  // test MakeSepia
+  @Test
+  public void testMakeSepia() {
+    Reader in = new StringReader("load res/test4x4.ppm test make-sepia test sepia\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+
+    Pixel blackSepia = new RGBPixel(0, 0, 0);
+    Pixel pinkSepia = new RGBPixel(148, 103, 132);
+    Pixel greenSepia = new RGBPixel(219, 152, 195);
+
+    Map<String, ImageProcessingModel> images = c.getImages();
+    assertEquals(4, images.get("sepia").getHeight());
+    assertEquals(4, images.get("sepia").getWidth());
+    assertEquals(219, images.get("sepia").getMax());
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(0, 0));
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(0, 1));
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(0, 2));
+    assertEquals(pinkSepia, images.get("sepia").getPixelAt(0, 3));
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(1, 0));
+    assertEquals(greenSepia, images.get("sepia").getPixelAt(1, 1));
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(1, 2));
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(1, 3));
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(2, 0));
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(2, 1));
+    assertEquals(greenSepia, images.get("sepia").getPixelAt(2, 2));
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(2, 3));
+    assertEquals(pinkSepia, images.get("sepia").getPixelAt(3, 0));
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(3, 1));
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(3, 2));
+    assertEquals(blackSepia, images.get("sepia").getPixelAt(3, 3));
+  }
+
+  @Test
+  public void testMakeSepiaComponentJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg test make-sepia test sepia\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("sepia created through greyscale of test.", finalOut);
+  }
+
+  @Test
+  public void testMakeSepiaComponentPNG() {
+    Reader in = new StringReader("load pics/icons.png test make-sepia test sepia\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("sepia created through greyscale of test.", finalOut);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testMakeSepiaInvalidImage() {
+    Reader in = new StringReader("load res/invalid.ppm test make-sepia test sepia\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+  }
+
+  @Test
+  public void testSepiaInvalidNoMoreInput() {
+    Reader in = new StringReader("load res/test4x4.ppm test luma-component sepia\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("More input required.", finalOut);
+  }
+
 
   // tests for Save()
 
   @Test
-  public void testSave() {
+  public void testSavePPM1() {
     Reader in = new StringReader("load res/test4x4.ppm test save pics/test.ppm test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -1176,6 +1446,113 @@ public class ImageProcessingControllerImplTest {
     String finalOut = outArray[1];
     assertEquals("Saved image test.", finalOut);
   }
+
+  @Test
+  public void testSavePPM2() {
+    Reader in = new StringReader("load res/test4x4.ppm test save pics/test.jpeg test\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("Saved image test.", finalOut);
+  }
+
+  @Test
+  public void testSavePPM3() {
+    Reader in = new StringReader("load res/test4x4.ppm test save pics/test.png test\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("Saved image test.", finalOut);
+  }
+
+
+  @Test
+  public void testSaveJPEG1() {
+    Reader in = new StringReader("load pics/portrait.jpeg test save pics/test.ppm test\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("Saved image test.", finalOut);
+  }
+
+  @Test
+  public void testSaveJPEG2() {
+    Reader in = new StringReader("load pics/portrait.jpeg test save pics/test.jpeg test\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("Saved image test.", finalOut);
+  }
+
+  @Test
+  public void testSaveJPEG3() {
+    Reader in = new StringReader("load pics/portrait.jpeg test save pics/test.png test\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("Saved image test.", finalOut);
+  }
+
+  @Test
+  public void testSavePNG1() {
+    Reader in = new StringReader("load pics/icons.png test save pics/test.ppm test\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("Saved image test.", finalOut);
+  }
+
+  @Test
+  public void testSavePNG2() {
+    Reader in = new StringReader("load pics/icons.png test save pics/test.jpeg test\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("Saved image test.", finalOut);
+  }
+
+  @Test
+  public void testSavePNG3() {
+    Reader in = new StringReader("load pics/icons.png test save pics/test.png test\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("Saved image test.", finalOut);
+  }
+
+
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidImage() {

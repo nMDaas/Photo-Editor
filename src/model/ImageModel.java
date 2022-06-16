@@ -282,21 +282,27 @@ public class ImageModel implements ImageProcessingModel {
   // add these multiplications to respective running totals of channels
   // set model's pixel to sum of those values
   private ImageProcessingModel applyKernel(Posn [] kernel, ImageProcessingModel model, int row, int col) {
-    int runningRed = 0;
-    int runningGreen = 0;
-    int runningBlue = 0;
+    double runningRed = 0;
+    double runningGreen = 0;
+    double runningBlue = 0;
+    double doubleRed = 0;
+    double doubleGreen = 0;
+    double doubleBlue = 0;
     for (Posn p : kernel) {
       if (p.checkValid(model.getHeight(), model.getWidth())) {
-        Pixel tempPixel = model.getPixelAt(p.row, p.col).createCopy();
-        tempPixel.multiplyPixel(p.multiple);
-        runningRed = runningRed + tempPixel.getColor(0);
-        runningGreen = runningGreen + tempPixel.getColor(1);
-        runningBlue = runningBlue + tempPixel.getColor(2);
+        Pixel pixel = this.getPixelAt(p.row, p.col);
+        doubleRed = pixel.getColor(0) * p.multiple;
+        doubleGreen = pixel.getColor(1) * p.multiple;
+        doubleBlue = pixel.getColor(2) * p.multiple;
+
+        runningRed = runningRed + doubleRed;
+        runningGreen = runningGreen + doubleGreen;
+        runningBlue = runningBlue + doubleBlue;
       }
     }
-    Pixel newPixel = new RGBPixel(this.clipValue(runningRed),
-            this.clipValue(runningBlue),
-    this.clipValue(runningGreen));
+    Pixel newPixel = new RGBPixel(this.clipValue((int) Math.round(runningRed)),
+            this.clipValue((int) Math.round(runningBlue)),
+    this.clipValue((int) Math.round(runningGreen)));
 
     model.setPixelAt(row, col, newPixel);
     return model;
