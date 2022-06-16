@@ -28,6 +28,10 @@ public class SaveJPEG {
 
   public void saveFile() {
     ImageProcessingModel theImage = controller.getImages().get(this.image);
+    if (image == null) {
+      controller.printMessage("This image does not exist.");
+    }
+
     BufferedImage image = new BufferedImage(theImage.getWidth(), theImage.getHeight(), TYPE_INT_RGB);
 
     for (int row = 0; row <  theImage.getHeight(); row++) {
@@ -54,7 +58,7 @@ public class SaveJPEG {
         ImageIO.write(image, "jpg", file);
 
       } catch (IOException e) {
-        System.out.println("Exception occurred :" + e.getMessage());
+        System.out.println("Exception occurred while writing:" + e.getMessage());
       }
   }
 

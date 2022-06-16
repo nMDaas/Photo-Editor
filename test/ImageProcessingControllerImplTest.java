@@ -103,7 +103,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testOverwrite() {
-    Reader in = new StringReader("load res/test4x4.ppm test save res/test.ppm test");
+    Reader in = new StringReader("load pics/test4x4.ppm test save pics/test.ppm test");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -145,7 +145,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testLoadImages() {
-    Reader in = new StringReader("load res/test4x4.ppm test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -190,7 +190,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testLoadInvalidNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm\n");
+    Reader in = new StringReader("load pics/test4x4.ppm\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -233,7 +233,7 @@ public class ImageProcessingControllerImplTest {
   @Test
   public void testBrightenImages() {
     init();
-    Reader in = new StringReader("load res/test4x4.ppm test brighten test 40 brighten\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test brighten test 40 brighten\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -278,7 +278,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testBrightenInvalidNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm test brighten test 40\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test brighten test 40\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -291,7 +291,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testCheckBrighten() {
-    Reader in = new StringReader("load res/test4x4.ppm test brighten test 40 " +
+    Reader in = new StringReader("load pics/test4x4.ppm test brighten test 40 " +
             "brighten\n");
     StringBuilder dontCareOutput = new StringBuilder();
     ImageProcessingView view = new MockView(dontCareOutput);
@@ -363,7 +363,7 @@ public class ImageProcessingControllerImplTest {
   @Test
   public void testHFlipImages() {
     init();
-    Reader in = new StringReader("load res/test4x4.ppm test " +
+    Reader in = new StringReader("load pics/test4x4.ppm test " +
             "horizontal-flip test test-horizontal\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -397,7 +397,7 @@ public class ImageProcessingControllerImplTest {
   @Test
   public void testHFlip4By3() {
     init();
-    Reader in = new StringReader("load res/test4x3.ppm test43 " +
+    Reader in = new StringReader("load pics/test4x3.ppm test43 " +
             "horizontal-flip test43 test43-horizontal\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -427,7 +427,7 @@ public class ImageProcessingControllerImplTest {
   @Test
   public void testHFlipImages3By4() {
     init();
-    Reader in = new StringReader("load res/test3x4.ppm test34 " +
+    Reader in = new StringReader("load pics/test3x4.ppm test34 " +
             "horizontal-flip test34 test34-horizontal\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -466,7 +466,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testHorizontalInvalidNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm test horizontal-flip test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test horizontal-flip test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -508,7 +508,7 @@ public class ImageProcessingControllerImplTest {
   @Test
   public void testVFlipImages() {
     init();
-    Reader in = new StringReader("load res/test4x4.ppm test " +
+    Reader in = new StringReader("load pics/test4x4.ppm test " +
             "vertical-flip test test-vertical\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -542,7 +542,7 @@ public class ImageProcessingControllerImplTest {
   @Test
   public void testVFlip4By3() {
     init();
-    Reader in = new StringReader("load res/test4x3.ppm test43 " +
+    Reader in = new StringReader("load pics/test4x3.ppm test43 " +
             "vertical-flip test43 test43-vertical\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -572,7 +572,7 @@ public class ImageProcessingControllerImplTest {
   @Test
   public void testVFlipImages3By4() {
     init();
-    Reader in = new StringReader("load res/test3x4.ppm test34 " +
+    Reader in = new StringReader("load pics/test3x4.ppm test34 " +
             "vertical-flip test34 test34-vertical\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -612,7 +612,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testVerticalInvalidNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm test vertical-flip test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test vertical-flip test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -672,7 +672,7 @@ public class ImageProcessingControllerImplTest {
   @Test
   public void testRedImages() {
     init();
-    Reader in = new StringReader("load res/test4x4.ppm test " +
+    Reader in = new StringReader("load pics/test4x4.ppm test " +
             "red-component test test-red\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -718,7 +718,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testRedInvalidNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm test red-component test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test red-component test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -760,7 +760,7 @@ public class ImageProcessingControllerImplTest {
   @Test
   public void testGreenImages() {
     init();
-    Reader in = new StringReader("load res/test4x4.ppm test " +
+    Reader in = new StringReader("load pics/test4x4.ppm test " +
             "green-component test test-green\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -806,7 +806,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testGreenInvalidNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm test green-component test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test green-component test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -848,7 +848,7 @@ public class ImageProcessingControllerImplTest {
   @Test
   public void testBlueImages() {
     init();
-    Reader in = new StringReader("load res/test4x4.ppm test " +
+    Reader in = new StringReader("load pics/test4x4.ppm test " +
             "blue-component test test-blue\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -894,7 +894,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testBlueInvalidNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm test blue-component test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test blue-component test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -907,7 +907,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testLoadIntensity() {
-    Reader in = new StringReader("load res/test4x4.ppm test " +
+    Reader in = new StringReader("load pics/test4x4.ppm test " +
             "intensity-component test test-intensity\n");
     StringBuilder dontCareOutput = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
@@ -922,7 +922,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testLoadValue() {
-    Reader in = new StringReader("load res/test4x4.ppm test " +
+    Reader in = new StringReader("load pics/test4x4.ppm test " +
             "value-component test test-blue\n");
     StringBuilder dontCareOutput = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
@@ -937,7 +937,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testLoadLuma() {
-    Reader in = new StringReader("load res/test4x4.ppm test " +
+    Reader in = new StringReader("load pics/test4x4.ppm test " +
             "luma-component test test-luma\n");
     StringBuilder dontCareOutput = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
@@ -952,9 +952,9 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testLoadIntensitySave() {
-    Reader in = new StringReader("load res/test4x4.ppm test " +
+    Reader in = new StringReader("load pics/test4x4.ppm test " +
             "intensity-component test test-intensity " +
-            "save res/test-intensity.ppm test-intensity\n");
+            "save pics/test-intensity.ppm test-intensity\n");
     StringBuilder dontCareOutput = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
     ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
@@ -989,7 +989,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testValueComponentPPM() {
-    Reader in = new StringReader("load res/test4x4.ppm test value-component test value\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test value-component test value\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1059,7 +1059,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testValueInvalidNoMoreInputPPM() {
-    Reader in = new StringReader("load res/test4x4.ppm test value-component test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test value-component test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1100,7 +1100,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testIntensityComponent() {
-    Reader in = new StringReader("load res/test4x4.ppm test intensity-component test intensity\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test intensity-component test intensity\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1160,7 +1160,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testIntensityInvalidImage() {
-    Reader in = new StringReader("load res/invalid.ppm test intensity-component"
+    Reader in = new StringReader("load pics/invalid.ppm test intensity-component"
             + " test intensity\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
@@ -1170,7 +1170,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testIntensityInvalidNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm test intensity-component test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test intensity-component test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1185,7 +1185,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testLumaComponent() {
-    Reader in = new StringReader("load res/test4x4.ppm test luma-component test luma\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test luma-component test luma\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1245,7 +1245,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testLumaInvalidImage() {
-    Reader in = new StringReader("load res/invalid.ppm test luma-component test luma\n");
+    Reader in = new StringReader("load pics/invalid.ppm test luma-component test luma\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1254,7 +1254,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testLumaInvalidNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm test luma-component test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test luma-component test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1268,7 +1268,7 @@ public class ImageProcessingControllerImplTest {
   // test MakeGreyscale
   @Test
   public void testMakeGreyscalePPM() {
-    Reader in = new StringReader("load res/test4x4.ppm test make-greyscale test grey\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test make-greyscale test grey\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1328,7 +1328,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testMakeGreyscaleInvalidImage() {
-    Reader in = new StringReader("load res/invalid.ppm test make-greyscale test luma\n");
+    Reader in = new StringReader("load pics/invalid.ppm test make-greyscale test luma\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1337,7 +1337,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testGreyscaleInvalidNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm test make-greyscale test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test make-greyscale test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1351,7 +1351,7 @@ public class ImageProcessingControllerImplTest {
   // test MakeSepia
   @Test
   public void testMakeSepia() {
-    Reader in = new StringReader("load res/test4x4.ppm test make-sepia test sepia\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test make-sepia test sepia\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1411,7 +1411,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testMakeSepiaInvalidImage() {
-    Reader in = new StringReader("load res/invalid.ppm test make-sepia test sepia\n");
+    Reader in = new StringReader("load pics/invalid.ppm test make-sepia test sepia\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1420,7 +1420,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testSepiaInvalidNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm test luma-component sepia\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test luma-component sepia\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1436,7 +1436,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testSavePPM1() {
-    Reader in = new StringReader("load res/test4x4.ppm test save pics/test.ppm test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test save pics/test.ppm test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1449,7 +1449,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testSavePPM2() {
-    Reader in = new StringReader("load res/test4x4.ppm test save pics/test.jpeg test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test save pics/test.jpeg test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1462,7 +1462,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testSavePPM3() {
-    Reader in = new StringReader("load res/test4x4.ppm test save pics/test.png test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test save pics/test.png test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1556,7 +1556,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidImage() {
-    Reader in = new StringReader("load res/test4x4.ppm test save res/test.ppm invalid\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test save pics/test.ppm invalid\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1568,7 +1568,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testInvalidFilePath() {
-    Reader in = new StringReader("load res/test4x4.ppm test save invalid/test.ppm test\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test save invalid/test.ppm test\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1581,7 +1581,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testNoMoreInput() {
-    Reader in = new StringReader("load res/test4x4.ppm test save invalid/test.ppm\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test save invalid/test.ppm\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1594,7 +1594,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testNoMoreInput2() {
-    Reader in = new StringReader("load res/test4x4.ppm test save\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test save\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1609,7 +1609,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testPrintMessage() {
-    Reader in = new StringReader("load res/test4x4.ppm test horizontal-flip test flip\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test horizontal-flip test flip\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1622,7 +1622,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test(expected = IllegalStateException.class)
   public void testPrintMessageCorruptAppendable() {
-    Reader in = new StringReader("load res/test4x4.ppm test horizontal-flip test flip\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test horizontal-flip test flip\n");
     Appendable output = new CorruptAppendable();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1634,7 +1634,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testPrintMessageWithMockView() {
-    Reader in = new StringReader("load res/test4x4.ppm test horizontal-flip test flip\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test horizontal-flip test flip\n");
     StringBuilder log = new StringBuilder();
     ImageProcessingView view = new MockView(log);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
@@ -1649,7 +1649,7 @@ public class ImageProcessingControllerImplTest {
 
   @Test
   public void testGetImages() {
-    Reader in = new StringReader("load res/test4x4.ppm test horizontal-flip test flip\n");
+    Reader in = new StringReader("load pics/test4x4.ppm test horizontal-flip test flip\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);

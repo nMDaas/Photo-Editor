@@ -157,11 +157,6 @@ public class RGBPixel implements Pixel {
   }
 
   @Override
-  public double multiplyPixel(double value, double multiple) {
-    return value * multiple;
-  }
-
-  @Override
   public void setGreyscale() {
     int newRed = findGreyscale();
     int newGreen = findGreyscale();
