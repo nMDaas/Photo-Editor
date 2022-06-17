@@ -1,0 +1,62 @@
+COMMANDS SUPPORTED
+
+load
+format: load (file path) (image name)
+example: load res/test.png test
+
+brighten
+format: brighten (image name) (value to change by) (new image name)
+example to brighten: brighten test 50 brighter
+example to darken: brighten test -50 darker
+
+horizontal flip
+format: horizontal-flip (image name) (new image name)
+example: horizontal-flip test hflip
+
+vertical flip
+format: vertical-flip (image name) (new image name)
+example: vertical-flip test vflip
+
+red-channel
+format: red-component (image name) (new image name)
+example: red-component test testRed
+
+green-channel
+format: green-component (image name) (new image name)
+example: green-component test testGreen
+
+blue-channel
+format: blue-component (image name) (new image name)
+example: blue-component test testBlue
+
+value-greyscale
+format: value-component (image name) (new image name)
+example: value-component test testValue
+
+intensity-greyscale
+format: intensity-component (image name) (new image name)
+example: intensity-component test intensity
+
+luma-greyscale
+format: luma-component (image name) (new image name)
+example: luma-component test testLuma
+
+blur
+format: blue (image name) (new image name)
+example: blur test blurred
+
+sharpen
+format: sharpen (image name) (new image name)
+example: sharpen test sharp
+
+make-greyscale
+format: make-greyscale (image name) (new image name)
+example: sharpen test grey
+
+make-sepia
+format: make-sepia (image name) (new image name)
+example: make-sepia test sepia
+
+save
+format: save (file path to save to) (image name to be saved)
+example: save res/testGrey.png grey

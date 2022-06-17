@@ -1,0 +1,16 @@
+COMMANDS
+load pics/test.png test
+brighten test 50 brighter save res/brighter.png brighter
+brighten test -50 darker save res/darker.png darker
+horizontal-flip test hflip save res/horizontalFlip.png hflip
+vertical-flip test vflip save res/verticalFlip.png vflip
+red-component test testRed save res/testRed.png testRed
+green-component test testGreen save res/testGreen.png testGreen
+blue-component test testBlue save res/testBlue.png testBlue
+value-component test testValue save res/testValue.png testValue
+intensity-component test intensity save res/testIntensity.png intensity
+luma-component test testLuma save res/testLuma.png testLuma
+blur test blurred save res/testBlur.png blurred
+sharpen test sharp save res/testSharpen.png sharp
+make-greyscale test grey save res/testGrey.png grey
+make-sepia test sepia save res/testSepia.png sepia\n

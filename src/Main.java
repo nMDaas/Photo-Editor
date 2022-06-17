@@ -17,6 +17,7 @@ public class Main {
    * @param args String input
    */
   public static void main(String[] args) {
+    System.out.println("starting program");
     Reader in = new InputStreamReader(System.in);
     //Readable in = new StringReader("load pics/themSepia.jpg sepia2\n");
     ImageProcessingView view = new ImageProcessingViewImpl();
