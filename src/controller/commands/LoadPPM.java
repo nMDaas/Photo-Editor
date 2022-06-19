@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import controller.ImageProcessingController;
+import model.ImageModelImpl;
 import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
@@ -16,6 +17,7 @@ import model.pixel.RGBPixel;
 public class LoadPPM {
   String filename;
   ImageProcessingController controller;
+  ImageProcessingModel model;
   Scanner scan;
 
   /**
@@ -25,8 +27,10 @@ public class LoadPPM {
    * @param controller the controller.
    * @param scan       the scanner.
    */
-  public LoadPPM(String filename, ImageProcessingController controller, Scanner scan) {
+  public LoadPPM(String filename, ImageProcessingModel model,
+                 ImageProcessingController controller, Scanner scan) {
     this.filename = filename;
+    this.model = model;
     this.controller = controller;
     this.scan = scan;
   }
@@ -83,8 +87,8 @@ public class LoadPPM {
         }
       }
 
-      ImageProcessingModel newModel = new ImageModel(height, width, imagePixels, maxValue);
-      controller.getImages().put(imageName, newModel);
+      ImageModel newModel = new ImageModelImpl(height, width, imagePixels, maxValue);
+      model.getImages().put(imageName, newModel);
       controller.printMessage("Loaded file as " + imageName + ".");
     } catch (IllegalStateException e) {
       controller.printMessage("Ran out of input");

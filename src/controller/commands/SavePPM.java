@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
 import controller.ImageProcessingController;
+import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
 
@@ -17,6 +18,7 @@ public class SavePPM {
 
   String image;
   ImageProcessingController controller;
+  ImageProcessingModel model;
   String path;
 
   /**
@@ -26,8 +28,10 @@ public class SavePPM {
    * @param path       the path name.
    * @param image      the image name.
    */
-  public SavePPM(String image, ImageProcessingController controller, String path) {
+  public SavePPM(String image, ImageProcessingModel model,
+                 ImageProcessingController controller, String path) {
     this.image = image;
+    this.model = model;
     this.controller = controller;
     this.path = path;
   }
@@ -36,7 +40,7 @@ public class SavePPM {
    * Helps to save the image.
    */
   public void saveFile() {
-    ImageProcessingModel image = controller.getImages().get(this.image);
+    ImageModel image = model.getImages().get(this.image);
     if (image == null) {
       controller.printMessage("This image does not exist.");
     }

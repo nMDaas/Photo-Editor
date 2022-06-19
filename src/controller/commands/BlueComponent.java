@@ -1,6 +1,7 @@
 package controller.commands;
 
 import controller.ImageProcessingController;
+import model.ImageModel;
 import model.ImageProcessingModel;
 
 /**
@@ -16,8 +17,9 @@ public class BlueComponent extends AbstractCommand {
    * @param controller the controller.
    * @param newImage   the new filename.
    */
-  public BlueComponent(String image, ImageProcessingController controller, String newImage) {
-    super(image, controller, newImage);
+  public BlueComponent(String image, ImageProcessingModel model,
+                       ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
   }
 
   /**
@@ -28,8 +30,8 @@ public class BlueComponent extends AbstractCommand {
    * @return the greyscale image with the blue-component of the image.
    */
   @Override
-  public ImageProcessingModel doCommand(ImageProcessingModel model,
-                                        ImageProcessingController controller) {
+  public ImageModel doCommand(ImageModel model,
+                              ImageProcessingController controller) {
     controller.printMessage(newImage + " created through blue channel of " + image + ".");
     return model.blueComponent();
   }

@@ -1,7 +1,7 @@
 package controller.commands;
 
 import controller.ImageProcessingController;
-import controller.commands.AbstractCommand;
+import model.ImageModel;
 import model.ImageProcessingModel;
 
 /**
@@ -16,8 +16,9 @@ public class VerticalFlip extends AbstractCommand {
    * @param controller the controller.
    * @param newImage   the new filename.
    */
-  public VerticalFlip(String image, ImageProcessingController controller, String newImage) {
-    super(image, controller, newImage);
+  public VerticalFlip(String image, ImageProcessingModel model,
+                        ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
   }
 
   /**
@@ -28,8 +29,8 @@ public class VerticalFlip extends AbstractCommand {
    * @return the flipped image.
    */
   @Override
-  public ImageProcessingModel doCommand(ImageProcessingModel model,
-                                        ImageProcessingController controller) {
+  public ImageModel doCommand(ImageModel model,
+                              ImageProcessingController controller) {
     controller.printMessage(newImage + " created by vertically flipping " + image + ".");
     return model.flipVertical();
   }

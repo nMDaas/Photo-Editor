@@ -1,6 +1,7 @@
 package controller.commands;
 
 import controller.ImageProcessingController;
+import model.ImageProcessingModel;
 
 /**
  * Represents the save class which helps create an image by saving it.
@@ -9,6 +10,7 @@ public class Save implements ImageProcessingCommand {
 
   String image;
   ImageProcessingController controller;
+  ImageProcessingModel model;
   String path;
 
   /**
@@ -18,19 +20,24 @@ public class Save implements ImageProcessingCommand {
    * @param path       the path name.
    * @param image      the image name.
    */
-  public Save(ImageProcessingController controller, String path, String image) {
+  public Save(ImageProcessingModel model, ImageProcessingController controller,
+              String path, String image) {
     if (path.equals("")) {
       throw new IllegalArgumentException("Invalid file path..");
     }
     if (image.equals("")) {
       throw new IllegalArgumentException("Image name cannot be empty.");
     }
-    if (controller == null) {
-      throw new IllegalArgumentException("Controller and scanner cannot be null.");
+    if (controller == null ) {
+      throw new IllegalArgumentException("Controller cannot be null.");
+    }
+    if (model == null) {
+      throw new IllegalArgumentException("Model cannot be null.");
     }
     this.image = image;
     this.controller = controller;
     this.path = path;
+    this.model = model;
   }
 
   /**
@@ -41,14 +48,14 @@ public class Save implements ImageProcessingCommand {
 
     String fileFormat = path.substring(path.length() - 4, path.length());
     if (fileFormat.contains("ppm")) {
-      new SavePPM(image, controller, path).saveFile();
+      new SavePPM(image, model, controller, path).saveFile();
     }
     else if (fileFormat.contains("jpeg") ||
             fileFormat.contains("jpg")) {
-      new SaveJPEG(image, controller, path).saveFile();
+      new SaveJPEG(image, model, controller, path).saveFile();
     }
     else if (fileFormat.contains("png")) {
-      new SavePNG(image, controller, path).saveFile();
+      new SavePNG(image, model, controller, path).saveFile();
     }
     else {
       controller.printMessage("File format is not supported.");

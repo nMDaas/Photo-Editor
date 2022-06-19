@@ -1,13 +1,13 @@
 import java.util.Objects;
 
-import model.ImageProcessingModel;
+import model.ImageModel;
 import model.pixel.Pixel;
 
 /**
  * A MockModel created to test the controller in isolation. This returns log
  * values to check correct pass of input.
  */
-public class MockModel implements ImageProcessingModel {
+public class MockModel implements ImageModel {
 
   final StringBuilder log;
 
@@ -22,52 +22,52 @@ public class MockModel implements ImageProcessingModel {
 
 
   @Override
-  public ImageProcessingModel createCopy() {
+  public ImageModel createCopy() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel redComponent() {
+  public ImageModel redComponent() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel greenComponent() {
+  public ImageModel greenComponent() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel blueComponent() {
+  public ImageModel blueComponent() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel valueComponent() {
+  public ImageModel valueComponent() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel intensityComponent() {
+  public ImageModel intensityComponent() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel lumaComponent() {
+  public ImageModel lumaComponent() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel flipHorizontal() {
+  public ImageModel flipHorizontal() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel flipVertical() {
+  public ImageModel flipVertical() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel brighten(int val) {
+  public ImageModel brighten(int val) {
     log.append(String.format("brighten by = " + val));
     return null;
   }
@@ -99,22 +99,22 @@ public class MockModel implements ImageProcessingModel {
   }
 
   @Override
-  public ImageProcessingModel blurImage() {
+  public ImageModel blurImage() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel sharpenImage() {
+  public ImageModel sharpenImage() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel setGreyscale() {
+  public ImageModel setGreyscale() {
     return null;
   }
 
   @Override
-  public ImageProcessingModel setSepia() {
+  public ImageModel setSepia() {
     return null;
   }
 }

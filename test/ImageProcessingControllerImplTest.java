@@ -7,8 +7,8 @@ import java.util.Map;
 
 import controller.ImageProcessingController;
 import controller.ImageProcessingControllerImpl;
+import model.ImageModelImpl;
 import model.ImageModel;
-import model.ImageProcessingModel;
 import model.pixel.Pixel;
 import model.pixel.RGBPixel;
 import view.ImageProcessingView;
@@ -33,7 +33,7 @@ public class ImageProcessingControllerImplTest {
   ImageProcessingControllerImpl c3;
   ImageProcessingControllerImpl c4;
 
-  ImageProcessingModel fourBy4;
+  ImageModel fourBy4;
   Pixel blackLuma;
   Pixel greenPixel;
   Pixel pinkLuma;
@@ -63,7 +63,7 @@ public class ImageProcessingControllerImplTest {
     fourBy4Pixels[3][2] = blackLuma;
     fourBy4Pixels[3][3] = blackLuma;
 
-    fourBy4 = new ImageModel(4, 4, fourBy4Pixels, 255);
+    fourBy4 = new ImageModelImpl(4, 4, fourBy4Pixels, 255);
   }
 
   @Test
@@ -177,7 +177,7 @@ public class ImageProcessingControllerImplTest {
     c.process();
 
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("test").getHeight());
     assertEquals(4, images.get("test").getWidth());
     assertEquals(255, images.get("test").getMax());
@@ -299,7 +299,7 @@ public class ImageProcessingControllerImplTest {
     Pixel greenBrighten = new RGBPixel(40, 159, 255);
 
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("brighten").getHeight());
     assertEquals(4, images.get("brighten").getWidth());
     assertEquals(255, images.get("brighten").getMax());
@@ -487,7 +487,7 @@ public class ImageProcessingControllerImplTest {
     c.process();
 
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("test-horizontal").getHeight());
     assertEquals(4, images.get("test-horizontal").getWidth());
     assertEquals(255, images.get("test-horizontal").getMax());
@@ -521,7 +521,7 @@ public class ImageProcessingControllerImplTest {
     c.process();
 
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("test43-horizontal").getHeight());
     assertEquals(3, images.get("test43-horizontal").getWidth());
     assertEquals(255, images.get("test43-horizontal").getMax());
@@ -551,7 +551,7 @@ public class ImageProcessingControllerImplTest {
     c.process();
 
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(3, images.get("test34-horizontal").getHeight());
     assertEquals(4, images.get("test34-horizontal").getWidth());
     assertEquals(255, images.get("test34-horizontal").getMax());
@@ -663,7 +663,7 @@ public class ImageProcessingControllerImplTest {
     c.process();
 
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("test-vertical").getHeight());
     assertEquals(4, images.get("test-vertical").getWidth());
     assertEquals(255, images.get("test-vertical").getMax());
@@ -697,7 +697,7 @@ public class ImageProcessingControllerImplTest {
     c.process();
 
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("test43-vertical").getHeight());
     assertEquals(3, images.get("test43-vertical").getWidth());
     assertEquals(255, images.get("test43-vertical").getMax());
@@ -727,7 +727,7 @@ public class ImageProcessingControllerImplTest {
     c.process();
 
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(3, images.get("test34-vertical").getHeight());
     assertEquals(4, images.get("test34-vertical").getWidth());
     assertEquals(255, images.get("test34-vertical").getMax());
@@ -859,7 +859,7 @@ public class ImageProcessingControllerImplTest {
     Pixel greenRed = new RGBPixel(0, 0, 0);
 
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("test-red").getHeight());
     assertEquals(4, images.get("test-red").getWidth());
     assertEquals(255, images.get("test-red").getMax());
@@ -975,7 +975,7 @@ public class ImageProcessingControllerImplTest {
     Pixel greenGreen = new RGBPixel(255, 255, 255);
 
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("test-green").getHeight());
     assertEquals(4, images.get("test-green").getWidth());
     assertEquals(255, images.get("test-green").getMax());
@@ -1091,7 +1091,7 @@ public class ImageProcessingControllerImplTest {
     Pixel pinkBlue = new RGBPixel(255, 255, 255);
 
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("test-blue").getHeight());
     assertEquals(4, images.get("test-blue").getWidth());
     assertEquals(255, images.get("test-blue").getMax());
@@ -1244,7 +1244,7 @@ public class ImageProcessingControllerImplTest {
     Pixel pinkValue = new RGBPixel(255, 255, 255);
     Pixel greenValue = new RGBPixel(255, 255, 255);
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("value").getHeight());
     assertEquals(4, images.get("value").getWidth());
     assertEquals(255, images.get("value").getMax());
@@ -1355,7 +1355,7 @@ public class ImageProcessingControllerImplTest {
     Pixel pinkIntensity = new RGBPixel(170, 170, 170);
     Pixel greenIntensity = new RGBPixel(125, 125, 125);
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("intensity").getHeight());
     assertEquals(4, images.get("intensity").getWidth());
     assertEquals(170, images.get("intensity").getMax());
@@ -1440,7 +1440,7 @@ public class ImageProcessingControllerImplTest {
     Pixel pinkLuma = new RGBPixel(73, 73, 73);
     Pixel greenLuma = new RGBPixel(191, 191, 191);
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("luma").getHeight());
     assertEquals(4, images.get("luma").getWidth());
     assertEquals(191, images.get("luma").getMax());
@@ -1523,7 +1523,7 @@ public class ImageProcessingControllerImplTest {
     Pixel pinkLuma = new RGBPixel(73, 73, 73);
     Pixel greenLuma = new RGBPixel(191, 191, 191);
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("grey").getHeight());
     assertEquals(4, images.get("grey").getWidth());
     assertEquals(191, images.get("grey").getMax());
@@ -1606,7 +1606,7 @@ public class ImageProcessingControllerImplTest {
     Pixel pinkSepia = new RGBPixel(148, 103, 132);
     Pixel greenSepia = new RGBPixel(219, 152, 195);
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(4, images.get("sepia").getHeight());
     assertEquals(4, images.get("sepia").getWidth());
     assertEquals(219, images.get("sepia").getMax());
@@ -1874,7 +1874,7 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
 
-    Map<String, ImageProcessingModel> images = c.getImages();
+    Map<String, ImageModel> images = c.getModelImages();
     assertEquals(2, images.size());
     assertEquals(4, images.get("test").getHeight());
     assertEquals(4, images.get("test").getWidth());

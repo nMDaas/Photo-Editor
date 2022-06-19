@@ -3,6 +3,7 @@ package controller.commands;
 import java.util.Map;
 
 import controller.ImageProcessingController;
+import model.ImageModel;
 import model.ImageProcessingModel;
 
 /**
@@ -10,6 +11,7 @@ import model.ImageProcessingModel;
  */
 abstract public class AbstractCommand implements ImageProcessingCommand {
   protected String image;
+  protected ImageProcessingModel model;
   protected ImageProcessingController controller;
   protected String newImage;
 
@@ -17,22 +19,27 @@ abstract public class AbstractCommand implements ImageProcessingCommand {
    * Constructs a {@code AbstractCommand} with its fields initialized to themselves.
    *
    * @param image      the name of the image the user is trying to manipulate.
-   * @param controller the controller.
+   * @param model       the ImageProcessingModel.
    * @param newImage   the new filename.
    */
-  public AbstractCommand(String image, ImageProcessingController controller, String newImage) {
+  public AbstractCommand(String image, ImageProcessingModel model,
+                         ImageProcessingController controller, String newImage) {
     if (image.equals("")) {
       throw new IllegalArgumentException("Image with no name does not exist.");
     }
     if (newImage.equals("")) {
       throw new IllegalArgumentException("New filename cannot be empty.");
     }
+    if (model == null) {
+      throw new IllegalArgumentException("Model cannot be null.");
+    }
     if (controller == null) {
       throw new IllegalArgumentException("Controller cannot be null.");
     }
     this.image = image;
-    this.controller = controller;
+    this.model = model;
     this.newImage = newImage;
+    this.controller = controller;
   }
 
   /**
@@ -40,12 +47,12 @@ abstract public class AbstractCommand implements ImageProcessingCommand {
    */
   @Override
   public void execute() {
-    Map<String, ImageProcessingModel> images = controller.getImages();
-    ImageProcessingModel model = images.get(image);
+    Map<String, ImageModel> images = model.getImages();
+    ImageModel model = images.get(image);
     if (model == null) {
       throw new IllegalArgumentException("This image does not exist.");
     }
-    ImageProcessingModel modifiedModel = doCommand(model, controller);
+    ImageModel modifiedModel = doCommand(model, controller);
     images.put(newImage, modifiedModel);
   }
 
@@ -56,6 +63,6 @@ abstract public class AbstractCommand implements ImageProcessingCommand {
    * @param control the ImageProcessingController to be passed
    * @return a new ImageProcessingModel
    */
-  abstract protected ImageProcessingModel doCommand(ImageProcessingModel model,
-                                                    ImageProcessingController control);
+  abstract protected ImageModel doCommand(ImageModel model,
+                                          ImageProcessingController control);
 }

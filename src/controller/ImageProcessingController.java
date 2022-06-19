@@ -2,7 +2,7 @@ package controller;
 
 import java.util.Map;
 
-import model.ImageProcessingModel;
+import model.ImageModel;
 
 /**
  * This interface represents the operations offered by the image processing controller. These
@@ -22,7 +22,7 @@ public interface ImageProcessingController {
    *
    * @return the hashmap of stored images.
    */
-  Map<String, ImageProcessingModel> getImages();
+  Map<String, ImageModel> getModelImages();
 
   /**
    * Prints the message according the input.

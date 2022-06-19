@@ -1,6 +1,7 @@
 package controller.commands;
 
 import controller.ImageProcessingController;
+import model.ImageModel;
 import model.ImageProcessingModel;
 
 /**
@@ -14,8 +15,9 @@ public class Sharpen extends AbstractCommand {
    * @param controller the controller
    * @param newImage the name of the edited image
    */
-  public Sharpen(String image, ImageProcessingController controller, String newImage) {
-    super(image, controller, newImage);
+  public Sharpen(String image, ImageProcessingModel model,
+                        ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
   }
 
   /**
@@ -26,8 +28,8 @@ public class Sharpen extends AbstractCommand {
    * @return a new ImageProcessingModel
    */
   @Override
-  protected ImageProcessingModel doCommand(ImageProcessingModel model,
-                                           ImageProcessingController control) {
+  protected ImageModel doCommand(ImageModel model,
+                                 ImageProcessingController control) {
     controller.printMessage(newImage + " created by sharpening " + image + ".");
     return model.sharpenImage();
   }

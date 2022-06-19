@@ -1,6 +1,6 @@
 package model.commands;
 
-import model.ImageProcessingModel;
+import model.ImageModel;
 import model.pixel.Pixel;
 
 /**
@@ -15,8 +15,8 @@ abstract public class PixelWiseProcessor {
    * @param model the model being manipulated.
    * @return the new ImageProcessingModel.
    */
-  public ImageProcessingModel changePixels(ImageProcessingModel model) {
-    ImageProcessingModel newImage = model.createCopy();
+  public ImageModel changePixels(ImageModel model) {
+    ImageModel newImage = model.createCopy();
 
     for (int row = 0; row <= (newImage.getHeight() - 1); row = row + 1) {
       for (int col = 0; col <= (newImage.getWidth() - 1); col = col + 1) {

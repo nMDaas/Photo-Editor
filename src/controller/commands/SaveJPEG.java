@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import controller.ImageProcessingController;
+import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
 
@@ -21,6 +22,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 public class SaveJPEG {
   String image;
   ImageProcessingController controller;
+  ImageProcessingModel model;
   String path;
 
   /**
@@ -30,8 +32,10 @@ public class SaveJPEG {
    * @param path       the path name.
    * @param image      the image name.
    */
-  public SaveJPEG(String image, ImageProcessingController controller, String path) {
+  public SaveJPEG(String image, ImageProcessingModel model,
+                  ImageProcessingController controller, String path) {
     this.image = image;
+    this.model = model;
     this.controller = controller;
     this.path = path;
   }
@@ -40,7 +44,7 @@ public class SaveJPEG {
    * Helps to save the image.
    */
   public void saveFile() {
-    ImageProcessingModel theImage = controller.getImages().get(this.image);
+    ImageModel theImage = model.getImages().get(this.image);
     if (image == null) {
       controller.printMessage("This image does not exist.");
     }

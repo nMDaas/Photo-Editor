@@ -10,6 +10,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 import controller.ImageProcessingController;
+import model.ImageModelImpl;
 import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
@@ -21,6 +22,7 @@ import model.pixel.RGBPixel;
 public class LoadJPEGPNG {
   String filename;
   ImageProcessingController controller;
+  ImageProcessingModel model;
   Scanner scan;
 
   /**
@@ -30,8 +32,10 @@ public class LoadJPEGPNG {
    * @param controller the controller.
    * @param scan       the scanner.
    */
-  public LoadJPEGPNG(String filename, ImageProcessingController controller, Scanner scan) {
+  public LoadJPEGPNG(String filename, ImageProcessingModel model,
+                     ImageProcessingController controller, Scanner scan) {
     this.filename = filename;
+    this.model = model;
     this.controller = controller;
     this.scan = scan;
   }
@@ -78,11 +82,11 @@ public class LoadJPEGPNG {
 
       int maxValue = 0;
 
-      ImageProcessingModel newModel = new ImageModel(height, width, imagePixels, maxValue);
+      ImageModel newModel = new ImageModelImpl(height, width, imagePixels, maxValue);
       maxValue = newModel.getMax();
-      newModel = new ImageModel(height, width, imagePixels, maxValue);
+      newModel = new ImageModelImpl(height, width, imagePixels, maxValue);
 
-      controller.getImages().put(imageName, newModel);
+      model.getImages().put(imageName, newModel);
       controller.printMessage("Loaded file as " + imageName + ".");
     } catch (IllegalStateException e) {
       controller.printMessage("Ran out of input");

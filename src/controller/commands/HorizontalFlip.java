@@ -1,6 +1,7 @@
 package controller.commands;
 
 import controller.ImageProcessingController;
+import model.ImageModel;
 import model.ImageProcessingModel;
 
 /**
@@ -16,8 +17,9 @@ public class HorizontalFlip extends AbstractCommand {
    * @param controller the controller.
    * @param newImage   the new filename.
    */
-  public HorizontalFlip(String image, ImageProcessingController controller, String newImage) {
-    super(image, controller, newImage);
+  public HorizontalFlip(String image, ImageProcessingModel model,
+                        ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
   }
 
   /**
@@ -28,8 +30,8 @@ public class HorizontalFlip extends AbstractCommand {
    * @return the flipped image.
    */
   @Override
-  public ImageProcessingModel doCommand(ImageProcessingModel model,
-                                        ImageProcessingController controller) {
+  public ImageModel doCommand(ImageModel model,
+                              ImageProcessingController controller) {
     controller.printMessage(newImage + " created by horizontally flipping " + image + ".");
     return model.flipHorizontal();
   }

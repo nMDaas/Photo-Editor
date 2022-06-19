@@ -23,7 +23,9 @@ import controller.commands.Save;
 import controller.commands.Sharpen;
 import controller.commands.ValueComponent;
 import controller.commands.VerticalFlip;
+import model.ImageModel;
 import model.ImageProcessingModel;
+import model.ImageProcessingModelImpl;
 import view.ImageProcessingView;
 
 /**
@@ -36,8 +38,9 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   private final ImageProcessingView view;
   public final Readable in;
   private final Scanner scan;
+  private final ImageProcessingModel model = new ImageProcessingModelImpl();
 
-  Map<String, ImageProcessingModel> images = new HashMap<>();
+  //Map<String, ImageModel> images = new HashMap<>();
 
   Map<String, Function<Scanner, ImageProcessingCommand>> knownCommands = new HashMap<>();
 
@@ -62,35 +65,35 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     scan = new Scanner(this.in);
 
     knownCommands.put("load",
-        scan -> new Load(scan.next(), this, scan));
+        scan -> new Load(scan.next(), model, this, scan));
     knownCommands.put("brighten",
-        scan -> new Brighten(scan.next(), this, scan.nextInt(), scan.next()));
+        scan -> new Brighten(scan.next(), model, this, scan.nextInt(), scan.next()));
     knownCommands.put("horizontal-flip",
-        scan -> new HorizontalFlip(scan.next(), this, scan.next()));
+        scan -> new HorizontalFlip(scan.next(), model, this, scan.next()));
     knownCommands.put("vertical-flip",
-        scan -> new VerticalFlip(scan.next(), this, scan.next()));
+        scan -> new VerticalFlip(scan.next(), model, this, scan.next()));
     knownCommands.put("red-component",
-        scan -> new RedComponent(scan.next(), this, scan.next()));
+        scan -> new RedComponent(scan.next(), model, this, scan.next()));
     knownCommands.put("green-component",
-        scan -> new GreenComponent(scan.next(), this, scan.next()));
+        scan -> new GreenComponent(scan.next(), model, this, scan.next()));
     knownCommands.put("blue-component",
-        scan -> new BlueComponent(scan.next(), this, scan.next()));
+        scan -> new BlueComponent(scan.next(), model, this, scan.next()));
     knownCommands.put("value-component",
-        scan -> new ValueComponent(scan.next(), this, scan.next()));
+        scan -> new ValueComponent(scan.next(), model, this, scan.next()));
     knownCommands.put("intensity-component",
-        scan -> new IntensityComponent(scan.next(), this, scan.next()));
+        scan -> new IntensityComponent(scan.next(), model, this, scan.next()));
     knownCommands.put("luma-component",
-        scan -> new LumaComponent(scan.next(), this, scan.next()));
+        scan -> new LumaComponent(scan.next(), model, this, scan.next()));
     knownCommands.put("save",
-        scan -> new Save(this, scan.next(), scan.next()));
+        scan -> new Save(model, this, scan.next(), scan.next()));
     knownCommands.put("blur",
-        scan -> new Blur(scan.next(), this, scan.next()));
+        scan -> new Blur(scan.next(), model, this, scan.next()));
     knownCommands.put("sharpen",
-        scan -> new Sharpen(scan.next(), this, scan.next()));
+        scan -> new Sharpen(scan.next(), model, this, scan.next()));
     knownCommands.put("make-greyscale",
-        scan -> new MakeGreyscale(scan.next(), this, scan.next()));
+        scan -> new MakeGreyscale(scan.next(), model, this, scan.next()));
     knownCommands.put("make-sepia",
-        scan -> new MakeSepia(scan.next(), this, scan.next()));
+        scan -> new MakeSepia(scan.next(), model, this, scan.next()));
   }
 
   /**
@@ -140,8 +143,8 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
    *
    * @return the hashmap of stored images.
    */
-  public Map<String, ImageProcessingModel> getImages() {
-    return this.images;
+  public Map<String, ImageModel> getModelImages() {
+    return this.model.getImages();
   }
 
 

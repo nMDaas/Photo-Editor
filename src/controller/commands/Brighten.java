@@ -1,6 +1,7 @@
 package controller.commands;
 
 import controller.ImageProcessingController;
+import model.ImageModel;
 import model.ImageProcessingModel;
 
 /**
@@ -19,8 +20,9 @@ public class Brighten extends AbstractCommand {
    * @param value      the brightness value the image is manipulated by.
    * @param newImage   the new filename.
    */
-  public Brighten(String image, ImageProcessingController controller, int value, String newImage) {
-    super(image, controller, newImage);
+  public Brighten(String image, ImageProcessingModel model,
+                  ImageProcessingController controller, int value, String newImage) {
+    super(image, model, controller, newImage);
     this.value = value;
   }
 
@@ -32,8 +34,8 @@ public class Brighten extends AbstractCommand {
    * @return the brightened image.
    */
   @Override
-  public ImageProcessingModel doCommand(ImageProcessingModel model,
-                                        ImageProcessingController controller) {
+  public ImageModel doCommand(ImageModel model,
+                              ImageProcessingController controller) {
     controller.printMessage(newImage + " created by changing brightness of " + image + ".");
     return model.brighten(this.value);
   }

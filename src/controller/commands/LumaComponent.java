@@ -1,7 +1,7 @@
 package controller.commands;
 
 import controller.ImageProcessingController;
-import controller.commands.AbstractCommand;
+import model.ImageModel;
 import model.ImageProcessingModel;
 
 /**
@@ -17,8 +17,9 @@ public class LumaComponent extends AbstractCommand {
    * @param controller the controller.
    * @param newImage   the new filename.
    */
-  public LumaComponent(String image, ImageProcessingController controller, String newImage) {
-    super(image, controller, newImage);
+  public LumaComponent(String image, ImageProcessingModel model,
+                        ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
   }
 
   /**
@@ -29,8 +30,8 @@ public class LumaComponent extends AbstractCommand {
    * @return the greyscale image with the luma-component of the image.
    */
   @Override
-  public ImageProcessingModel doCommand(ImageProcessingModel model,
-                                        ImageProcessingController controller) {
+  public ImageModel doCommand(ImageModel model,
+                              ImageProcessingController controller) {
     controller.printMessage(newImage + " created through luma greyscale of " + image + ".");
     return model.lumaComponent();
   }

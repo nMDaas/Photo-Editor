@@ -1,8 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import model.ImageModelImpl;
 import model.ImageModel;
-import model.ImageProcessingModel;
 import model.pixel.Pixel;
 import model.pixel.RGBPixel;
 
@@ -20,7 +20,7 @@ public class ImageModelTest {
   Pixel pixel5;
   Pixel pixel6;
   Pixel[][] pixels;
-  ImageProcessingModel model;
+  ImageModel model;
 
   @Before
   public void setUp() {
@@ -36,15 +36,15 @@ public class ImageModelTest {
     pixels[0][1] = pixel2;
     pixels[1][0] = pixel3;
     pixels[1][1] = pixel4;
-    model = new ImageModel(2, 2, pixels, 10);
+    model = new ImageModelImpl(2, 2, pixels, 10);
   }
 
   // tests for constructor
 
   @Test
   public void testConstructor1() {
-    ImageProcessingModel model =
-            new ImageModel(10, 10, new Pixel[10][10], 255);
+    ImageModel model =
+            new ImageModelImpl(10, 10, new Pixel[10][10], 255);
 
     assertEquals(10, model.getWidth());
     assertEquals(10, model.getHeight());
@@ -52,37 +52,37 @@ public class ImageModelTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testDisallowsNullPixels() {
-    ImageProcessingModel model =
-            new ImageModel(10, 10, null, 255);
+    ImageModel model =
+            new ImageModelImpl(10, 10, null, 255);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testDisallowsNegHeight() {
-    ImageProcessingModel model =
-            new ImageModel(-1, 10, new Pixel[10][10], 255);
+    ImageModel model =
+            new ImageModelImpl(-1, 10, new Pixel[10][10], 255);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testDisallowsNegWidth() {
-    ImageProcessingModel model =
-            new ImageModel(10, -1, new Pixel[10][10], 255);
+    ImageModel model =
+            new ImageModelImpl(10, -1, new Pixel[10][10], 255);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testDisallowsNegMax() {
-    ImageProcessingModel model =
-            new ImageModel(10, 10, new Pixel[10][10], -1);
+    ImageModel model =
+            new ImageModelImpl(10, 10, new Pixel[10][10], -1);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testDisallowsInvalidMax() {
-    ImageProcessingModel model =
-            new ImageModel(10, 10, new Pixel[10][10], 256);
+    ImageModel model =
+            new ImageModelImpl(10, 10, new Pixel[10][10], 256);
   }
 
   @Test
   public void testCreateCopy() {
-    ImageProcessingModel copy = model.createCopy();
+    ImageModel copy = model.createCopy();
 
     assertEquals(2, copy.getHeight());
     assertEquals(2, copy.getWidth());
@@ -101,7 +101,7 @@ public class ImageModelTest {
 
   @Test
   public void testRedComponent() {
-    ImageProcessingModel modelRed = model.redComponent();
+    ImageModel modelRed = model.redComponent();
 
     assertEquals(2, modelRed.getHeight());
     assertEquals(2, modelRed.getWidth());
@@ -120,7 +120,7 @@ public class ImageModelTest {
 
   @Test
   public void testGreenComponent() {
-    ImageProcessingModel modelGreen = model.greenComponent();
+    ImageModel modelGreen = model.greenComponent();
 
     assertEquals(2, modelGreen.getHeight());
     assertEquals(2, modelGreen.getWidth());
@@ -139,7 +139,7 @@ public class ImageModelTest {
 
   @Test
   public void testBlueComponent() {
-    ImageProcessingModel modelBlue = model.blueComponent();
+    ImageModel modelBlue = model.blueComponent();
 
     assertEquals(2, modelBlue.getHeight());
     assertEquals(2, modelBlue.getWidth());
@@ -158,7 +158,7 @@ public class ImageModelTest {
 
   @Test
   public void testValueComponent() {
-    ImageProcessingModel modelValue = model.valueComponent();
+    ImageModel modelValue = model.valueComponent();
 
     assertEquals(2, modelValue.getHeight());
     assertEquals(2, modelValue.getWidth());
@@ -177,7 +177,7 @@ public class ImageModelTest {
 
   @Test
   public void testIntensityComponent() {
-    ImageProcessingModel modelIntensity = model.intensityComponent();
+    ImageModel modelIntensity = model.intensityComponent();
 
     assertEquals(2, modelIntensity.getHeight());
     assertEquals(2, modelIntensity.getWidth());
@@ -196,7 +196,7 @@ public class ImageModelTest {
 
   @Test
   public void testLumaComponent() {
-    ImageProcessingModel modelLuma = model.lumaComponent();
+    ImageModel modelLuma = model.lumaComponent();
 
     assertEquals(modelLuma.getHeight(), 2);
     assertEquals(modelLuma.getWidth(), 2);
@@ -223,11 +223,11 @@ public class ImageModelTest {
     pixelsOriginal[1][1] = pixel5;
     pixelsOriginal[1][2] = pixel6;
 
-    ImageProcessingModel modelOriginal =
-            new ImageModel(2, 3, pixelsOriginal, 10);
+    ImageModel modelOriginal =
+            new ImageModelImpl(2, 3, pixelsOriginal, 10);
 
 
-    ImageProcessingModel modelFlipped = modelOriginal.flipHorizontal();
+    ImageModel modelFlipped = modelOriginal.flipHorizontal();
 
     assertEquals(2, modelFlipped.getHeight());
     assertEquals(3, modelFlipped.getWidth());
@@ -250,7 +250,7 @@ public class ImageModelTest {
 
   @Test
   public void testFlipHorizontalEvenWidth() {
-    ImageProcessingModel modelFlipped = model.flipHorizontal();
+    ImageModel modelFlipped = model.flipHorizontal();
 
     assertEquals(2, modelFlipped.getHeight());
     assertEquals(2, modelFlipped.getWidth());
@@ -278,11 +278,11 @@ public class ImageModelTest {
     pixelsOriginal[2][0] = pixel5;
     pixelsOriginal[2][1] = pixel6;
 
-    ImageProcessingModel modelOriginal =
-            new ImageModel(3, 2, pixelsOriginal, 10);
+    ImageModel modelOriginal =
+            new ImageModelImpl(3, 2, pixelsOriginal, 10);
 
 
-    ImageProcessingModel modelFlipped = modelOriginal.flipVertical();
+    ImageModel modelFlipped = modelOriginal.flipVertical();
 
     assertEquals(3, modelFlipped.getHeight());
     assertEquals(2, modelFlipped.getWidth());
@@ -305,7 +305,7 @@ public class ImageModelTest {
 
   @Test
   public void testFlipVerticalEvenWidth() {
-    ImageProcessingModel modelFlipped = model.flipVertical();
+    ImageModel modelFlipped = model.flipVertical();
 
     assertEquals(2, modelFlipped.getHeight());
     assertEquals(2, modelFlipped.getWidth());
@@ -324,7 +324,7 @@ public class ImageModelTest {
 
   @Test
   public void testBrightenPositive() {
-    ImageProcessingModel modelBright = model.brighten(10);
+    ImageModel modelBright = model.brighten(10);
 
     assertEquals(2, modelBright.getHeight());
     assertEquals(2, modelBright.getWidth());
@@ -343,7 +343,7 @@ public class ImageModelTest {
 
   @Test
   public void testBrightenPositive2() {
-    ImageProcessingModel modelBright = model.brighten(246);
+    ImageModel modelBright = model.brighten(246);
 
     assertEquals(2, modelBright.getHeight());
     assertEquals(2, modelBright.getWidth());
@@ -362,7 +362,7 @@ public class ImageModelTest {
 
   @Test
   public void testBrightenNegative() {
-    ImageProcessingModel modelDark = model.brighten(-5);
+    ImageModel modelDark = model.brighten(-5);
 
     assertEquals(2, modelDark.getHeight());
     assertEquals(2, modelDark.getWidth());
@@ -389,10 +389,10 @@ public class ImageModelTest {
     pixelsOriginal[1][1] = pixel5;
     pixelsOriginal[1][2] = pixel6;
 
-    ImageProcessingModel modelOriginal =
-            new ImageModel(2, 3, pixelsOriginal, 10);
+    ImageModel modelOriginal =
+            new ImageModelImpl(2, 3, pixelsOriginal, 10);
 
-    ImageProcessingModel blurredModel = modelOriginal.blurImage();
+    ImageModel blurredModel = modelOriginal.blurImage();
 
     assertEquals(new RGBPixel(2, 2, 2), blurredModel.getPixelAt(0, 0));
     assertEquals(new RGBPixel(1, 3, 2), blurredModel.getPixelAt(0, 1));
@@ -424,10 +424,10 @@ public class ImageModelTest {
     pixelsOriginal[2][1] = new RGBPixel(255, 255, 255);
     pixelsOriginal[2][2] = new RGBPixel(255, 255, 255);
 
-    ImageProcessingModel modelOriginal =
-            new ImageModel(3, 3, pixelsOriginal, 10);
+    ImageModel modelOriginal =
+            new ImageModelImpl(3, 3, pixelsOriginal, 10);
 
-    ImageProcessingModel blurredModel = modelOriginal.blurImage();
+    ImageModel blurredModel = modelOriginal.blurImage();
 
     assertEquals(new RGBPixel(143, 143, 143), blurredModel.getPixelAt(0, 0));
     assertEquals(new RGBPixel(191, 191, 191), blurredModel.getPixelAt(0, 1));
@@ -468,10 +468,10 @@ public class ImageModelTest {
     pixelsOriginal[2][2] = new RGBPixel(255, 11, 16);
     pixelsOriginal[2][3] = new RGBPixel(10, 11, 11);
 
-    ImageProcessingModel modelOriginal =
-            new ImageModel(3, 4, pixelsOriginal, 255);
+    ImageModel modelOriginal =
+            new ImageModelImpl(3, 4, pixelsOriginal, 255);
 
-    ImageProcessingModel sharpModel = modelOriginal.sharpenImage();
+    ImageModel sharpModel = modelOriginal.sharpenImage();
 
     assertEquals(new RGBPixel(0, 0, 8), sharpModel.getPixelAt(0, 0));
     assertEquals(new RGBPixel(0, 0, 0), sharpModel.getPixelAt(0, 1));
@@ -505,7 +505,7 @@ public class ImageModelTest {
 
   @Test
   public void testSetGreyscale() {
-    ImageProcessingModel modelGreyscale = model.setGreyscale();
+    ImageModel modelGreyscale = model.setGreyscale();
 
     assertEquals(2, modelGreyscale.getHeight());
     assertEquals(2, modelGreyscale.getWidth());
@@ -530,7 +530,7 @@ public class ImageModelTest {
 
   @Test
   public void testSetSepia() {
-    ImageProcessingModel modelSepia = model.setSepia();
+    ImageModel modelSepia = model.setSepia();
 
     assertEquals(modelSepia.getHeight(), 2);
     assertEquals(modelSepia.getWidth(), 2);
@@ -561,10 +561,10 @@ public class ImageModelTest {
   public void testGetMax() {
     assertEquals(10, model.getMax());
 
-    ImageProcessingModel brighter = model.brighten(15);
+    ImageModel brighter = model.brighten(15);
     assertEquals(25, brighter.getMax());
 
-    ImageProcessingModel darker = brighter.brighten(-5);
+    ImageModel darker = brighter.brighten(-5);
     assertEquals(20, darker.getMax());
   }
 
