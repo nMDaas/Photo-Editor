@@ -1,15 +1,8 @@
 package controller.commands;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 import controller.ImageProcessingController;
-import model.ImageModel;
-import model.ImageProcessingModel;
-import model.pixel.Pixel;
-import model.pixel.RGBPixel;
 
 /**
  * Represents the load class which helps create an image by loading it.
@@ -39,7 +32,7 @@ public class Load implements ImageProcessingCommand {
   }
 
   /**
-   * Helps to load the image.
+   * Helps to load the image depending on the file type.
    */
   @Override
   public void execute() {

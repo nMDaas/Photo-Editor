@@ -3,7 +3,7 @@ package model.commands;
 import model.pixel.Pixel;
 
 /**
- * Represents the class that changes the image to greyscale based on its green component.
+ * Represents the command class that changes the image to greyscale based on its green component.
  */
 public class MakeGreen extends PixelWiseProcessor {
 

@@ -142,6 +142,31 @@ public class ImageProcessingControllerImplTest {
     assertEquals("Loaded file as smallNew.", finalOut);
   }
 
+  @Test
+  public void testLoadJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg portrait\n");
+    StringBuilder dontCareOutput = new StringBuilder();
+    ImageProcessingViewImpl view = new ImageProcessingViewImpl(dontCareOutput);
+    ImageProcessingControllerImpl controller = new ImageProcessingControllerImpl(in, view);
+    controller.process();
+    String outString = dontCareOutput.toString();
+    String[] outArray = outString.split("\n", 2);
+    String finalOut = outArray[0];
+    assertEquals("Loaded file as portrait.", finalOut);
+  }
+
+  @Test
+  public void testLoadPNG() {
+    Reader in = new StringReader("load pics/icons.png icons\n");
+    StringBuilder dontCareOutput = new StringBuilder();
+    ImageProcessingViewImpl view = new ImageProcessingViewImpl(dontCareOutput);
+    ImageProcessingControllerImpl controller = new ImageProcessingControllerImpl(in, view);
+    controller.process();
+    String outString = dontCareOutput.toString();
+    String[] outArray = outString.split("\n", 2);
+    String finalOut = outArray[0];
+    assertEquals("Loaded file as icons.", finalOut);
+  }
 
   @Test
   public void testLoadImages() {
@@ -213,6 +238,36 @@ public class ImageProcessingControllerImplTest {
     String[] outArray = outString.split("\n", 3);
     String finalOut = outArray[1];
     assertEquals("brighter created by changing brightness of koala.", finalOut);
+  }
+
+  @Test
+  public void testLoadBrightenJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg portrait brighten portrait " +
+            "40 brighterPortrait\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("brighterPortrait created by changing brightness " +
+            "of portrait.", finalOut);
+  }
+
+  @Test
+  public void testLoadBrightenPNG() {
+    Reader in = new StringReader("load pics/icons.png icons brighten icons " +
+            "40 brighterIcons\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("brighterIcons created by changing brightness " +
+            "of icons.", finalOut);
   }
 
   @Test
@@ -333,6 +388,37 @@ public class ImageProcessingControllerImplTest {
 
 
   @Test
+  public void testLoadDarkenJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg portrait brighten portrait " +
+            "-40 darkerPortrait\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("darkerPortrait created by changing brightness " +
+            "of portrait.", finalOut);
+  }
+
+  @Test
+  public void testLoadDarkenPNG() {
+    Reader in = new StringReader("load pics/icons.png icons brighten icons " +
+            "-40 darkerIcons\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("darkerIcons created by changing brightness " +
+            "of icons.", finalOut);
+  }
+
+
+  @Test
   public void testLoadHorizontalFlip() {
     Reader in = new StringReader("load pics/Koala.ppm koala " +
             "horizontal-flip koala koala-horizontal\n");
@@ -358,6 +444,36 @@ public class ImageProcessingControllerImplTest {
     String[] outArray = outString.split("\n", 3);
     String finalOut = outArray[1];
     assertEquals("smallNew-horizontal created by horizontally flipping smallNew.", finalOut);
+  }
+
+  @Test
+  public void testHorizontalFlipJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg portrait horizontal-flip portrait " +
+            "portrait-horizontal\n");
+    StringBuilder dontCareOutput = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
+    ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
+    controller.process();
+    String outString = dontCareOutput.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("portrait-horizontal created by " +
+            "horizontally flipping portrait.", finalOut);
+  }
+
+  @Test
+  public void testHorizontalFlipPNG() {
+    Reader in = new StringReader("load pics/icons.png icons horizontal-flip icons " +
+            "icons-horizontal\n");
+    StringBuilder dontCareOutput = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
+    ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
+    controller.process();
+    String outString = dontCareOutput.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("icons-horizontal created by " +
+            "horizontally flipping icons.", finalOut);
   }
 
   @Test
@@ -504,6 +620,37 @@ public class ImageProcessingControllerImplTest {
     String finalOut = outArray[1];
     assertEquals("smallNew-vertical created by vertically flipping smallNew.", finalOut);
   }
+
+  @Test
+  public void testVerticalFlipJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg portrait vertical-flip portrait " +
+            "portrait-vertical\n");
+    StringBuilder dontCareOutput = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
+    ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
+    controller.process();
+    String outString = dontCareOutput.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("portrait-vertical created by " +
+            "vertically flipping portrait.", finalOut);
+  }
+
+  @Test
+  public void testVerticalFlipPNG() {
+    Reader in = new StringReader("load pics/icons.png icons vertical-flip icons " +
+            "icons-vertical\n");
+    StringBuilder dontCareOutput = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
+    ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
+    controller.process();
+    String outString = dontCareOutput.toString();
+    String[] outArray = outString.split("\n", 3);
+    String finalOut = outArray[1];
+    assertEquals("icons-vertical created by " +
+            "vertically flipping icons.", finalOut);
+  }
+
 
   @Test
   public void testVFlipImages() {
@@ -670,6 +817,34 @@ public class ImageProcessingControllerImplTest {
   }
 
   @Test
+  public void testLoadRedJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg portrait " +
+            "red-component portrait portrait-red\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 5);
+    assertEquals("portrait-red created through red channel of portrait.",
+            outArray[1]);
+  }
+
+  @Test
+  public void testLoadRedPNG() {
+    Reader in = new StringReader("load pics/icons.png icons " +
+            "red-component icons icons-red\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 5);
+    assertEquals("icons-red created through red channel of icons.",
+            outArray[1]);
+  }
+
+  @Test
   public void testRedImages() {
     init();
     Reader in = new StringReader("load pics/test4x4.ppm test " +
@@ -758,6 +933,34 @@ public class ImageProcessingControllerImplTest {
   }
 
   @Test
+  public void testLoadGreenJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg portrait " +
+            "green-component portrait portrait-green\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 5);
+    assertEquals("portrait-green created through green channel of portrait.",
+            outArray[1]);
+  }
+
+  @Test
+  public void testLoadGreenPNG() {
+    Reader in = new StringReader("load pics/icons.png icons " +
+            "green-component icons icons-green\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 5);
+    assertEquals("icons-green created through green channel of icons.",
+            outArray[1]);
+  }
+
+  @Test
   public void testGreenImages() {
     init();
     Reader in = new StringReader("load pics/test4x4.ppm test " +
@@ -842,6 +1045,34 @@ public class ImageProcessingControllerImplTest {
     String outString = output.toString();
     String[] outArray = outString.split("\n", 5);
     assertEquals("smallNew-blue created through blue channel of smallNew.",
+            outArray[1]);
+  }
+
+  @Test
+  public void testLoadBlueJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg portrait " +
+            "blue-component portrait portrait-blue\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 5);
+    assertEquals("portrait-blue created through blue channel of portrait.",
+            outArray[1]);
+  }
+
+  @Test
+  public void testLoadBluePNG() {
+    Reader in = new StringReader("load pics/icons.png icons " +
+            "blue-component icons icons-blue\n");
+    StringBuilder output = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
+    c.process();
+    String outString = output.toString();
+    String[] outArray = outString.split("\n", 5);
+    assertEquals("icons-blue created through blue channel of icons.",
             outArray[1]);
   }
 
@@ -936,36 +1167,6 @@ public class ImageProcessingControllerImplTest {
   }
 
   @Test
-  public void testLoadLuma() {
-    Reader in = new StringReader("load pics/test4x4.ppm test " +
-            "luma-component test test-luma\n");
-    StringBuilder dontCareOutput = new StringBuilder();
-    ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
-    ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
-    controller.process();
-    String outString = dontCareOutput.toString();
-    String[] outArray = outString.split("\n", 3);
-    assertEquals("test-luma created through luma greyscale of test.",
-            outArray[1]);
-
-  }
-
-  @Test
-  public void testLoadIntensitySave() {
-    Reader in = new StringReader("load pics/test4x4.ppm test " +
-            "intensity-component test test-intensity " +
-            "save pics/test-intensity.ppm test-intensity\n");
-    StringBuilder dontCareOutput = new StringBuilder();
-    ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
-    ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
-    controller.process();
-    String outString = dontCareOutput.toString();
-    String[] outArray = outString.split("\n", 4);
-    assertEquals("Saved image test-intensity.", outArray[2]);
-
-  }
-
-  @Test
   public void testLoadVerticalHorizontalFlipSmallNew() {
     Reader in = new StringReader("load pics/smallNew.ppm smallNew " +
             "vertical-flip smallNew smallNew-vertical save pics/smallNew-vertical.ppm " +
@@ -984,6 +1185,50 @@ public class ImageProcessingControllerImplTest {
             outArray[3]);
   }
 
+  @Test
+  public void testLoadIntensitySavePPM() {
+    Reader in = new StringReader("load pics/test4x4.ppm test " +
+            "intensity-component test test-intensity " +
+            "save res/test-intensity.ppm test-intensity\n");
+    StringBuilder dontCareOutput = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
+    ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
+    controller.process();
+    String outString = dontCareOutput.toString();
+    String[] outArray = outString.split("\n", 4);
+    assertEquals("Saved image test-intensity.", outArray[2]);
+
+  }
+
+  @Test
+  public void testLoadIntensitySavePNG() {
+    Reader in = new StringReader("load pics/icons.png test " +
+            "intensity-component test test-intensity " +
+            "save res/testSave.png test-intensity\n");
+    StringBuilder dontCareOutput = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
+    ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
+    controller.process();
+    String outString = dontCareOutput.toString();
+    String[] outArray = outString.split("\n", 4);
+    assertEquals("Saved image test-intensity.", outArray[2]);
+
+  }
+
+  @Test
+  public void testLoadIntensitySaveJPEG() {
+    Reader in = new StringReader("load pics/portrait.jpeg test " +
+            "intensity-component test test-intensity " +
+            "save res/testSave.jpeg test-intensity\n");
+    StringBuilder dontCareOutput = new StringBuilder();
+    ImageProcessingView view = new ImageProcessingViewImpl(dontCareOutput);
+    ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
+    controller.process();
+    String outString = dontCareOutput.toString();
+    String[] outArray = outString.split("\n", 4);
+    assertEquals("Saved image test-intensity.", outArray[2]);
+
+  }
 
   // tests for valueComponent
 
@@ -1553,19 +1798,6 @@ public class ImageProcessingControllerImplTest {
   }
 
 
-
-  @Test(expected = IllegalArgumentException.class)
-  public void testInvalidImage() {
-    Reader in = new StringReader("load pics/test4x4.ppm test save pics/test.ppm invalid\n");
-    StringBuilder output = new StringBuilder();
-    ImageProcessingView view = new ImageProcessingViewImpl(output);
-    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
-    c.process();
-    String outString = output.toString();
-    String[] outArray = outString.split("\n", 2);
-    String finalOut = outArray[0];
-  }
-
   @Test
   public void testInvalidFilePath() {
     Reader in = new StringReader("load pics/test4x4.ppm test save invalid/test.ppm test\n");
@@ -1574,22 +1806,9 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
     String outString = output.toString();
-    String[] outArray = outString.split("\n", 2);
-    assertEquals("Loaded file as test.", outArray[0]);
-    assertEquals("", outArray[1]);
-  }
-
-  @Test
-  public void testNoMoreInput() {
-    Reader in = new StringReader("load pics/test4x4.ppm test save invalid/test.ppm\n");
-    StringBuilder output = new StringBuilder();
-    ImageProcessingView view = new ImageProcessingViewImpl(output);
-    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
-    c.process();
-    String outString = output.toString();
     String[] outArray = outString.split("\n", 3);
-    String finalOut = outArray[1];
-    assertEquals("More input required.", finalOut);
+    assertEquals("Saved image test.", outArray[1]);
+    //assertEquals("", outString);
   }
 
   @Test

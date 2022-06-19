@@ -28,12 +28,14 @@ import view.ImageProcessingView;
 
 /**
  * Represents a ImageProcessingControllerImpl, which helps the user interact with the image.
+ * This is an implementation of ImageProcessingController and acts as the controller. It only
+ * implements its inherited methods.
  */
 public class ImageProcessingControllerImpl implements ImageProcessingController {
 
-  public final ImageProcessingView view;
+  private final ImageProcessingView view;
   public final Readable in;
-  public final Scanner scan;
+  private final Scanner scan;
 
   Map<String, ImageProcessingModel> images = new HashMap<>();
 
@@ -82,22 +84,20 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     knownCommands.put("save",
         scan -> new Save(this, scan.next(), scan.next()));
     knownCommands.put("blur",
-            scan -> new Blur(scan.next(), this, scan.next()));
+        scan -> new Blur(scan.next(), this, scan.next()));
     knownCommands.put("sharpen",
-            scan -> new Sharpen(scan.next(), this, scan.next()));
+        scan -> new Sharpen(scan.next(), this, scan.next()));
     knownCommands.put("make-greyscale",
-            scan -> new MakeGreyscale(scan.next(), this, scan.next()));
+        scan -> new MakeGreyscale(scan.next(), this, scan.next()));
     knownCommands.put("make-sepia",
-            scan -> new MakeSepia(scan.next(), this, scan.next()));
+        scan -> new MakeSepia(scan.next(), this, scan.next()));
   }
 
   /**
    * Processes the user's input and applies the respective command.
-   *
-   * @throws IllegalStateException if the command is invalid.
    */
   @Override
-  public void process() throws IllegalStateException {
+  public void process() {
 
     while (scan.hasNext()) {
 

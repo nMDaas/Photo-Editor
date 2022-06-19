@@ -3,10 +3,10 @@ package model.commands;
 import model.pixel.Pixel;
 
 /**
- * Represents the class that changes the brightness of the model.
+ * Represents the command class that changes the brightness of the model.
  */
 public class ChangeBrightness extends PixelWiseProcessor {
-  int val;
+  private int val;
 
   /**
    * Constructs a {@code ChangeBrightness} with its field initialized to itself.

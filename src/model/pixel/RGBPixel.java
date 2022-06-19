@@ -42,7 +42,11 @@ public class RGBPixel implements Pixel {
     this.colors[2] = this.clipValue(this.colors[2] + val);
   }
 
-
+  /**
+   * Returns a clipped rgb value that is between 0 and 255 inclusive.
+   * @param value to be clipped
+   * @return clipped value
+   */
   public int clipValue(int value) {
     if (value > 255) {
       return 255;
@@ -156,6 +160,9 @@ public class RGBPixel implements Pixel {
     return new RGBPixel(this.getColor(0), this.getColor(2), this.getColor(1));
   }
 
+  /**
+   * creates a greyscale version of pixel based on its filter.
+   */
   @Override
   public void setGreyscale() {
     int newRed = findGreyscale();
@@ -167,6 +174,10 @@ public class RGBPixel implements Pixel {
     this.colors[2] = newBlue;
   }
 
+  /**
+   * helper to findGreyscale that returns the greyscale value for a rgb value.
+   * @return the greyscale value
+   */
   private int findGreyscale() {
     int oldRed = this.colors[0];
     int oldGreen = this.colors[1];
@@ -178,6 +189,9 @@ public class RGBPixel implements Pixel {
     return this.clipValue((int) Math.round(doubleGreyscale));
   }
 
+  /**
+   *  creates a sepia version of pixel based on its filter.
+   */
   @Override
   public void setSepia() {
     int newRed = findSepia(0);
@@ -189,7 +203,13 @@ public class RGBPixel implements Pixel {
     this.colors[2] = newBlue;
   }
 
-  private int findSepia (int index) {
+  /**
+   * a helper to setSepia that finds the sepia values based on the
+   * index of the color.
+   * @param index of color
+   * @return the sepia int value
+   */
+  private int findSepia(int index) {
     int oldRed = this.colors[0];
     int oldGreen = this.colors[1];
     int oldBlue = this.colors[2];

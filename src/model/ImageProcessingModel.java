@@ -117,10 +117,28 @@ public interface ImageProcessingModel {
    */
   int getMax();
 
+  /**
+   * blurs the image.
+   * @return the new ImageProcessingModel blurred.
+   */
   ImageProcessingModel blurImage();
 
+  /**
+   * sharpens the image.
+   * @return the new ImageProcessingModel sharpened.
+   */
   ImageProcessingModel sharpenImage();
 
+  /**
+   * sets the image to greyscale.
+   * @return the new ImageProcessingModel set to greyscale.
+   */
   ImageProcessingModel setGreyscale();
+
+  /**
+   * sets the image to sepia.
+   * @return the new ImageProcessingModel set to sepia.
+   */
   ImageProcessingModel setSepia();
+
 }

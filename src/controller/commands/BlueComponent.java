@@ -4,7 +4,7 @@ import controller.ImageProcessingController;
 import model.ImageProcessingModel;
 
 /**
- * Represents the bluecomponent class which helps create an image manipulated according to its
+ * Represents the BlueComponent class which helps create an image manipulated according to its
  * blue component.
  */
 public class BlueComponent extends AbstractCommand {

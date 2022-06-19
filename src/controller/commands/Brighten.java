@@ -5,7 +5,7 @@ import model.ImageProcessingModel;
 
 /**
  * Represents the brighten class which helps create an image manipulated according to its given
- * brighteness value.
+ * brightness value.
  */
 public class Brighten extends AbstractCommand {
 

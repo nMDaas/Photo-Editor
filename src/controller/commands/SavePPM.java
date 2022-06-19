@@ -1,35 +1,40 @@
 package controller.commands;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.Scanner;
-
-import javax.imageio.ImageIO;
 
 import controller.ImageProcessingController;
-import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
-import model.pixel.RGBPixel;
 
+/**
+ * Represents the save class which helps create a ppm image by saving it.
+ */
 public class SavePPM {
 
   String image;
   ImageProcessingController controller;
   String path;
 
+  /**
+   * Constructs a {@code SavePPM} with its fields initialized to themselves.
+   *
+   * @param controller the controller.
+   * @param path       the path name.
+   * @param image      the image name.
+   */
   public SavePPM(String image, ImageProcessingController controller, String path) {
     this.image = image;
     this.controller = controller;
     this.path = path;
   }
 
+  /**
+   * Helps to save the image.
+   */
   public void saveFile() {
     ImageProcessingModel image = controller.getImages().get(this.image);
     if (image == null) {

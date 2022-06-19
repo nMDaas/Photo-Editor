@@ -49,9 +49,20 @@ public interface Pixel {
    */
   public Pixel createCopy();
 
+  /**
+   * creates a greyscale version of pixel based on its filter.
+   */
   public void setGreyscale();
 
+  /**
+   * creates a sepia version of pixel based on its filter.
+   */
   public void setSepia();
 
+  /**
+   * Returns a clipped rgb value that is between 0 and 255 inclusive.
+   * @param value to be clipped
+   * @return the clipped value
+   */
   public int clipValue(int value);
 }

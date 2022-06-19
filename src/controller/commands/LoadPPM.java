@@ -10,24 +10,37 @@ import model.ImageProcessingModel;
 import model.pixel.Pixel;
 import model.pixel.RGBPixel;
 
+/**
+ * Represents the load class which helps create a jpeg or png image by loading it.
+ */
 public class LoadPPM {
   String filename;
   ImageProcessingController controller;
   Scanner scan;
 
-  public LoadPPM (String filename, ImageProcessingController controller, Scanner scan) {
+  /**
+   * Constructs {@code LoadPPM} with its fields initialized to themselves.
+   *
+   * @param filename   the name of the file path.
+   * @param controller the controller.
+   * @param scan       the scanner.
+   */
+  public LoadPPM(String filename, ImageProcessingController controller, Scanner scan) {
     this.filename = filename;
     this.controller = controller;
     this.scan = scan;
   }
 
+  /**
+   * Helps to load the image.
+   */
   public void loadFile() {
     Scanner sc;
 
     try {
       sc = new Scanner(new FileInputStream(this.filename));
     } catch (
-            FileNotFoundException e) {
+    FileNotFoundException e) {
       controller.printMessage("File " + this.filename + " not found!");
       return;
     }

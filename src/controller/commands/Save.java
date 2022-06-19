@@ -34,7 +34,7 @@ public class Save implements ImageProcessingCommand {
   }
 
   /**
-   * Helps to save the image.
+   * Helps to save the image depending on the file type.
    */
   @Override
   public void execute() {

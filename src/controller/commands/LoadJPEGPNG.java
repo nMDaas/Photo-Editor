@@ -1,9 +1,8 @@
 package controller.commands;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -16,17 +15,30 @@ import model.ImageProcessingModel;
 import model.pixel.Pixel;
 import model.pixel.RGBPixel;
 
+/**
+ * Represents the load class which helps create a jpeg or png image by loading it.
+ */
 public class LoadJPEGPNG {
   String filename;
   ImageProcessingController controller;
   Scanner scan;
 
+  /**
+   * Constructs {@code LoadJPEGPNG} with its fields initialized to themselves.
+   *
+   * @param filename   the name of the file path.
+   * @param controller the controller.
+   * @param scan       the scanner.
+   */
   public LoadJPEGPNG(String filename, ImageProcessingController controller, Scanner scan) {
     this.filename = filename;
     this.controller = controller;
     this.scan = scan;
   }
 
+  /**
+   * Helps to load the image.
+   */
   public void loadFile() {
     File file = null;
     BufferedImage image = null;
@@ -34,7 +46,7 @@ public class LoadJPEGPNG {
     try {
       String path = this.filename;
       file = new File(path);
-       image = ImageIO.read(file);
+      image = ImageIO.read(file);
     } catch (FileNotFoundException e) {
       controller.printMessage("File " + this.filename + " not found!");
       return;
@@ -48,9 +60,8 @@ public class LoadJPEGPNG {
 
       int width = image.getWidth();
       int height = image.getHeight();
-      //System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
 
-     Pixel[][] imagePixels = new Pixel[height][width];
+      Pixel[][] imagePixels = new Pixel[height][width];
 
       for (int row = 0; row < height; row++) {
         for (int col = 0; col < width; col++) {

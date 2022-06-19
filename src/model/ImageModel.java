@@ -190,8 +190,10 @@ public class ImageModel implements ImageProcessingModel {
     return max;
   }
 
-  // this creates an array of Posns that contains the row, col of all the aligning pixels along
-  // with its respective multiple. This is passed onto apply multiples
+  /**
+   * created a blurred image.
+   * @return blurred image
+   */
   @Override
   public ImageProcessingModel blurImage() {
 
@@ -225,6 +227,10 @@ public class ImageModel implements ImageProcessingModel {
     return blurredImage;
   }
 
+  /**
+   * created a sharpened image.
+   * @return sharper image
+   */
   @Override
   public ImageProcessingModel sharpenImage() {
 
@@ -266,22 +272,37 @@ public class ImageModel implements ImageProcessingModel {
     return sharpImage;
   }
 
+  /**
+   * Creates a model with a greyscale filter.
+   * @return the filtered model
+   */
   @Override
   public ImageProcessingModel setGreyscale() {
     PixelWiseProcessor p = new SetGreyscale();
     return p.changePixels(this);
   }
 
+  /**
+   * Creates a model with a sepia filter.
+   * @return the filtered model
+   */
   @Override
   public ImageProcessingModel setSepia() {
     PixelWiseProcessor p = new SetSepia();
     return p.changePixels(this);
   }
 
-  // for each posn p, create a copy of a pixel and apply multiplications
-  // add these multiplications to respective running totals of channels
-  // set model's pixel to sum of those values
-  private ImageProcessingModel applyKernel(Posn [] kernel, ImageProcessingModel model, int row, int col) {
+  /**
+   * applies the kernel to a pixel in the new edited model.
+   * @param kernel an array of Posn that contains the surrounding pixels and their multiples
+   * @param model the ediiting model
+   * @param row the row of the pixel
+   * @param col the column of the pixel
+   * @return the ImageProcessingModel with the edited pixel
+   */
+  private ImageProcessingModel applyKernel(Posn [] kernel,
+                                           ImageProcessingModel model,
+                                           int row, int col) {
     double runningRed = 0;
     double runningGreen = 0;
     double runningBlue = 0;
