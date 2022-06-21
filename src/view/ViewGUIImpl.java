@@ -31,21 +31,21 @@ public class ViewGUIImpl extends JFrame implements ImageProcessingViewGUI, Actio
     this.setTitle("Image Processor");
     this.setSize(700, 700);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.setLayout(new BorderLayout());
 
     //image panel
-    this.setLayout(new BorderLayout());
-    JPanel imagePanel = new ImagePanel(this, model);
+    JPanel imagePanel = new JPanel();
     imagePanel.setPreferredSize(new Dimension(500, 500));
-    JLabel imageLabel = new JLabel();
-    JScrollPane imageScrollPane = new JScrollPane(imageLabel);
-    imageScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-    imageScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-    //scrollPane.setBounds(300, 0, 500, 500);
-    this.add(imageScrollPane);
     this.add(imagePanel, BorderLayout.CENTER);
 
+    JLabel imageLabel = new ImageLabel(this, model);
+    JScrollPane imageScrollPane = new JScrollPane(imageLabel);
+    imageScrollPane.setPreferredSize(new Dimension(500, 500));
+    imagePanel.add(imageScrollPane);
+
+
     // histogram panel
-    JPanel histogramPanel = new HistogramPanel();
+    JPanel histogramPanel = new HistogramPanel(this, model);
     histogramPanel.setBorder(BorderFactory.createTitledBorder("Image Histogram:"));
     histogramPanel.setPreferredSize(new Dimension(300, 500));
     this.add(histogramPanel, BorderLayout.EAST);
