@@ -10,10 +10,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
+import view.ImageProcessingViewGUI;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
@@ -21,33 +23,25 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
  * Represents the save class which helps create a png image by saving it.
  */
 public class SavePNG {
-  String image;
-  ImageProcessingController controller;
   ImageProcessingModel model;
   String path;
+  protected ImageProcessingViewGUI view;
 
-  /**
-   * Constructs a {@code SavePNG} with its fields initialized to themselves.
-   *
-   * @param controller the controller.
-   * @param path       the path name.
-   * @param image      the image name.
-   */
-  public SavePNG(String image, ImageProcessingModel model,
-                 ImageProcessingController controller, String path) {
-    this.image = image;
-    this.controller = controller;
-    this.path = path;
+
+  public SavePNG(String path, ImageProcessingModel model,
+                 ImageProcessingViewGUI view) {
+    this.view = view;
     this.model = model;
+    this.path = path;
   }
 
   /**
    * Helps to save the image.
    */
   public void saveFile() {
-    ImageModel theImage = model.getImages().get(this.image);
-    if (image == null) {
-      controller.printMessage("This image does not exist.");
+    ImageModel theImage = model.getImages()[0];
+    if (theImage == null) {
+      view.showErrorMessage("This image does not exist.");
     }
 
     BufferedImage image = new BufferedImage(theImage.getWidth(),

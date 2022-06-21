@@ -1,8 +1,10 @@
 package controller.commands;
 
+import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageModel;
 import model.ImageProcessingModel;
+import view.ImageProcessingViewGUI;
 
 /**
  * Represents the brighten class which helps create an image manipulated according to its given
@@ -12,31 +14,20 @@ public class Brighten extends AbstractCommand {
 
   int value;
 
-  /**
-   * Constructs a {@code Brighten} with its fields initialized to themselves.
-   *
-   * @param image      the name of the image the user is trying to manipulate.
-   * @param controller the controller.
-   * @param value      the brightness value the image is manipulated by.
-   * @param newImage   the new filename.
-   */
-  public Brighten(String image, ImageProcessingModel model,
-                  ImageProcessingController controller, int value, String newImage) {
-    super(image, model, controller, newImage);
-    this.value = value;
+  public Brighten(ImageProcessingModel model,
+                  ImageProcessingViewGUI view) {
+    super(model, view);
+    //this.value = view.getBrightenValue();
   }
 
   /**
-   * Helps brighten the image and prints its respective message.
+   * A factory method that does the specific command by calling the extended class.
    *
-   * @param model      the model.
-   * @param controller the controller.
-   * @return the brightened image.
+   * @param model the ImageProcessingModel to perform the command on
+   * @return a new ImageProcessingModel
    */
   @Override
-  public ImageModel doCommand(ImageModel model,
-                              ImageProcessingController controller) {
-    controller.printMessage(newImage + " created by changing brightness of " + image + ".");
-    return model.brighten(this.value);
+  public ImageModel doCommand(ImageModel model) {
+    return model.brighten(view.getBrightenValue());
   }
 }

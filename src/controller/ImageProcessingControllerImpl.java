@@ -1,3 +1,4 @@
+/*
 package controller;
 
 import java.io.IOException;
@@ -28,11 +29,13 @@ import model.ImageProcessingModel;
 import model.ImageProcessingModelImpl;
 import view.ImageProcessingView;
 
+*/
 /**
  * Represents a ImageProcessingControllerImpl, which helps the user interact with the image.
  * This is an implementation of ImageProcessingController and acts as the controller. It only
  * implements its inherited methods.
- */
+ *//*
+
 public class ImageProcessingControllerImpl implements ImageProcessingController {
 
   private final ImageProcessingView view;
@@ -44,13 +47,15 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
 
   Map<String, Function<Scanner, ImageProcessingCommand>> knownCommands = new HashMap<>();
 
-  /**
+  */
+/**
    * Constructs a {@code ImageProcessingControllerImpl} with its fields initialized to themselves.
    *
    * @param in   the string the user inputs.
    * @param view the view.
    * @throws IllegalArgumentException if readable or view are null.
-   */
+   *//*
+
   public ImageProcessingControllerImpl(Readable in, ImageProcessingView view)
           throws IllegalArgumentException {
     if (in == null) {
@@ -96,9 +101,11 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
         scan -> new MakeSepia(scan.next(), model, this, scan.next()));
   }
 
-  /**
+  */
+/**
    * Processes the user's input and applies the respective command.
-   */
+   *//*
+
   @Override
   public void process() {
 
@@ -124,12 +131,14 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     }
   }
 
-  /**
+  */
+/**
    * Prints the message according the input.
    *
    * @param message the message.
    * @throws IllegalStateException if unable to print the message.
-   */
+   *//*
+
   public void printMessage(String message) throws IllegalStateException {
     try {
       this.view.renderMessage(message + "\n");
@@ -138,14 +147,17 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     }
   }
 
-  /**
+  */
+/**
    * Returns the hashmap of stored images.
    *
    * @return the hashmap of stored images.
-   */
+   *//*
+
   public Map<String, ImageModel> getModelImages() {
     return this.model.getImages();
   }
 
 
 }
+*/

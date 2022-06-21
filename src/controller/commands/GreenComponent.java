@@ -1,8 +1,10 @@
 package controller.commands;
 
+import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageModel;
 import model.ImageProcessingModel;
+import view.ImageProcessingViewGUI;
 
 /**
  * Represents the greencomponent class which helps create an image manipulated according to its
@@ -10,29 +12,20 @@ import model.ImageProcessingModel;
  */
 public class GreenComponent extends AbstractCommand {
 
-  /**
-   * Constructs a {@code GreenComponent} with its fields initialized to themselves.
-   *
-   * @param image      the name of the image the user is trying to manipulate.
-   * @param controller the controller.
-   * @param newImage   the new filename.
-   */
-  public GreenComponent(String image, ImageProcessingModel model,
-              ImageProcessingController controller, String newImage) {
-    super(image, model, controller, newImage);
+  public GreenComponent(ImageProcessingModel model,
+                        ImageProcessingViewGUI view) {
+    super(model, view);
   }
 
   /**
-   * Helps create a greyscale image with the image's green-component and its respective message.
+   * A factory method that does the specific command by calling the extended class.
    *
-   * @param model      the model.
-   * @param controller the controller.
-   * @return the greyscale image with the green-component of the image.
+   * @param model the ImageProcessingModel to perform the command on
+   * @return a new ImageProcessingModel
    */
   @Override
-  public ImageModel doCommand(ImageModel model,
-                              ImageProcessingController controller) {
-    controller.printMessage(newImage + " created through green channel of " + image + ".");
+  public ImageModel doCommand(ImageModel model) {
     return model.greenComponent();
   }
+
 }

@@ -5,10 +5,10 @@ import java.util.Map;
 
 public class ImageProcessingModelImpl implements ImageProcessingModel {
 
-  private Map<String, ImageModel> images = new HashMap<>();
+  private ImageModel [] images = new ImageModel[1];
 
   @Override
-  public Map<String, ImageModel> getImages() {
+  public ImageModel [] getImages() {
     return this.images;
   }
 }

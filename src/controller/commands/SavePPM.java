@@ -6,33 +6,26 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
+import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
+import view.ImageProcessingViewGUI;
 
 /**
  * Represents the save class which helps create a ppm image by saving it.
  */
 public class SavePPM {
 
-  String image;
-  ImageProcessingController controller;
   ImageProcessingModel model;
   String path;
+  protected ImageProcessingViewGUI view;
 
-  /**
-   * Constructs a {@code SavePPM} with its fields initialized to themselves.
-   *
-   * @param controller the controller.
-   * @param path       the path name.
-   * @param image      the image name.
-   */
-  public SavePPM(String image, ImageProcessingModel model,
-                 ImageProcessingController controller, String path) {
-    this.image = image;
+  public SavePPM(String path, ImageProcessingModel model,
+                 ImageProcessingViewGUI view) {
+    this.view = view;
     this.model = model;
-    this.controller = controller;
     this.path = path;
   }
 
@@ -40,9 +33,9 @@ public class SavePPM {
    * Helps to save the image.
    */
   public void saveFile() {
-    ImageModel image = model.getImages().get(this.image);
-    if (image == null) {
-      controller.printMessage("This image does not exist.");
+    ImageModel theImage = model.getImages()[0];
+    if (theImage == null) {
+      view.showErrorMessage("This image does not exist.");
     }
 
     File file = new File(this.path);
@@ -61,13 +54,13 @@ public class SavePPM {
     try {
       writer.write("P3");
       writer.newLine();
-      writer.write(image.getWidth() + " " + image.getHeight());
+      writer.write(theImage.getWidth() + " " + theImage.getHeight());
       writer.newLine();
-      writer.write(String.format(image.getMax() + ""));
+      writer.write(String.format(theImage.getMax() + ""));
       writer.newLine();
-      for (int row = 0; row < image.getHeight(); row++) {
-        for (int col = 0; col < image.getWidth(); col++) {
-          Pixel thePixel = image.getPixelAt(row, col);
+      for (int row = 0; row < theImage.getHeight(); row++) {
+        for (int col = 0; col < theImage.getWidth(); col++) {
+          Pixel thePixel = theImage.getPixelAt(row, col);
           writer.write(String.format(thePixel.getColor(0) + ""));
           writer.newLine();
           writer.write(String.format(thePixel.getColor(1) + ""));

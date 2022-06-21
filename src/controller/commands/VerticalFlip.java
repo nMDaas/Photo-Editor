@@ -1,37 +1,29 @@
 package controller.commands;
 
+import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageModel;
 import model.ImageProcessingModel;
+import view.ImageProcessingViewGUI;
 
 /**
  * Represents the verticalflip class which helps create an image by vertically flipping it.
  */
 public class VerticalFlip extends AbstractCommand {
 
-  /**
-   * Constructs a {@code VerticalFlip} with its fields initialized to themselves.
-   *
-   * @param image      the name of the image the user is trying to manipulate.
-   * @param controller the controller.
-   * @param newImage   the new filename.
-   */
-  public VerticalFlip(String image, ImageProcessingModel model,
-                        ImageProcessingController controller, String newImage) {
-    super(image, model, controller, newImage);
+  public VerticalFlip(ImageProcessingModel model,
+                      ImageProcessingViewGUI view) {
+    super(model, view);
   }
 
   /**
-   * Helps vertically flip the image and prints its respective message.
+   * A factory method that does the specific command by calling the extended class.
    *
-   * @param model      the model.
-   * @param controller the controller.
-   * @return the flipped image.
+   * @param model the ImageProcessingModel to perform the command on
+   * @return a new ImageProcessingModel
    */
   @Override
-  public ImageModel doCommand(ImageModel model,
-                              ImageProcessingController controller) {
-    controller.printMessage(newImage + " created by vertically flipping " + image + ".");
+  public ImageModel doCommand(ImageModel model) {
     return model.flipVertical();
   }
 }

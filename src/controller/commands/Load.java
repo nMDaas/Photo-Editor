@@ -2,36 +2,25 @@ package controller.commands;
 
 import java.util.Scanner;
 
+import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageProcessingModel;
+import view.ImageProcessingViewGUI;
 
 /**
  * Represents the load class which helps create an image by loading it.
  */
 public class Load implements ImageProcessingCommand {
-  String filename;
   ImageProcessingModel model;
-  ImageProcessingController controller;
-  Scanner scan;
+  protected ImageProcessingViewGUI view;
 
-  /**
-   * Constructs {@code Load} with its fields initialized to themselves.
-   *
-   * @param filename   the name of the file path.
-   * @param controller the controller.
-   * @param scan       the scanner.
-   */
-  public Load(String filename, ImageProcessingModel model,
-              ImageProcessingController controller, Scanner scan) {
-    if (filename.equals("")) {
-      throw new IllegalArgumentException("Invalid file path.");
+
+  public Load(ImageProcessingModel model,
+              ImageProcessingViewGUI view) {
+    if (view == null || model == null) {
+      throw new IllegalArgumentException("Controller, model and view cannot be null.");
     }
-    if (controller == null || scan == null || model == null) {
-      throw new IllegalArgumentException("Controller, model and scanner cannot be null.");
-    }
-    this.filename = filename;
-    this.controller = controller;
-    this.scan = scan;
+    this.view = view;
     this.model = model;
   }
 
@@ -40,18 +29,18 @@ public class Load implements ImageProcessingCommand {
    */
   @Override
   public void execute() {
-
-    String fileFormat = filename.substring(filename.length() - 4, filename.length());
-    if (fileFormat.contains("ppm")) {
-      new LoadPPM(filename, model, controller, scan).loadFile();
-    }
-    else if (fileFormat.contains("jpeg") ||
-            fileFormat.contains("png") ||
-            fileFormat.contains("jpg")) {
-      new LoadJPEGPNG(filename, model, controller, scan).loadFile();
-    }
-    else {
-      controller.printMessage("File format is not supported.");
+    String filename = view.getFilePath();
+    if (!(filename.equals("File path will appear here"))) {
+      String fileFormat = filename.substring(filename.length() - 4, filename.length());
+      if (fileFormat.contains("ppm")) {
+        new LoadPPM(filename, model, view).loadFile();
+      } else if (fileFormat.contains("jpeg") ||
+              fileFormat.contains("png") ||
+              fileFormat.contains("jpg")) {
+        new LoadJPEGPNG(filename, model, view).loadFile();
+      } else {
+        view.showErrorMessage("File format is not supported.");
+      }
     }
 
   }

@@ -1,8 +1,10 @@
 package controller.commands;
 
+import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageModel;
 import model.ImageProcessingModel;
+import view.ImageProcessingViewGUI;
 
 /**
  * Represents the MakeGreyscale class which helps create an image manipulated through the
@@ -16,22 +18,19 @@ public class MakeGreyscale extends AbstractCommand {
    * @param controller the controller
    * @param newImage the name of the new edited image
    */
-  public MakeGreyscale(String image, ImageProcessingModel model,
-                        ImageProcessingController controller, String newImage) {
-    super(image, model, controller, newImage);
+  public MakeGreyscale(ImageProcessingModel model,
+                       ImageProcessingViewGUI view) {
+    super(model, view);
   }
 
   /**
    * A factory method that does the specific command by calling the extended class.
    *
-   * @param model   the ImageProcessingModel to perform the command on
-   * @param control the ImageProcessingController to be passed
+   * @param model the ImageProcessingModel to perform the command on
    * @return a new ImageProcessingModel
    */
   @Override
-  protected ImageModel doCommand(ImageModel model,
-                                 ImageProcessingController control) {
-    controller.printMessage(newImage + " created through greyscale of " + image + ".");
+  public ImageModel doCommand(ImageModel model) {
     return model.setGreyscale();
   }
 }

@@ -1,43 +1,32 @@
 package controller.commands;
 
+import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageProcessingModel;
+import view.ImageProcessingViewGUI;
 
 /**
  * Represents the save class which helps create an image by saving it.
  */
 public class Save implements ImageProcessingCommand {
 
-  String image;
-  ImageProcessingController controller;
-  ImageProcessingModel model;
-  String path;
 
-  /**
-   * Constructs a {@code Save} with its fields initialized to themselves.
-   *
-   * @param controller the controller.
-   * @param path       the path name.
-   * @param image      the image name.
-   */
-  public Save(ImageProcessingModel model, ImageProcessingController controller,
-              String path, String image) {
-    if (path.equals("")) {
-      throw new IllegalArgumentException("Invalid file path..");
-    }
-    if (image.equals("")) {
+  ImageProcessingModel model;
+  protected ImageProcessingViewGUI view;
+
+
+  public Save(ImageProcessingModel model,
+              ImageProcessingViewGUI view) {
+
+
+    if (view == null) {
       throw new IllegalArgumentException("Image name cannot be empty.");
-    }
-    if (controller == null ) {
-      throw new IllegalArgumentException("Controller cannot be null.");
     }
     if (model == null) {
       throw new IllegalArgumentException("Model cannot be null.");
     }
-    this.image = image;
-    this.controller = controller;
-    this.path = path;
     this.model = model;
+    this.view = view;
   }
 
   /**
@@ -45,23 +34,23 @@ public class Save implements ImageProcessingCommand {
    */
   @Override
   public void execute() {
-
+    String path = view.saveToFilePath();
     String fileFormat = path.substring(path.length() - 4, path.length());
     if (fileFormat.contains("ppm")) {
-      new SavePPM(image, model, controller, path).saveFile();
+      new SavePPM(path, model, view).saveFile();
     }
     else if (fileFormat.contains("jpeg") ||
             fileFormat.contains("jpg")) {
-      new SaveJPEG(image, model, controller, path).saveFile();
+      new SaveJPEG(path, model, view).saveFile();
     }
     else if (fileFormat.contains("png")) {
-      new SavePNG(image, model, controller, path).saveFile();
+      new SavePNG(path, model, view).saveFile();
     }
     else {
-      controller.printMessage("File format is not supported.");
+      view.showErrorMessage("File format is not supported.");
     }
 
-    controller.printMessage("Saved image " + this.image + ".");
+    //controller.printMessage("Saved image " + this.image + ".");
 
   }
 }
