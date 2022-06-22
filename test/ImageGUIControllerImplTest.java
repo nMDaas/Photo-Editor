@@ -63,5 +63,18 @@ public class ImageGUIControllerImplTest {
     assertEquals("message = correct", logString);
   }
 
+  @Test
+  public void testInvalidProcess() throws IOException {
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    StringBuilder dontCareOutput = new StringBuilder();
+    ImageProcessingViewGUI view = new MockViewGUI(dontCareOutput);
+    ImageGUIController controller = new ImageGUIControllerImpl(model, view);
+    controller.processCommand("invalid");
+    String logString = dontCareOutput.toString();
+    String[] logArray = logString.split("\n", 2);
+    String finalLog = logArray[0];
+    assertEquals("message = Invalid command.", logString);
+  }
+
 
 }

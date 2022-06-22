@@ -70,7 +70,7 @@ public class ImageGUIControllerImpl implements ImageGUIController, ActionListene
             knownCommands.getOrDefault(userInstruction, null);
 
     if (cmd == null) {
-      view.renderError("Invalid command.");
+      this.renderError("Invalid command.");
     } else {
       try {
         cmd.execute();

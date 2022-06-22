@@ -21,53 +21,71 @@ with a hashmap of known commands and can perform the following functionalities:
   an IllegalStateException if there is an IOException
 - getImages() - to return the images stored by the ImageProcessingController
 
+** NEW **
+ImageGUIController - This represents the interface of the program's
+controller that renders the program with GUI. This interface requires any implementation
+of ImageProcessingController to:
+- process a command via the process(String) method and execute the command on the model
+- extract action commands via the actionPerformed(ActionEvent) method that is passed on to the
+  process(String) method
+- make the view visible via go()
+- print messages via the printMessage() method to the program's ImageProcessingView
+  implementation
+- print errors via the renderError() method to the program's ImageProcessingView
+  implementation
+
+** NEW **
+ImageGUIControllerImpl - This is an implementation of ImageGUIController
+hat takes in an ImageProcessingView, Readable and Scanner. This implements all its inherited
+methods along with:
+- setCommands(), a private method that adds to the hashmap, knownCommands
+
 CONTROLLER.COMMANDS PACKAGE
 
 ImageProcessingCommand - This interface is an interface for all of
-ImageProcessingControllerImpl's known commands based on user input. This
-interface has only one method - go() - that executes the command.
+ImageProcessingControllerImpl's or ImageGUIControllerImpl's known commands based on user input.
+This interface has only one method - go() - that executes the command.
 
-** THIS CLASS WAS CHANGED TO SUPPORT JPEG AND PNG FILES. STRATEGY PATTERN WAS USED TO DO THIS**
 Load - Load implements ImageProcessingCommand and loads an image to the file path
 provided, depending on the type of the file. A message is output if the file format
 provided is unrecognized or not supported.
 
-** NEW **
+
 LoadJPEGPNG - This class loads JPEG and PNG FILES through the single method loadFile().
 If the file is invalid, a message is printed to say that the file was not found. If the image
 name provided is an empty string, a message saying that more input is required is printed.
 If the scanner runs out of input, an appropriate message is printed. If anything other than
 an Integer is input for the pixels, an appropriate message is printed.
 
-** NEW **
+
 LoadPPM - This class loads PPM FILES through the single method loadFile().
 If the file is invalid, a message is printed to say that the file was not found. If the image
 name provided is an empty string, a message saying that more input is required is printed.
 If the scanner runs out of input, an appropriate message is printed. If anything other than
 an Integer is input for the pixels, an appropriate message is printed.
 
-** THIS CLASS WAS CHANGED TO SUPPORT JPEG AND PNG FILES. STRATEGY PATTERN WAS USED TO DO THIS**
 Save - Save implements ImageProcessingCommand and saves an image to the file path
 depending on the file format. A message is output if the file format provided is unrecognized
 or not supported.
 
-** NEW **
 SaveJPEG - SaveJPEG is a class that saves jpeg images specifically using the specific saveFile()
 method. If the path is invalid, a "file not found" message is printed. If the image
 is not found, an appropriate message is printed.
 
-** NEW **
 SavePNG - SavePNG is a class that saves png images specifically using the specific saveFile()
 method. If the path is invalid, a "file not found" message is printed. If the image
 is not found, an appropriate message is printed.
 
-** NEW **
 SavePPM - SavePPM is a class that saves ppm images specifically using the specific saveFile()
 method. If the path is invalid, a "file not found" message is printed. If the image
 is not found, an appropriate message is printed.
 
+** NEW CHANGE **
 AbstractCommand - AbstractCommand implements ImageProcessingCommand and is
-an abstract command for all commands except for Load and Save. This has two methods:
+an abstract command for all commands except for Load and Save. Additional
+constructors were added to this implementation and its extensions to support GUI
+implementations ImageGUIControllerImpl and ImageProcessingViewGUIThis. This has two
+methods:
 - go() - this creates a new edited model based on the command and adds it to the
   ImageProcessingController's hashmap of images
 - doCommand() - a factory method that executes the command by calling the extended
@@ -101,19 +119,15 @@ returns an image horizontally flipped and prints a message of completion.
 VerticalFlip - VerticalFlip extends AbstractCommand. Its doCommand() implementation
 returns an image vertically flipped and prints a message of completion.
 
-** NEW **
 Blur - Blur extends AbstractCommand. Its doCommand() implementation
 returns a blurred image and prints a message of completion.
 
-** NEW **
 Sharpen - Sharpen extends AbstractCommand. Its doCommand() implementation
 returns a sharpened image and prints a message of completion.
 
-** NEW **
 MakeGreyscale - MakeGreyscale extends AbstractCommand. Its doCommand() implementation
 returns a greyscale image and prints a message of completion.
 
-** NEW **
 MakeSepia - MakeSepia extends AbstractCommand. Its doCommand() implementation
 returns an image with a sepia filter and prints a message of completion.
 
@@ -265,3 +279,5 @@ blur test blurred save res/testBlur.png blurred
 sharpen test sharp save res/testSharpen.png sharp
 make-greyscale test grey save res/testGrey.png grey
 make-sepia test sepia save res/testSepia.png sepia\n
+
+load ../../pics/Koala.ppm koala
