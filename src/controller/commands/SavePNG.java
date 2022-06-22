@@ -34,31 +34,30 @@ public class SavePNG {
   /**
    * Constructs a {@code SavePNG} with its fields initialized to themselves.
    *
-   * @param controller the controller.
    * @param path       the path name.
    * @param image      the image name.
    */
+
   public SavePNG(String image, ImageProcessingModel model,
-                 ImageProcessingController controller, String path) {
-    this.image = image;
-    this.controller = controller;
-    this.path = path;
+                 ImageProcessingView view, String path) {
+
     this.model = model;
-  }
-
-
-  public SavePNG(String path, ImageProcessingModel model,
-                 ImageProcessingView view) {
     this.view = view;
-    this.model = model;
     this.path = path;
-    this.image = "xyz";
+
+    if (image == null) {
+      this.image = "image";
+    }
+    else {
+      this.image = image;
+    }
+
   }
 
   /**
    * Helps to save the image.
    */
-  public void saveFile() {
+  public void saveFile() throws IOException {
     ImageModel theImage = model.getImages().get(this.image);
     if (image == null) {
       controller.printMessage("This image does not exist.");
@@ -93,5 +92,7 @@ public class SavePNG {
     } catch (IOException e) {
       System.out.println("Exception occurred :" + e.getMessage());
     }
+
+    view.renderMessage("Saved image.\n");
   }
 }

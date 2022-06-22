@@ -37,25 +37,24 @@ public class SaveJPEG {
    */
   public SaveJPEG(String image, ImageProcessingModel model,
                   ImageProcessingView view, String path) {
-    this.image = image;
+
     this.model = model;
     this.view = view;
     this.path = path;
-  }
 
+    if (image == null) {
+      this.image = "image";
+    }
+    else {
+      this.image = image;
+    }
 
-  public SaveJPEG(String path, ImageProcessingModel model,
-                  ImageProcessingView view) {
-    this.view = view;
-    this.model = model;
-    this.path = path;
-    this.image = "xyz";
   }
 
   /**
    * Helps to save the image.
    */
-  public void saveFile() {
+  public void saveFile() throws IOException {
     ImageModel theImage = model.getImages().get(this.image);
     if (image == null) {
       controller.printMessage("This image does not exist.");
@@ -86,10 +85,12 @@ public class SaveJPEG {
 
     try {
       ImageIO.write(image, "jpg", file);
-
     } catch (IOException e) {
       System.out.println("Exception occurred while writing:" + e.getMessage());
     }
+
+    view.renderMessage("Saved image.\n");
+
   }
 
 }

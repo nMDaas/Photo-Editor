@@ -40,7 +40,6 @@ public class ImageGUIControllerImpl implements ImageGUIController, ActionListene
     this.setCommands();
     view.setController(this);
     view.viewSetUp();
-
   }
 
   void setCommands() {
@@ -64,7 +63,6 @@ public class ImageGUIControllerImpl implements ImageGUIController, ActionListene
   @Override
   public String processCommand(String command) throws IOException {
     String userInstruction = command;
-
     ImageProcessingCommand cmd =
             knownCommands.getOrDefault(userInstruction, null);
 

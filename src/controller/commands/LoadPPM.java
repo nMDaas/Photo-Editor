@@ -35,7 +35,7 @@ public class LoadPPM {
       imageName = scan.next();
     }
     else {
-      imageName = "xyz";
+      imageName = "image";
     }
 
   }

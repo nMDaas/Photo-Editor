@@ -1,5 +1,7 @@
 package controller.commands;
 
+import java.io.IOException;
+
 import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageModel;
@@ -17,7 +19,6 @@ public class Brighten extends AbstractCommand {
   public Brighten(ImageProcessingModel model,
                   ImageProcessingViewGUI view) {
     super(model, view);
-    this.value = view.getBrightenValue();
   }
 
   public Brighten(String image, ImageProcessingModel model,
@@ -33,8 +34,21 @@ public class Brighten extends AbstractCommand {
    * @return a new ImageProcessingModel
    */
   @Override
-  public ImageModel doCommand(ImageModel model) {
-    controller.printMessage(newImage + " created by changing brightness of " + image + ".");
-    return model.brighten(value);
+  public ImageModel doCommand(ImageModel model) throws IOException {
+    if (value == 0) {
+      this.value = view.getBrightenValue();
+    }
+
+    if (view == null) {
+      controller.printMessage(newImage + " created by changing brightness of " + image + ".");
+    }
+    if (controller == null) {
+      view.renderMessage(newImage + " created by changing brightness of " + image + ".");
+    }
+
+    int theValue = value;
+    value = 0;
+
+    return model.brighten(theValue);
   }
 }

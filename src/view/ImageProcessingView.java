@@ -9,4 +9,8 @@ import java.io.IOException;
 public interface ImageProcessingView {
   void renderError(String message) throws IOException;
   void renderMessage(String message) throws IOException;
+
+  String getFilePath();
+
+  String saveToFilePath();
 }

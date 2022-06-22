@@ -47,8 +47,8 @@ abstract public class AbstractCommand implements ImageProcessingCommand {
     }
     this.model = model;
     this.view = view;
-    this.image = "xyz";
-    this.newImage = "xyz";
+    this.image = "image";
+    this.newImage = "image";
   }
 
   /**
@@ -58,8 +58,8 @@ abstract public class AbstractCommand implements ImageProcessingCommand {
   public void execute() throws IOException {
     Map<String, ImageModel> images = model.getImages();
     ImageModel model = images.get(image);
-    if (model == null) {
-      view.renderError("This image does not exist.");
+    if (model == null && view == null) {
+      controller.renderError("This image does not exist.");
     }
     ImageModel modifiedModel = null;
     if (model != null) {
@@ -74,5 +74,5 @@ abstract public class AbstractCommand implements ImageProcessingCommand {
    * @param model   the ImageProcessingModel to perform the command on
    * @return a new ImageProcessingModel
    */
-  abstract protected ImageModel doCommand(ImageModel model);
+  abstract protected ImageModel doCommand(ImageModel model) throws IOException;
 }

@@ -25,7 +25,7 @@ public class ImageLabel extends JLabel {
     super.paintComponent(g);
     if (!(view.getFilePath().equals("File path will appear here"))) {
       BufferedImage image;
-      ImageModel currentImage = model.getImages().get("xyz");
+      ImageModel currentImage = model.getImages().get("image");
       try {
         image = new BufferedImage(currentImage.getWidth(),
                 currentImage.getHeight(), TYPE_INT_RGB);

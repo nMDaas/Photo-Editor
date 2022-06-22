@@ -57,7 +57,6 @@ public class Save implements ImageProcessingCommand {
     }
     this.model = model;
     this.view = view;
-    this.path = view.saveToFilePath();
   }
 
   /**
@@ -65,20 +64,27 @@ public class Save implements ImageProcessingCommand {
    */
   @Override
   public void execute() throws IOException {
+
+    if (path == null) {
+      path = view.saveToFilePath();
+    }
+
     String fileFormat = path.substring(path.length() - 4, path.length());
     if (fileFormat.contains("ppm")) {
-      new SavePPM(path, model, view).saveFile();
+      new SavePPM(image, model, view, path).saveFile();
     }
     else if (fileFormat.contains("jpeg") ||
             fileFormat.contains("jpg")) {
-      new SaveJPEG(path, model, view).saveFile();
+      new SaveJPEG(image, model, view, path).saveFile();
     }
     else if (fileFormat.contains("png")) {
-      new SavePNG(path, model, view).saveFile();
+      new SavePNG(image, model, view, path).saveFile();
     }
     else {
       view.renderError("File format is not supported.");
     }
+
+    path = null;
 
     //controller.printMessage("Saved image " + this.image + ".");
 

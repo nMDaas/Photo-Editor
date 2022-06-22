@@ -29,4 +29,14 @@ public class MockView implements ImageProcessingView {
   public void renderMessage(String message) throws IOException {
     log.append(String.format("message = " + message));
   }
+
+  @Override
+  public String getFilePath() {
+    return null;
+  }
+
+  @Override
+  public String saveToFilePath() {
+    return null;
+  }
 }

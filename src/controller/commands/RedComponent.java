@@ -1,5 +1,7 @@
 package controller.commands;
 
+import java.io.IOException;
+
 import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageModel;
@@ -29,8 +31,14 @@ public class RedComponent extends AbstractCommand {
    * @return a new ImageProcessingModel
    */
   @Override
-  public ImageModel doCommand(ImageModel model) {
-    controller.printMessage(newImage + " created through red channel of " + image + ".");
+  public ImageModel doCommand(ImageModel model) throws IOException {
+    if (view == null) {
+      controller.printMessage(newImage + " created through red channel of " + image + ".");
+    }
+    if (controller == null) {
+      view.renderMessage(newImage + " created through red channel of " + image + ".");
+    }
+
     return model.redComponent();
   }
 }

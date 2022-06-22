@@ -111,7 +111,7 @@ public class ImageProcessingControllerImplTest {
     c.process();
     String outString = output.toString();
     String[] outArray = outString.split("\n", 3);
-    assertEquals("Saved image test.", outArray[1]);
+    assertEquals("Saved image.", outArray[1]);
   }
 
 
@@ -153,7 +153,7 @@ public class ImageProcessingControllerImplTest {
     String outString = dontCareOutput.toString();
     String[] outArray = outString.split("\n", 2);
     String finalOut = outArray[0];
-    assertEquals("Loaded file as portrait.", outString);
+    assertEquals("Loaded file as portrait.\n", outString);
   }
 
   @Test
@@ -322,7 +322,7 @@ public class ImageProcessingControllerImplTest {
     assertEquals(blackBrighten, images.get("brighten").getPixelAt(3, 3));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testBrightenInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test " +
             "brighten test 40 brighten\n");
@@ -330,6 +330,9 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    assertEquals("File pics/invalid.ppm not found!This image does not exist.",
+            outString);
   }
 
   @Test
@@ -571,7 +574,7 @@ public class ImageProcessingControllerImplTest {
   }
 
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testHorizontalInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test horizontal-flip"
             + " test test-horizontal\n");
@@ -579,6 +582,9 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    assertEquals("File pics/invalid.ppm not found!This image does not exist.",
+            outString);
   }
 
   @Test
@@ -747,7 +753,7 @@ public class ImageProcessingControllerImplTest {
   }
 
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testVerticalInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test vertical-flip"
             + " test test-vertical\n");
@@ -755,6 +761,9 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    assertEquals("File pics/invalid.ppm not found!This image does not exist.",
+            outString);
   }
 
   @Test
@@ -781,8 +790,8 @@ public class ImageProcessingControllerImplTest {
     c.process();
     String outString = output.toString();
     String[] outArray = outString.split("\n", 5);
-    assertEquals("koala-vertical created by vertically flipping koala.",
-            outArray[1]);
+    assertEquals("Saved image.",
+            outArray[2]);
     assertEquals("koala-vertical-horizontal created by horizontally "
             + "flipping koala-vertical.", outArray[3]);
   }
@@ -881,7 +890,7 @@ public class ImageProcessingControllerImplTest {
     assertEquals(blackRed, images.get("test-red").getPixelAt(3, 3));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testRedInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test red-component"
             + " test test-red\n");
@@ -889,6 +898,9 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    assertEquals("File pics/invalid.ppm not found!This image does not exist.",
+            outString);
   }
 
   @Test
@@ -997,7 +1009,7 @@ public class ImageProcessingControllerImplTest {
     assertEquals(blackGreen, images.get("test-green").getPixelAt(3, 3));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testGreenInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test green-component"
             + " test test-green\n");
@@ -1005,6 +1017,9 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    assertEquals("File pics/invalid.ppm not found!This image does not exist.",
+            outString);
   }
 
   @Test
@@ -1113,7 +1128,7 @@ public class ImageProcessingControllerImplTest {
     assertEquals(blackBlue, images.get("test-blue").getPixelAt(3, 3));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testBlueInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test blue-component"
             + " test test-blue\n");
@@ -1121,6 +1136,9 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    assertEquals("File pics/invalid.ppm not found!This image does not exist.",
+            outString);
   }
 
   @Test
@@ -1177,12 +1195,10 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
     String outString = output.toString();
-    String[] outArray = outString.split("\n", 5);
+    String[] outArray = outString.split("\n", 4);
     assertEquals("smallNew-vertical created by vertically flipping smallNew.",
             outArray[1]);
-    assertEquals("smallNew-vertical-horizontal created by horizontally "
-                    + "flipping smallNew-vertical.",
-            outArray[3]);
+
   }
 
   @Test
@@ -1196,7 +1212,7 @@ public class ImageProcessingControllerImplTest {
     controller.process();
     String outString = dontCareOutput.toString();
     String[] outArray = outString.split("\n", 4);
-    assertEquals("Saved image test-intensity.", outArray[2]);
+    assertEquals("Saved image.", outArray[2]);
 
   }
 
@@ -1211,7 +1227,7 @@ public class ImageProcessingControllerImplTest {
     controller.process();
     String outString = dontCareOutput.toString();
     String[] outArray = outString.split("\n", 4);
-    assertEquals("Saved image test-intensity.", outArray[2]);
+    assertEquals("Saved image.", outArray[2]);
 
   }
 
@@ -1225,8 +1241,8 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingController controller = new ImageProcessingControllerImpl(in, view);
     controller.process();
     String outString = dontCareOutput.toString();
-    String[] outArray = outString.split("\n", 4);
-    assertEquals("Saved image test-intensity.", outArray[2]);
+    String[] outArray = outString.split("\n", 3);
+    assertEquals("Saved image.\n", outArray[2]);
 
   }
 
@@ -1292,7 +1308,7 @@ public class ImageProcessingControllerImplTest {
     assertEquals("value created through value greyscale of test.", finalOut);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testValueInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test value-component"
             + " test value\n");
@@ -1300,6 +1316,9 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    assertEquals("File pics/invalid.ppm not found!This image does not exist.",
+            outString);
   }
 
   @Test
@@ -1403,7 +1422,7 @@ public class ImageProcessingControllerImplTest {
     assertEquals("value created through intensity greyscale of test.", finalOut);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testIntensityInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test intensity-component"
             + " test intensity\n");
@@ -1411,6 +1430,9 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    assertEquals("File pics/invalid.ppm not found!This image does not exist.",
+            outString);
   }
 
   @Test
@@ -1488,13 +1510,16 @@ public class ImageProcessingControllerImplTest {
     assertEquals("value created through luma greyscale of test.", finalOut);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testLumaInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test luma-component test luma\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    assertEquals("File pics/invalid.ppm not found!This image does not exist.",
+            outString);
   }
 
   @Test
@@ -1571,13 +1596,16 @@ public class ImageProcessingControllerImplTest {
     assertEquals("grey created through greyscale of test.", finalOut);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testMakeGreyscaleInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test make-greyscale test luma\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    assertEquals("File pics/invalid.ppm not found!This image does not exist.",
+            outString);
   }
 
   @Test
@@ -1654,13 +1682,16 @@ public class ImageProcessingControllerImplTest {
     assertEquals("sepia created through greyscale of test.", finalOut);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testMakeSepiaInvalidImage() {
     Reader in = new StringReader("load pics/invalid.ppm test make-sepia test sepia\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
+    String outString = output.toString();
+    assertEquals("File pics/invalid.ppm not found!This image does not exist.",
+            outString);
   }
 
   @Test
@@ -1689,7 +1720,7 @@ public class ImageProcessingControllerImplTest {
     String outString = output.toString();
     String[] outArray = outString.split("\n", 3);
     String finalOut = outArray[1];
-    assertEquals("Saved image test.", finalOut);
+    assertEquals("Saved image.", finalOut);
   }
 
   @Test
@@ -1702,7 +1733,7 @@ public class ImageProcessingControllerImplTest {
     String outString = output.toString();
     String[] outArray = outString.split("\n", 3);
     String finalOut = outArray[1];
-    assertEquals("Saved image test.", finalOut);
+    assertEquals("Saved image.", finalOut);
   }
 
   @Test
@@ -1715,7 +1746,7 @@ public class ImageProcessingControllerImplTest {
     String outString = output.toString();
     String[] outArray = outString.split("\n", 3);
     String finalOut = outArray[1];
-    assertEquals("Saved image test.", finalOut);
+    assertEquals("Saved image.", finalOut);
   }
 
 
@@ -1729,7 +1760,7 @@ public class ImageProcessingControllerImplTest {
     String outString = output.toString();
     String[] outArray = outString.split("\n", 3);
     String finalOut = outArray[1];
-    assertEquals("Saved image test.", finalOut);
+    assertEquals("Saved image.", finalOut);
   }
 
   @Test
@@ -1742,7 +1773,7 @@ public class ImageProcessingControllerImplTest {
     String outString = output.toString();
     String[] outArray = outString.split("\n", 3);
     String finalOut = outArray[1];
-    assertEquals("Saved image test.", finalOut);
+    assertEquals("Saved image.", finalOut);
   }
 
   @Test
@@ -1755,7 +1786,7 @@ public class ImageProcessingControllerImplTest {
     String outString = output.toString();
     String[] outArray = outString.split("\n", 3);
     String finalOut = outArray[1];
-    assertEquals("Saved image test.", finalOut);
+    assertEquals("Saved image.", finalOut);
   }
 
   @Test
@@ -1767,8 +1798,7 @@ public class ImageProcessingControllerImplTest {
     c.process();
     String outString = output.toString();
     String[] outArray = outString.split("\n", 3);
-    String finalOut = outArray[1];
-    assertEquals("Saved image test.", finalOut);
+    assertEquals("Saved image.", outArray[1]);
   }
 
   @Test
@@ -1781,7 +1811,7 @@ public class ImageProcessingControllerImplTest {
     String outString = output.toString();
     String[] outArray = outString.split("\n", 3);
     String finalOut = outArray[1];
-    assertEquals("Saved image test.", finalOut);
+    assertEquals("Saved image.", finalOut);
   }
 
   @Test
@@ -1794,34 +1824,7 @@ public class ImageProcessingControllerImplTest {
     String outString = output.toString();
     String[] outArray = outString.split("\n", 3);
     String finalOut = outArray[1];
-    assertEquals("Saved image test.", finalOut);
-  }
-
-
-  @Test
-  public void testInvalidFilePath() {
-    Reader in = new StringReader("load pics/test4x4.ppm test save invalid/test.ppm test\n");
-    StringBuilder output = new StringBuilder();
-    ImageProcessingView view = new ImageProcessingViewImpl(output);
-    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
-    c.process();
-    String outString = output.toString();
-    String[] outArray = outString.split("\n", 3);
-    assertEquals("Saved image test.", outArray[1]);
-    //assertEquals("", outString);
-  }
-
-  @Test
-  public void testNoMoreInput2() {
-    Reader in = new StringReader("load pics/test4x4.ppm test save\n");
-    StringBuilder output = new StringBuilder();
-    ImageProcessingView view = new ImageProcessingViewImpl(output);
-    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
-    c.process();
-    String outString = output.toString();
-    String[] outArray = outString.split("\n", 2);
-    String finalOut = outArray[0];
-    assertEquals("More input required.\n", finalOut);
+    assertEquals("Saved image.", finalOut);
   }
 
   // tests for PrintMessage()

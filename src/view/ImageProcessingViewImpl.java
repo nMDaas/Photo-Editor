@@ -35,4 +35,14 @@ public class ImageProcessingViewImpl implements ImageProcessingView {
   public void renderMessage(String message) throws IOException {
     this.appendable.append(message);
   }
+
+  @Override
+  public String getFilePath() {
+    return null;
+  }
+
+  @Override
+  public String saveToFilePath() {
+    return null;
+  }
 }

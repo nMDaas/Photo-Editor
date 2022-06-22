@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import controller.ImageGUIController;
@@ -33,28 +34,31 @@ public class SavePPM {
    * @param image      the image name.
    */
   public SavePPM(String image, ImageProcessingModel model,
-                 ImageProcessingController controller, String path) {
-    this.image = image;
-    this.model = model;
-    this.controller = controller;
-    this.path = path;
-  }
+                 ImageProcessingView view, String path) {
 
-  public SavePPM(String path, ImageProcessingModel model,
-                 ImageProcessingView view) {
-    this.view = view;
     this.model = model;
+    this.view = view;
     this.path = path;
-    this.image = "xyz";
+
+    if (image == null) {
+      this.image = "image";
+    }
+    else {
+      this.image = image;
+    }
+
   }
 
   /**
    * Helps to save the image.
    */
-  public void saveFile() {
+  public void saveFile() throws IOException {
     ImageModel image = model.getImages().get(this.image);
-    if (image == null) {
-      controller.printMessage("This image does not exist.");
+    if (image == null && controller == null) {
+      controller.renderError("This image does not exist.");
+    }
+    else if (image == null && view == null) {
+      view.renderError("This image does not exist.");
     }
 
     File file = new File(this.path);
@@ -93,5 +97,8 @@ public class SavePPM {
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+    view.renderMessage("Saved image.\n");
+
   }
 }

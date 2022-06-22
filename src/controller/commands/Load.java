@@ -48,7 +48,6 @@ public class Load implements ImageProcessingCommand {
     }
     this.view = view;
     this.model = model;
-    filename = view.getFilePath();
   }
 
   /**
@@ -56,6 +55,11 @@ public class Load implements ImageProcessingCommand {
    */
   @Override
   public void execute() throws IOException {
+
+    if (filename == null) {
+      filename = view.getFilePath();
+    }
+
     if (!(filename.equals("File path will appear here"))) {
       String fileFormat = filename.substring(filename.length() - 4, filename.length());
       if (fileFormat.contains("ppm")) {
@@ -68,6 +72,8 @@ public class Load implements ImageProcessingCommand {
         view.renderMessage("File format is not supported.");
       }
     }
+
+    filename = null;
 
   }
 }

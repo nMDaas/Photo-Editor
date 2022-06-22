@@ -46,7 +46,7 @@ public class LoadJPEGPNG {
       imageName = scan.next();
     }
     else {
-      imageName = "xyz";
+      imageName = "image";
     }
 
   }
@@ -72,7 +72,6 @@ public class LoadJPEGPNG {
     try {
       int width = image.getWidth();
       int height = image.getHeight();
-
       Pixel[][] imagePixels = new Pixel[height][width];
 
       for (int row = 0; row < height; row++) {

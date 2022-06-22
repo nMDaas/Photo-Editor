@@ -22,7 +22,7 @@ public class HistogramPanel extends JPanel {
     g.drawLine(30, 550, 30, 50);
     g.drawLine(30, 550, 530, 550);
 
-    ImageModel image = model.getImages().get("xyz");
+    ImageModel image = model.getImages().get("image");
 
     if (image != null) {
 
