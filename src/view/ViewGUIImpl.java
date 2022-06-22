@@ -15,15 +15,18 @@ import model.ImageProcessingModel;
 
 public class ViewGUIImpl extends JFrame implements ImageProcessingViewGUI, ActionListener {
 
-  JLabel fileOpenDisplay;
-  JLabel fileSaveDisplay;
-  JTextField brightenInput;
-  ImageProcessingModel model;
-  JButton load;
-  ImageGUIController controller;
+  private JLabel fileOpenDisplay;
+  private JLabel fileSaveDisplay;
+  private JTextField brightenInput;
+  private ImageProcessingModel model;
+  private JButton load;
+  private ImageGUIController controller;
 
   public ViewGUIImpl(ImageProcessingModel model){
     super();
+    if (model == null) {
+      throw new IllegalArgumentException("Model cannot be null");
+    }
     this.model = model;
   }
 

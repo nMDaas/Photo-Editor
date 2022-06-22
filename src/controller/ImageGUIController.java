@@ -12,7 +12,6 @@ public interface ImageGUIController {
    * Start the program, i.e. give control to the controller
    */
   void go();
-  ImageModel getImage();
   void actionPerformed(ActionEvent e);
   void printMessage(String message) throws IOException;
   void renderError(String message) throws IOException;

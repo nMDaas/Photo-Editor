@@ -115,6 +115,7 @@ public class MockModel implements ImageModel {
 
   @Override
   public ImageModel setSepia() {
+    log.append("Sepia called");
     return null;
   }
 }

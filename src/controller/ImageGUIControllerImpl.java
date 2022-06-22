@@ -31,10 +31,13 @@ public class ImageGUIControllerImpl implements ImageGUIController, ActionListene
   private ImageProcessingModel model;
   private ImageProcessingViewGUI view;
 
-  Map<String, ImageProcessingCommand> knownCommands = new HashMap<>();
+  private Map<String, ImageProcessingCommand> knownCommands = new HashMap<>();
 
 
   public ImageGUIControllerImpl(ImageProcessingModel model, ImageProcessingViewGUI view) {
+    if (model == null || view == null) {
+      throw new IllegalArgumentException("model and view cannot be null");
+    }
     this.model = model;
     this.view = view;
     this.setCommands();
@@ -42,7 +45,7 @@ public class ImageGUIControllerImpl implements ImageGUIController, ActionListene
     view.viewSetUp();
   }
 
-  void setCommands() {
+  private void setCommands() {
     knownCommands.put("load", new Load(model, view));
     knownCommands.put("brighten", new Brighten(model, view));
     knownCommands.put("horizontal-flip", new HorizontalFlip(model, view));
@@ -89,12 +92,6 @@ public class ImageGUIControllerImpl implements ImageGUIController, ActionListene
   public void go() {
     this.view.makeVisible();
   }
-
-  @Override
-  public ImageModel getImage() {
-    return this.model.getImages().get("xyz");
-  }
-
 
   /**
    * Invoked when an action occurs.
