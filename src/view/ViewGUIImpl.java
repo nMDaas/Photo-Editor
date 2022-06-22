@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -47,7 +48,7 @@ public class ViewGUIImpl extends JFrame implements ImageProcessingViewGUI, Actio
     // histogram panel
     JPanel histogramPanel = new HistogramPanel(this, model);
     histogramPanel.setBorder(BorderFactory.createTitledBorder("Image Histogram:"));
-    histogramPanel.setPreferredSize(new Dimension(300, 500));
+    histogramPanel.setPreferredSize(new Dimension(600, 500));
     this.add(histogramPanel, BorderLayout.EAST);
 
     //loadSave panel
@@ -126,7 +127,11 @@ public class ViewGUIImpl extends JFrame implements ImageProcessingViewGUI, Actio
       @Override
       public void actionPerformed(ActionEvent e) {
         String s = (String) comboBox1.getSelectedItem();
-        controller.processCommand(s);
+        try {
+          controller.processCommand(s);
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
       }
     });
     //comboBox1.addActionListener(this);
@@ -152,7 +157,11 @@ public class ViewGUIImpl extends JFrame implements ImageProcessingViewGUI, Actio
       @Override
       public void actionPerformed(ActionEvent e) {
         String s = (String) comboBox2.getSelectedItem();
-        controller.processCommand(s);
+        try {
+          controller.processCommand(s);
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
       }
     });
     for (int i = 0; i < optionsGrey.length; i++) {
@@ -177,7 +186,11 @@ public class ViewGUIImpl extends JFrame implements ImageProcessingViewGUI, Actio
       @Override
       public void actionPerformed(ActionEvent e) {
         String s = (String) comboBox3.getSelectedItem();
-        controller.processCommand(s);
+        try {
+          controller.processCommand(s);
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
       }
     });
     for (int i = 0; i < optionsFilter.length; i++) {
@@ -202,7 +215,11 @@ public class ViewGUIImpl extends JFrame implements ImageProcessingViewGUI, Actio
       @Override
       public void actionPerformed(ActionEvent e) {
         String s = (String) comboBox4.getSelectedItem();
-        controller.processCommand(s);
+        try {
+          controller.processCommand(s);
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
       }
     });
     for (int i = 0; i < optionsFlip.length; i++) {
@@ -248,7 +265,11 @@ public class ViewGUIImpl extends JFrame implements ImageProcessingViewGUI, Actio
     brighten.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        controller.processCommand("brighten");
+        try {
+          controller.processCommand("brighten");
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
       }
     });
     brightenPanel.add(brighten);
@@ -266,11 +287,6 @@ public class ViewGUIImpl extends JFrame implements ImageProcessingViewGUI, Actio
     String value = brightenInput.getText();
     this.brightenInput.setText("");
     return Integer.parseInt(value);
-  }
-
-  @Override
-  public void showErrorMessage(String error) {
-    JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
   }
 
   @Override
@@ -300,5 +316,15 @@ public class ViewGUIImpl extends JFrame implements ImageProcessingViewGUI, Actio
    */
   @Override
   public void actionPerformed(ActionEvent e) {
+  }
+
+  @Override
+  public void renderError(String message) throws IOException {
+    JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+  }
+
+  @Override
+  public void renderMessage(String message) throws IOException {
+    JOptionPane.showMessageDialog(this, message, "Successful!", JOptionPane.PLAIN_MESSAGE);
   }
 }

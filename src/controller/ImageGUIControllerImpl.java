@@ -2,13 +2,11 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
-import java.util.function.Function;
 
-import controller.ImageGUIController;
 import controller.commands.BlueComponent;
 import controller.commands.Blur;
 import controller.commands.Brighten;
@@ -64,22 +62,22 @@ public class ImageGUIControllerImpl implements ImageGUIController, ActionListene
   }
 
   @Override
-  public String processCommand(String command) {
+  public String processCommand(String command) throws IOException {
     String userInstruction = command;
 
     ImageProcessingCommand cmd =
             knownCommands.getOrDefault(userInstruction, null);
 
     if (cmd == null) {
-      view.showErrorMessage("Invalid command.");
+      view.renderError("Invalid command.");
     } else {
       try {
         cmd.execute();
         view.refresh();
       } catch (NoSuchElementException e) {
-        view.showErrorMessage("More input required.");
+        view.renderError("More input required.");
       } catch (NumberFormatException e) {
-        view.showErrorMessage("Invalid number input.");
+        view.renderError("Invalid number input.");
       }
     }
 
@@ -96,7 +94,7 @@ public class ImageGUIControllerImpl implements ImageGUIController, ActionListene
 
   @Override
   public ImageModel getImage() {
-    return this.model.getImages()[0];
+    return this.model.getImages().get("xyz");
   }
 
 
@@ -110,8 +108,22 @@ public class ImageGUIControllerImpl implements ImageGUIController, ActionListene
     try {
       String status = processCommand(e.getActionCommand());
     } catch (Exception ex) {
-      view.showErrorMessage(ex.getMessage());
+      try {
+        view.renderError(ex.getMessage());
+      } catch (IOException exc) {
+        throw new RuntimeException(exc);
+      }
     }
+  }
+
+  @Override
+  public void printMessage(String message) throws IOException {
+    view.renderMessage(message);
+  }
+
+  @Override
+  public void renderError(String message) throws IOException {
+    view.renderError(message);
   }
 
 }

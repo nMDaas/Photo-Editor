@@ -17,6 +17,11 @@ public class Sharpen extends AbstractCommand {
    * @param controller the controller
    * @param newImage the name of the edited image
    */
+  public Sharpen(String image, ImageProcessingModel model,
+                 ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
+  }
+
   public Sharpen(ImageProcessingModel model,
                  ImageProcessingViewGUI view) {
     super(model, view);
@@ -30,6 +35,7 @@ public class Sharpen extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
+    controller.printMessage(newImage + " created by sharpening " + image + ".");
     return model.sharpenImage();
   }
 }

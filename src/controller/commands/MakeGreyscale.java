@@ -18,6 +18,11 @@ public class MakeGreyscale extends AbstractCommand {
    * @param controller the controller
    * @param newImage the name of the new edited image
    */
+  public MakeGreyscale(String image, ImageProcessingModel model,
+                       ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
+  }
+
   public MakeGreyscale(ImageProcessingModel model,
                        ImageProcessingViewGUI view) {
     super(model, view);
@@ -31,6 +36,7 @@ public class MakeGreyscale extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
+    controller.printMessage(newImage + " created through greyscale of " + image + ".");
     return model.setGreyscale();
   }
 }

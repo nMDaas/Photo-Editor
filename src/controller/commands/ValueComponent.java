@@ -12,6 +12,11 @@ import view.ImageProcessingViewGUI;
  */
 public class ValueComponent extends AbstractCommand {
 
+  public ValueComponent(String image, ImageProcessingModel model,
+                        ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
+  }
+
   public ValueComponent(ImageProcessingModel model,
                         ImageProcessingViewGUI view) {
     super(model, view);
@@ -25,6 +30,7 @@ public class ValueComponent extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
+    controller.printMessage(newImage + " created through value greyscale of " + image + ".");
     return model.valueComponent();
   }
 }

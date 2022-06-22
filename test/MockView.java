@@ -21,6 +21,11 @@ public class MockView implements ImageProcessingView {
   }
 
   @Override
+  public void renderError(String message) throws IOException {
+    log.append(String.format("message = " + message));
+  }
+
+  @Override
   public void renderMessage(String message) throws IOException {
     log.append(String.format("message = " + message));
   }

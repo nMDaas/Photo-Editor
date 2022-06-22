@@ -1,8 +1,10 @@
 package controller.commands;
 
-import controller.ImageGUIController;
+import java.io.IOException;
+
 import controller.ImageProcessingController;
 import model.ImageProcessingModel;
+import view.ImageProcessingView;
 import view.ImageProcessingViewGUI;
 
 /**
@@ -10,9 +12,37 @@ import view.ImageProcessingViewGUI;
  */
 public class Save implements ImageProcessingCommand {
 
+  String image;
+  String path;
 
   ImageProcessingModel model;
-  protected ImageProcessingViewGUI view;
+  protected ImageProcessingView view;
+
+  /**
+   * Constructs a {@code Save} with its fields initialized to themselves.
+   *
+   * @param path       the path name.
+   * @param image      the image name.
+   */
+  public Save(ImageProcessingModel model, ImageProcessingView view,
+              String path, String image) {
+    if (path.equals("")) {
+      throw new IllegalArgumentException("Invalid file path..");
+    }
+    if (image.equals("")) {
+      throw new IllegalArgumentException("Image name cannot be empty.");
+    }
+    if (view == null ) {
+      throw new IllegalArgumentException("Controller cannot be null.");
+    }
+    if (model == null) {
+      throw new IllegalArgumentException("Model cannot be null.");
+    }
+    this.image = image;
+    this.view = view;
+    this.path = path;
+    this.model = model;
+  }
 
 
   public Save(ImageProcessingModel model,
@@ -27,14 +57,14 @@ public class Save implements ImageProcessingCommand {
     }
     this.model = model;
     this.view = view;
+    this.path = view.saveToFilePath();
   }
 
   /**
    * Helps to save the image depending on the file type.
    */
   @Override
-  public void execute() {
-    String path = view.saveToFilePath();
+  public void execute() throws IOException {
     String fileFormat = path.substring(path.length() - 4, path.length());
     if (fileFormat.contains("ppm")) {
       new SavePPM(path, model, view).saveFile();
@@ -47,7 +77,7 @@ public class Save implements ImageProcessingCommand {
       new SavePNG(path, model, view).saveFile();
     }
     else {
-      view.showErrorMessage("File format is not supported.");
+      view.renderError("File format is not supported.");
     }
 
     //controller.printMessage("Saved image " + this.image + ".");

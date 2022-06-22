@@ -17,6 +17,11 @@ public class GreenComponent extends AbstractCommand {
     super(model, view);
   }
 
+  public GreenComponent(String image, ImageProcessingModel model,
+                        ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
+  }
+
   /**
    * A factory method that does the specific command by calling the extended class.
    *
@@ -25,6 +30,7 @@ public class GreenComponent extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
+    controller.printMessage(newImage + " created through green channel of " + image + ".");
     return model.greenComponent();
   }
 

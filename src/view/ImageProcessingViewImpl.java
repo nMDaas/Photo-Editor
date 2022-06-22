@@ -27,6 +27,11 @@ public class ImageProcessingViewImpl implements ImageProcessingView {
   }
 
   @Override
+  public void renderError(String message) throws IOException {
+    this.appendable.append(message);
+  }
+
+  @Override
   public void renderMessage(String message) throws IOException {
     this.appendable.append(message);
   }

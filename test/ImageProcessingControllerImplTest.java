@@ -1,4 +1,3 @@
-/*
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,9 +18,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 
-*
+/**
  * tests for ImageProcessingControllerImplTest.
-
+*/
 
 public class ImageProcessingControllerImplTest {
 
@@ -154,7 +153,7 @@ public class ImageProcessingControllerImplTest {
     String outString = dontCareOutput.toString();
     String[] outArray = outString.split("\n", 2);
     String finalOut = outArray[0];
-    assertEquals("Loaded file as portrait.", finalOut);
+    assertEquals("Loaded file as portrait.", outString);
   }
 
   @Test
@@ -956,7 +955,7 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
     String outString = output.toString();
-    String[] outArray = outString.split("\n", 5);
+    String[] outArray = outString.split("\n", 3);
     assertEquals("icons-green created through green channel of icons.",
             outArray[1]);
   }
@@ -1030,7 +1029,7 @@ public class ImageProcessingControllerImplTest {
     ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
     String outString = output.toString();
-    String[] outArray = outString.split("\n", 5);
+    String[] outArray = outString.split("\n", 3);
     assertEquals("koala-blue created through blue channel of koala.",
             outArray[1]);
   }
@@ -1434,6 +1433,7 @@ public class ImageProcessingControllerImplTest {
     Reader in = new StringReader("load pics/test4x4.ppm test luma-component test luma\n");
     StringBuilder output = new StringBuilder();
     ImageProcessingView view = new ImageProcessingViewImpl(output);
+    ImageProcessingController c = new ImageProcessingControllerImpl(in, view);
     c.process();
 
     Pixel blackLuma = new RGBPixel(0, 0, 0);
@@ -1820,7 +1820,7 @@ public class ImageProcessingControllerImplTest {
     c.process();
     String outString = output.toString();
     String[] outArray = outString.split("\n", 2);
-    String finalOut = outArray[1];
+    String finalOut = outArray[0];
     assertEquals("More input required.\n", finalOut);
   }
 
@@ -1918,4 +1918,3 @@ public class ImageProcessingControllerImplTest {
   }
 
 }
-*/

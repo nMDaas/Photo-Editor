@@ -19,6 +19,11 @@ public class LumaComponent extends AbstractCommand {
    * @param controller the controller.
    * @param newImage   the new filename.
    */
+  public LumaComponent(String image, ImageProcessingModel model,
+                       ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
+  }
+
   public LumaComponent(ImageProcessingModel model,
                        ImageProcessingViewGUI view) {
     super(model, view);
@@ -32,6 +37,7 @@ public class LumaComponent extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
+    controller.printMessage(newImage + " created through luma greyscale of " + image + ".");
     return model.lumaComponent();
   }
 }

@@ -17,6 +17,11 @@ public class BlueComponent extends AbstractCommand {
     super(model, view);
   }
 
+  public BlueComponent(String image, ImageProcessingModel model,
+                       ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
+  }
+
   /**
    * Helps create a greyscale image with the blue-component of the image and its respective message.
    *
@@ -25,6 +30,7 @@ public class BlueComponent extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
+    controller.printMessage(newImage + " created through blue channel of " + image + ".");
     return model.blueComponent();
   }
 }

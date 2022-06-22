@@ -12,6 +12,11 @@ import view.ImageProcessingViewGUI;
  */
 public class MakeSepia extends AbstractCommand {
 
+  public MakeSepia(String image, ImageProcessingModel model,
+                   ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
+  }
+
   public MakeSepia(ImageProcessingModel model,
                    ImageProcessingViewGUI view) {
     super(model, view);
@@ -25,6 +30,7 @@ public class MakeSepia extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
+    controller.printMessage(newImage + " created through greyscale of " + image + ".");
     return model.setSepia();
   }
 }

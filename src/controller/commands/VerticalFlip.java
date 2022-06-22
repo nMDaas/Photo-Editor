@@ -11,6 +11,11 @@ import view.ImageProcessingViewGUI;
  */
 public class VerticalFlip extends AbstractCommand {
 
+  public VerticalFlip(String image, ImageProcessingModel model,
+                      ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
+  }
+
   public VerticalFlip(ImageProcessingModel model,
                       ImageProcessingViewGUI view) {
     super(model, view);
@@ -24,6 +29,7 @@ public class VerticalFlip extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
+    controller.printMessage(newImage + " created by vertically flipping " + image + ".");
     return model.flipVertical();
   }
 }

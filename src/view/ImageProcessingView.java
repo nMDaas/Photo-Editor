@@ -7,5 +7,6 @@ import java.io.IOException;
  * to the view.
  */
 public interface ImageProcessingView {
+  void renderError(String message) throws IOException;
   void renderMessage(String message) throws IOException;
 }

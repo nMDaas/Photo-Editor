@@ -14,6 +14,7 @@ import controller.ImageProcessingController;
 import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
+import view.ImageProcessingView;
 import view.ImageProcessingViewGUI;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
@@ -22,25 +23,42 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
  * Represents the save class which helps create a jpeg image by saving it.
  */
 public class SaveJPEG {
+  String image;
+  ImageProcessingController controller;
   ImageProcessingModel model;
   String path;
-  protected ImageProcessingViewGUI view;
+  protected ImageProcessingView view;
+
+  /**
+   * Constructs a {@code SaveJPEG} with its fields initialized to themselves.
+   *
+   * @param path       the path name.
+   * @param image      the image name.
+   */
+  public SaveJPEG(String image, ImageProcessingModel model,
+                  ImageProcessingView view, String path) {
+    this.image = image;
+    this.model = model;
+    this.view = view;
+    this.path = path;
+  }
 
 
   public SaveJPEG(String path, ImageProcessingModel model,
-                  ImageProcessingViewGUI view) {
+                  ImageProcessingView view) {
     this.view = view;
     this.model = model;
     this.path = path;
+    this.image = "xyz";
   }
 
   /**
    * Helps to save the image.
    */
   public void saveFile() {
-    ImageModel theImage = model.getImages()[0];
-    if (theImage == null) {
-      view.showErrorMessage("This image does not exist.");
+    ImageModel theImage = model.getImages().get(this.image);
+    if (image == null) {
+      controller.printMessage("This image does not exist.");
     }
 
     BufferedImage image = new BufferedImage(theImage.getWidth(),

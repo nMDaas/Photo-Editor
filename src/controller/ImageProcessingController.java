@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import model.ImageModel;
@@ -31,5 +32,7 @@ public interface ImageProcessingController {
    * @throws IllegalStateException if unable to print the message.
    */
   void printMessage(String message);
+  void renderError(String message) throws IOException;
+
 
 }

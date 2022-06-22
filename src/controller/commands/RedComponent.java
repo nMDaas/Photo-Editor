@@ -12,6 +12,10 @@ import view.ImageProcessingViewGUI;
  */
 public class RedComponent extends AbstractCommand {
 
+  public RedComponent(String image, ImageProcessingModel model,
+                      ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
+  }
 
   public RedComponent(ImageProcessingModel model,
                       ImageProcessingViewGUI view) {
@@ -26,6 +30,7 @@ public class RedComponent extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
+    controller.printMessage(newImage + " created through red channel of " + image + ".");
     return model.redComponent();
   }
 }

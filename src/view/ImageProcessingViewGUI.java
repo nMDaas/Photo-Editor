@@ -7,10 +7,9 @@ import javax.swing.*;
 import controller.ImageGUIController;
 import controller.ImageGUIControllerImpl;
 
-public interface ImageProcessingViewGUI {
+public interface ImageProcessingViewGUI extends ImageProcessingView {
   void makeVisible();
   int getBrightenValue();
-  void showErrorMessage(String error);
   void refresh();
   String getFilePath();
   String saveToFilePath();

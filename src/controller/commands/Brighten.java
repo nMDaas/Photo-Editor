@@ -17,7 +17,13 @@ public class Brighten extends AbstractCommand {
   public Brighten(ImageProcessingModel model,
                   ImageProcessingViewGUI view) {
     super(model, view);
-    //this.value = view.getBrightenValue();
+    this.value = view.getBrightenValue();
+  }
+
+  public Brighten(String image, ImageProcessingModel model,
+                  ImageProcessingController controller, int value, String newImage) {
+    super(image, model, controller, newImage);
+    this.value = value;
   }
 
   /**
@@ -28,6 +34,7 @@ public class Brighten extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
-    return model.brighten(view.getBrightenValue());
+    controller.printMessage(newImage + " created by changing brightness of " + image + ".");
+    return model.brighten(value);
   }
 }

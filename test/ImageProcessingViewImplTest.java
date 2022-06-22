@@ -31,7 +31,7 @@ public class ImageProcessingViewImplTest {
     this.v1 = new ImageProcessingViewImpl(output);
 
     try {
-      v1.renderMessage("hello");
+      v1.renderError("hello");
     } catch (IOException e) {
       throw new IllegalStateException("Unexpected exception thrown");
     }
@@ -55,7 +55,7 @@ public class ImageProcessingViewImplTest {
     this.v1 = new ImageProcessingViewImpl(output);
 
     try {
-      v1.renderMessage("hello");
+      v1.renderError("hello");
     } catch (IOException e) {
       throw new IllegalStateException("Unexpected exception thrown");
     }
@@ -67,7 +67,7 @@ public class ImageProcessingViewImplTest {
   public void testInvalidRenderMessage() throws IOException {
     Appendable out = new CorruptAppendable();
     this.v1 = new ImageProcessingViewImpl(out);
-    v1.renderMessage("hello");
+    v1.renderError("hello");
   }
 
 }

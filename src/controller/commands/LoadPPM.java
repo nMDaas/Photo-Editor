@@ -2,15 +2,16 @@ package controller.commands;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
-import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageModelImpl;
 import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
 import model.pixel.RGBPixel;
+import view.ImageProcessingView;
 import view.ImageProcessingViewGUI;
 
 /**
@@ -19,26 +20,37 @@ import view.ImageProcessingViewGUI;
 public class LoadPPM {
   String filename;
   ImageProcessingModel model;
-  protected ImageProcessingViewGUI view;
+  ImageProcessingView view;
+
+  Scanner scan;
+  String imageName;
 
   public LoadPPM(String filename, ImageProcessingModel model,
-                 ImageProcessingViewGUI view) {
+                 ImageProcessingView view, Scanner scan) {
     this.filename = filename;
-    this.model = model;
     this.view = view;
+    this.model = model;
+    if (scan != null) {
+      this.scan = scan;
+      imageName = scan.next();
+    }
+    else {
+      imageName = "xyz";
+    }
+
   }
 
   /**
    * Helps to load the image.
    */
-  public void loadFile() {
+  public void loadFile() throws IOException {
     Scanner sc;
 
     try {
       sc = new Scanner(new FileInputStream(this.filename));
     } catch (
     FileNotFoundException e) {
-      view.showErrorMessage("File " + this.filename + " not found!");
+      view.renderError("File " + this.filename + " not found!");
       return;
     }
     StringBuilder builder = new StringBuilder();
@@ -57,12 +69,10 @@ public class LoadPPM {
 
     token = sc.next();
     if (!token.equals("P3")) {
-      view.showErrorMessage("Invalid PPM file: plain RAW file should begin with P3");
+      view.renderError("Invalid PPM file: plain RAW file should begin with P3");
     }
 
     try {
-
-      //String imageName = scan.next();
 
       int width = sc.nextInt();
       int height = sc.nextInt();
@@ -81,12 +91,15 @@ public class LoadPPM {
       }
 
       ImageModel newModel = new ImageModelImpl(height, width, imagePixels, maxValue);
-      model.getImages()[0] = newModel;
-      //controller.printMessage("Loaded file as " + imageName + ".");
+      maxValue = newModel.getMax();
+      newModel = new ImageModelImpl(height, width, imagePixels, maxValue);
+
+      model.getImages().put(imageName, newModel);
+      view.renderMessage("Loaded file as " + imageName + ".\n");
     } catch (IllegalStateException e) {
-      view.showErrorMessage("Ran out of input");
+      view.renderError("Ran out of input");
     } catch (NumberFormatException e) {
-      view.showErrorMessage("Height, Width, Max and Pixel RGB values must all be int.");
+      view.renderMessage("Height, Width, Max and Pixel RGB values must all be int.");
     }
   }
 

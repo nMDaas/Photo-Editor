@@ -9,13 +9,13 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
-import controller.ImageGUIController;
 import controller.ImageProcessingController;
 import model.ImageModelImpl;
 import model.ImageModel;
 import model.ImageProcessingModel;
 import model.pixel.Pixel;
 import model.pixel.RGBPixel;
+import view.ImageProcessingView;
 import view.ImageProcessingViewGUI;
 
 /**
@@ -24,20 +24,37 @@ import view.ImageProcessingViewGUI;
 public class LoadJPEGPNG {
   String filename;
   ImageProcessingModel model;
-  protected ImageProcessingViewGUI view;
+  protected ImageProcessingView view;
 
+  Scanner scan;
+  String imageName;
 
+  /**
+   * Constructs {@code LoadJPEGPNG} with its fields initialized to themselves.
+   *
+   * @param filename   the name of the file path.
+   * @param view the controller.
+   * @param scan       the scanner.
+   */
   public LoadJPEGPNG(String filename, ImageProcessingModel model,
-                     ImageProcessingViewGUI view) {
+                     ImageProcessingView view, Scanner scan) {
     this.filename = filename;
-    this.model = model;
     this.view = view;
+    this.model = model;
+    if (scan != null) {
+      this.scan = scan;
+      imageName = scan.next();
+    }
+    else {
+      imageName = "xyz";
+    }
+
   }
 
   /**
    * Helps to load the image.
    */
-  public void loadFile() {
+  public void loadFile() throws IOException {
     File file = null;
     BufferedImage image = null;
 
@@ -46,16 +63,13 @@ public class LoadJPEGPNG {
       file = new File(path);
       image = ImageIO.read(file);
     } catch (FileNotFoundException e) {
-      view.showErrorMessage("File " + this.filename + " not found!");
+      view.renderError("File " + this.filename + " not found!");
       return;
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
 
     try {
-
-     // String imageName = scan.next();
-
       int width = image.getWidth();
       int height = image.getHeight();
 
@@ -80,12 +94,12 @@ public class LoadJPEGPNG {
       maxValue = newModel.getMax();
       newModel = new ImageModelImpl(height, width, imagePixels, maxValue);
 
-      model.getImages()[0] = newModel;
-      //controller.printMessage("Loaded file as " + imageName + ".");
+      model.getImages().put(imageName, newModel);
+      view.renderMessage("Loaded file as " + imageName + ".\n");
     } catch (IllegalStateException e) {
-      view.showErrorMessage("Ran out of input");
+      view.renderError("Ran out of input");
     } catch (NumberFormatException e) {
-      view.showErrorMessage("Height, Width, Max and Pixel RGB values must all be int.");
+      view.renderError("Height, Width, Max and Pixel RGB values must all be int.");
     }
   }
 }

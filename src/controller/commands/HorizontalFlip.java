@@ -17,6 +17,11 @@ public class HorizontalFlip extends AbstractCommand {
     super(model, view);
   }
 
+  public HorizontalFlip(String image, ImageProcessingModel model,
+                        ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
+  }
+
   /**
    * A factory method that does the specific command by calling the extended class.
    *
@@ -25,6 +30,7 @@ public class HorizontalFlip extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
+    controller.printMessage(newImage + " created by horizontally flipping " + image + ".");
     return model.flipHorizontal();
   }
 

@@ -1,5 +1,6 @@
 package controller.commands;
 
+import java.io.IOException;
 import java.util.Map;
 
 import controller.ImageGUIController;
@@ -15,6 +16,26 @@ abstract public class AbstractCommand implements ImageProcessingCommand {
   protected ImageProcessingModel model;
   protected ImageProcessingViewGUI view;
 
+  protected String image;
+  protected ImageProcessingController controller;
+  protected String newImage;
+
+  public AbstractCommand(String image, ImageProcessingModel model,
+                         ImageProcessingController controller, String newImage) {
+    if (model == null) {
+      throw new IllegalArgumentException("Model cannot be null.");
+    }
+    if (controller == null) {
+      throw new IllegalArgumentException("Controller cannot be null.");
+    }
+
+    this.image = image;
+    this.newImage = newImage;
+
+    this.model = model;
+    this.controller = controller;
+  }
+
 
   public AbstractCommand(ImageProcessingModel model,
                          ImageProcessingViewGUI view) {
@@ -26,23 +47,25 @@ abstract public class AbstractCommand implements ImageProcessingCommand {
     }
     this.model = model;
     this.view = view;
+    this.image = "xyz";
+    this.newImage = "xyz";
   }
 
   /**
    * Performs the command and stores the new image in the hashmap.
    */
   @Override
-  public void execute() {
-    //Map<String, ImageModel> images = model.getImages();
-    ImageModel model = this.model.getImages()[0];
-    /*if (model == null) {
-      throw new IllegalArgumentException("No image loaded.");
-    }*/
-    if (model != null) {
-      ImageModel modifiedModel = doCommand(model);
-      this.model.getImages()[0] = modifiedModel;
+  public void execute() throws IOException {
+    Map<String, ImageModel> images = model.getImages();
+    ImageModel model = images.get(image);
+    if (model == null) {
+      view.renderError("This image does not exist.");
     }
-    //images.put(newImage, modifiedModel);
+    ImageModel modifiedModel = null;
+    if (model != null) {
+      modifiedModel = doCommand(model);
+    }
+    images.put(newImage, modifiedModel);
   }
 
   /**

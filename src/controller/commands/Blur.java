@@ -16,6 +16,11 @@ public class Blur extends AbstractCommand {
     super(model, view);
   }
 
+  public Blur(String image, ImageProcessingModel model,
+              ImageProcessingController controller, String newImage) {
+    super(image, model, controller, newImage);
+  }
+
 
   /**
    * A factory method that does the specific command by calling the extended class.
@@ -25,6 +30,7 @@ public class Blur extends AbstractCommand {
    */
   @Override
   public ImageModel doCommand(ImageModel model) {
+    controller.printMessage(newImage + " created by blurring " + image + ".");
     return model.blurImage();
   }
 

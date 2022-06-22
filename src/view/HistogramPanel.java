@@ -19,10 +19,10 @@ public class HistogramPanel extends JPanel {
   @Override
   protected void paintComponent(Graphics g) {
     g.setColor(Color.black);
-    g.drawLine(30, 500, 30, 100);
-    g.drawLine(30, 500, 285, 500);
+    g.drawLine(30, 550, 30, 50);
+    g.drawLine(30, 550, 530, 550);
 
-    ImageModel image = model.getImages()[0];
+    ImageModel image = model.getImages().get("xyz");
 
     if (image != null) {
 
@@ -45,8 +45,8 @@ public class HistogramPanel extends JPanel {
   protected void drawHistogram(Graphics g, int[] data) {
     int xPos = 31;
     for (int i = 0; i < data.length; i ++) {
-      int dataScale = (int) Math.round(data[i] * 0.1);
-      g.drawLine(xPos, 500, xPos, 500 - dataScale);
+      int dataScale = (int) Math.round(data[i] * 0.03);
+      g.drawLine(xPos, 550, xPos, 550 - dataScale);
       xPos = xPos + 2;
     }
   }
