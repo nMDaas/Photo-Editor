@@ -1,8 +1,47 @@
-COMMANDS SUPPORTED
+HOW TO USE WITH GUI
+
+- Assignment_4.jar can be double clicked or
+- In terminal, navigate to jar folder and run java -jar Assignment_4.jar
+- The GUI of the program will pop up
+- Images can be loaded by clicking on "Open a file", navigating to and selecting the
+  desired image and clicking open
+- To filter the image with a red channel, select "red-component" under RGB Color
+  Channels
+- To filter the image with a green channel, select "green-component" under RGB Color
+  Channels
+- To filter the image with a blue channel, select "blue-component" under RGB Color
+  Channels
+- To give the image a value generated greyscale, select "value-component"
+under Greyscale Channels
+- To give the image a intensity generated greyscale, select "intensity-component"
+under Greyscale Channels
+- To give the image a luma generated greyscale, select "luma-component"
+under Greyscale Channels
+- To give the image a greyscale filter, select "make-greyscale" under Filters
+- To give the image a sepia filter, select "make-sepia" under Filters
+- To blur the image, click on the "Blur" button
+- To sharpen the image, click on the "Sharpen" button
+- To increase the brightness, enter the positive value by how much you would like to do so
+  and click on the "Brighten" button
+- To decrease the brightness, enter the value by how much you would like to do so as a
+  negative value and click on the "Brighten" button
+- To save the image, click on "Save the image", navigate to the desired folder,
+  enter the desired file name followed by the desired extension
+
+
+HOW TO USE VIA JAR WITH FILE WITH SCRIPT AS INPUT
+
+format: java -jar Program.jar -file path-of-script-file
+example: java -jar Assignment_4.jar ../script
+
+HOW TO USE VIA JAR WITH COMMAND LINE ARGUMENTS AS INPUT
+
+format: java -jar Program.jar -text (followed by commands as suggested below:)
+example: java -jar Assignment_4.jar -text (followed by commands as suggested below:)
 
 load
 format: load (file path) (image name)
-example: load res/test.png test
+example: load ../test.png test
 
 brighten
 format: brighten (image name) (value to change by) (new image name)

@@ -13,5 +13,7 @@ public interface ImageProcessingViewGUI extends ImageProcessingView {
   void refresh();
   void setController(ImageGUIController controller);
   void viewSetUp();
+  String getFilePath();
+  String saveToFilePath();
 
 }

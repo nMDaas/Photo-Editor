@@ -12,8 +12,8 @@ import model.pixel.Pixel;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class ImageLabel extends JLabel {
-  ImageProcessingViewGUI view;
-  ImageProcessingModel model;
+  private ImageProcessingViewGUI view;
+  private ImageProcessingModel model;
 
   public ImageLabel(ImageProcessingViewGUI view, ImageProcessingModel model) {
     this.view = view;

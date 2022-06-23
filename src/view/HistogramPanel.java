@@ -8,8 +8,8 @@ import model.ImageModel;
 import model.ImageProcessingModel;
 
 public class HistogramPanel extends JPanel {
-  ImageProcessingViewGUI view;
-  ImageProcessingModel model;
+  private ImageProcessingViewGUI view;
+  private ImageProcessingModel model;
 
   public HistogramPanel(ImageProcessingViewGUI view, ImageProcessingModel model) {
     this.view = view;

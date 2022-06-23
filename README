@@ -2,6 +2,23 @@ The packages in this src file represent the model, controller and view of an Ima
 program. This image processing program can take ppm images from a file path and
 edit the images based on user choice.
 
+CHANGES:
+- ImageGUIController and ImageGUIController were implemented to support a
+  constructor that could display the program as a GUI
+- ImageProcessingViewGUI and ViewGUIImpl were implemented to support an
+  ImageProcessingView that could display the program as a GUI. ImageProcessingViewGUI
+  extends ImageProcessingView as it only needs additional methods to be implemented
+- AbstractCommand, its extensions, Load, LoadJPEG, LoadPPM, Save, SaveJPEG, SavePPM
+  and SavePNG were edited to support the GUI and other methods of input (other than Scanner
+  or a Readable)
+- On account that the store of images should be a part of the model and not the controller,
+  ImageProcessingModel was created as the model interface of the program with a store of
+  images (with ImageProcessingModelImpl as its implementation)
+- ImageModel and ImageModelImpl represent an interface and an implementation of an image
+- A Histogram class was created to represent the display of a histogram
+- ImageLabel and HistogramPanel were created for the purpose of implementing
+  features of the GUI
+
 CONTROLLER PACKAGE
 
 ImageProcessingController - This represents the interface of the program's
@@ -23,7 +40,9 @@ with a hashmap of known commands and can perform the following functionalities:
 
 ** NEW **
 ImageGUIController - This represents the interface of the program's
-controller that renders the program with GUI. This interface requires any implementation
+controller that renders the program with GUI. A new interface was created because
+there were some methods of the older interface that implementations of the controller
+with the GUI did not need. This interface requires any implementation
 of ImageProcessingController to:
 - process a command via the process(String) method and execute the command on the model
 - extract action commands via the actionPerformed(ActionEvent) method that is passed on to the
@@ -36,8 +55,10 @@ of ImageProcessingController to:
 
 ** NEW **
 ImageGUIControllerImpl - This is an implementation of ImageGUIController
-hat takes in an ImageProcessingView, Readable and Scanner. This implements all its inherited
-methods along with:
+hat takes in an ImageProcessingView, Readable and Scanner. Additional
+constructors were added to its implementations and its extensions to support GUI
+implementations ImageGUIControllerImpl and ImageProcessingViewGUIThis.
+This implements all its inherited methods along with:
 - setCommands(), a private method that adds to the hashmap, knownCommands
 
 CONTROLLER.COMMANDS PACKAGE
@@ -82,9 +103,7 @@ is not found, an appropriate message is printed.
 
 ** NEW CHANGE **
 AbstractCommand - AbstractCommand implements ImageProcessingCommand and is
-an abstract command for all commands except for Load and Save. Additional
-constructors were added to this implementation and its extensions to support GUI
-implementations ImageGUIControllerImpl and ImageProcessingViewGUIThis. This has two
+an abstract command for all commands except for Load and Save. This has two
 methods:
 - go() - this creates a new edited model based on the command and adds it to the
   ImageProcessingController's hashmap of images
@@ -133,8 +152,19 @@ returns an image with a sepia filter and prints a message of completion.
 
 MODEL PACKAGE
 
-ImageProcessingModel - This represents the interface of the model. It supports the
-following methods:
+** NEW **
+ImageProcessingModel - Since it would be inappropriate to have the stored images
+in the controller, this interface was created as the model of the program with one
+method:
+- getImages() - returns the hashmap of loaded or edited images
+
+** NEW **
+ImageProcessingModelImpl - This represents an implementation of ImageProcessingModel
+that implements all its inherited methods
+
+** NEW CHANGE **
+ImageModel - This interface (** earlier represented the model **) represents an
+image. It supports the following methods:
 - redComponent() - creates an image's red channel
 - greenComponent() - creates an image's green channel
 - blueComponent() - creates an image's blue channel
@@ -151,16 +181,16 @@ following methods:
   and column to a given pixel
 - getMax() - returns the max value of a pixel in the image
 - createCopy() - returns a copy of the ImageProcessingModel
-- blurImage() - creates a blurred image (** NEW **)
-- sharpenImage() - creates a sharpened image (** NEW **)
-- setGreyscale() - creates a greyscale image(** NEW **)
-- setSepia() - creates an image with a sepia filter (** NEW **)
+- blurImage() - creates a blurred image
+- sharpenImage() - creates a sharpened image
+- setGreyscale() - creates a greyscale image
+- setSepia() - creates an image with a sepia filter
 
-ImageModel - ImageModel is an implementation of ImageProcessingModel and implements
+ImageModelImpl - ImageModelImpl is an implementation of ImageModel and implements
 all its inherited methods. It also implements applyKernel()
 - applyKernel(Posn [] kernel, ImageProcessingModel model, int row, int col) - returns
   an ImageProcessingModel with a kernel applied to a pixel at a specific row and column (col)
-  (** NEW **)
+
 
 MODEL.COMMANDS PACKAGE
 
@@ -212,11 +242,11 @@ Its implementations inherit the following methods:
 - setIntensityComponent() - converts the pixel to greyscale based on intensity
 - setLumaComponent() - converts the pixel to greyscale based on luma
 - createCopy() - returns a copy of the Pixel
-- setGreyscale() - returns a copy of the Pixel (*NEW*)
-- setSepia() - returns a copy of the Pixel (*NEW*)
+- setGreyscale() - returns a copy of the Pixel
+- setSepia() - returns a copy of the Pixel
 - clipValue() - clips value of a pixel, ensuring that it is between 0 and 255
 inclusive. This method was added to the Pixel interface and made public so it
-is easily accessible by the ImageProcessingModel (*NEW*)
+is easily accessible by the ImageProcessingModel
 
 RGBPixel - RGBPixel implements the Pixel interface and represents a pixel that
 is contains red, blue and green values. These colors are held in the colors array
@@ -230,14 +260,14 @@ its inherited methods along with:
 - findIntensity() - calculates the intensity of the pixel
 - findLuma() - calculates the luma of the pixel
 - findGreyscale() - a helper to setGreyscale() that calculates the values
-  of the pixel in greyscale (*NEW*)
+  of the pixel in greyscale
 - findSepia() - a helper to setSepia() that calculates the values
-  of the pixel when a sepia filter is applied (*NEW*)
+  of the pixel when a sepia filter is applied
 - equals(Object that) - Overrides the equals method to set two pixels to be equal to
   each other if their r values, g values and b values are equal
 - hashCode - Overrides the hashCode() method
 
-*NEW*
+
 Posn - Posn represents a cell or pixel in a kernel. It has a row, column and a
 multiple. It has only one method. This class was made to ensure a cleaner design and produce
 more readable code with less duplication.
@@ -253,11 +283,48 @@ ImageProcessingViewImpl - ImageProcessingViewImpl implements ImageProcessingView
 only takes in an appendable and only implements renderMessage(String message).
 An IOException is thrown if there is one.
 
+** NEW **
+ImageProcessingViewGUI - This interface represents the view of the program that
+displays the GUI of the program. This is an extension of ImageProcessingView
+as it adds additional functionality. It supports the following methods:
+- makeVisible() - makes the view visible
+- getBrightenValue() - which returns the value the brightness needs to be changed by
+  from the user
+- refresh() - updates the view after implementation of commands
+- setController(ImageGUIController) - sets the view's controller to the given
+- viewSetUp() - sets up the view's JPanels, JLabels, etc. that it needs
+- getFilePath() - gets the file path input by the user to load an image
+- saveToFilePath() - gets the file path input by the user to save an image to a path
+
+** NEW **
+ViewGUIImpl - This implements ImageProcessingViewGUI. It implements all its
+inherited methods.
+
+** NEW **
+Histogram - This represents a histogram of an image. It has an array containing values
+for the RGB histograms of an image as fields as well as an ImageModel as a field. It
+implements the methods:
+- generateHistograms() - fills up the arrays fields of the histogram based on the ImageModel
+- returnHistogram(int) - returns an array containing the Histogram data depending on the index.
+index 0 is red, index 1 is green and index 2 is blue.
+
+** NEW **
+ImageLabel - This extends JLabel and implements the inherited paintComponent(Graphics)
+method. This ImageLabel is responsible for displaying the image on the GUI and was created
+as an additional class to allow the image to refresh
+
+** NEW **
+HistogramPanel - This extends JPanel and implements the inherited paintComponent(Graphics)
+method. This HistogramPanel is responsible for displaying the histogram on the GUI and was created
+as an additional class to allow the image to refresh. drawHistogram() was used as a private
+helper method to help the paintComponent() method
+
+
 IMAGE CITATION
 test4x4.ppm was obtained from (link example4p6) :
 http://people.uncw.edu/tompkinsj/112/texnh/assignments/imageFormat.html
 
-test.png in the res/ folder was created by us.
+test.png in the res/ folder or any other image was created by us.
 
 INSTRUCTIONS TO USE THE IMAGE PROCESSOR
 - Run the main method in the Main class
