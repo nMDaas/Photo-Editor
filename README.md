@@ -5,14 +5,16 @@ edit the images based on user choice.
 
 ## CONTROLLER PACKAGE
 
-ImageProcessingController - This represents the interface of the program's
+### ImageProcessingController
+This represents the interface of the program's
 controller. This interface requires any implementation of ImageProcessingController to:
 - process user input via the process() method until there is no more user input
 - print messages via the printMessage() method to the program's ImageProcessingView
   implementation
 - return the images stored by the ImageProcessingController via getImages()
 
-ImageProcessingControllerImpl - This is an implementation of ImageProcessingController
+### ImageProcessingControllerImpl
+This is an implementation of ImageProcessingController
 that takes in an ImageProcessingView, Readable and Scanner. This is initialized
 with a hashmap of known commands and can perform the following functionalities:
 - process() - to continue taking input from the user until no input remains,
@@ -22,7 +24,8 @@ with a hashmap of known commands and can perform the following functionalities:
   an IllegalStateException if there is an IOException
 - getImages() - to return the images stored by the ImageProcessingController
 
-ImageGUIController - This represents the interface of the program's
+### ImageGUIController
+This represents the interface of the program's
 controller that renders the program with GUI. A new interface was created because
 there were some methods of the older interface that implementations of the controller
 with the GUI did not need. This interface requires any implementation
@@ -36,14 +39,15 @@ of ImageProcessingController to:
 - print errors via the renderError() method to the program's ImageProcessingView
   implementation
 
-ImageGUIControllerImpl - This is an implementation of ImageGUIController
+### ImageGUIControllerImpl
+This is an implementation of ImageGUIController
 hat takes in an ImageProcessingView, Readable and Scanner. Additional
 constructors were added to its implementations and its extensions to support GUI
 implementations ImageGUIControllerImpl and ImageProcessingViewGUIThis.
 This implements all its inherited methods along with:
 - setCommands(), a private method that adds to the hashmap, knownCommands
 
-CONTROLLER.COMMANDS PACKAGE
+### CONTROLLER.COMMANDS PACKAGE
 
 ImageProcessingCommand - This interface is an interface for all of
 ImageProcessingControllerImpl's or ImageGUIControllerImpl's known commands based on user input.
@@ -133,15 +137,18 @@ returns an image with a sepia filter and prints a message of completion.
 
 ## MODEL PACKAGE
 
-ImageProcessingModel - Since it would be inappropriate to have the stored images
+### ImageProcessingModel
+Since it would be inappropriate to have the stored images
 in the controller, this interface was created as the model of the program with one
 method:
 - getImages() - returns the hashmap of loaded or edited images
 
-ImageProcessingModelImpl - This represents an implementation of ImageProcessingModel
+### ImageProcessingModelImpl
+This represents an implementation of ImageProcessingModel
 that implements all its inherited methods
 
-ImageModel - This interface (earlier represented the model) represents an
+### ImageModel
+This interface (earlier represented the model) represents an
 image. It supports the following methods:
 - redComponent() - creates an image's red channel
 - greenComponent() - creates an image's green channel
@@ -164,12 +171,13 @@ image. It supports the following methods:
 - setGreyscale() - creates a greyscale image
 - setSepia() - creates an image with a sepia filter
 
-ImageModelImpl - ImageModelImpl is an implementation of ImageModel and implements
+### ImageModelImpl
+ImageModelImpl is an implementation of ImageModel and implements
 all its inherited methods. It also implements applyKernel()
 - applyKernel(Posn [] kernel, ImageProcessingModel model, int row, int col) - returns
   an ImageProcessingModel with a kernel applied to a pixel at a specific row and column (col)
 
-MODEL.COMMANDS PACKAGE
+### MODEL.COMMANDS PACKAGE
 
 PixelWiseProcessor - PixelWise processor processes each image's pixels and supports the
 following methods:
@@ -198,25 +206,26 @@ doCommand(Pixel p) that converts pixel p to a green channel.
 MakeBlue - MakeBlue extends AbstractModelCommand. It implements
 doCommand(Pixel p) that converts pixel p to a blue channel.
 
-*NEW*
 SetGreyscale - setGreyscale extends AbstractModelCommand. It implements
 doCommand(Pixel p) that converts pixel p to its greyscale version
 
-*NEW*
 SetSepia - setSepia extends AbstractModelCommand. It implements
 doCommand(Pixel p) that converts pixel p to a pixel with a sepia filter
 
 
 ## VIEW PACKAGE
 
-ImageProcessingView - This interface represents the view of the program. It only
+### ImageProcessingView
+This interface represents the view of the program. It only
 supports one method - renderMessage(String message) that prints the message.
 
-ImageProcessingViewImpl - ImageProcessingViewImpl implements ImageProcessingView. It
+### ImageProcessingViewImpl
+ImageProcessingViewImpl implements ImageProcessingView. It
 only takes in an appendable and only implements renderMessage(String message).
 An IOException is thrown if there is one.
 
-ImageProcessingViewGUI - This interface represents the view of the program that
+### ImageProcessingViewGUI
+This interface represents the view of the program that
 displays the GUI of the program. This is an extension of ImageProcessingView
 as it adds additional functionality. It supports the following methods:
 - makeVisible() - makes the view visible
@@ -228,21 +237,25 @@ as it adds additional functionality. It supports the following methods:
 - getFilePath() - gets the file path input by the user to load an image
 - saveToFilePath() - gets the file path input by the user to save an image to a path
 
-ViewGUIImpl - This implements ImageProcessingViewGUI. It implements all its
+### ViewGUIImpl
+This implements ImageProcessingViewGUI. It implements all its
 inherited methods.
 
-Histogram - This represents a histogram of an image. It has an array containing values
+### Histogram
+This represents a histogram of an image. It has an array containing values
 for the RGB histograms of an image as fields as well as an ImageModel as a field. It
 implements the methods:
 - generateHistograms() - fills up the arrays fields of the histogram based on the ImageModel
 - returnHistogram(int) - returns an array containing the Histogram data depending on the index.
 index 0 is red, index 1 is green and index 2 is blue.
 
-ImageLabel - This extends JLabel and implements the inherited paintComponent(Graphics)
+### ImageLabel
+This extends JLabel and implements the inherited paintComponent(Graphics)
 method. This ImageLabel is responsible for displaying the image on the GUI and was created
 as an additional class to allow the image to refresh
 
-HistogramPanel - This extends JPanel and implements the inherited paintComponent(Graphics)
+### HistogramPanel
+This extends JPanel and implements the inherited paintComponent(Graphics)
 method. This HistogramPanel is responsible for displaying the histogram on the GUI and was created
 as an additional class to allow the image to refresh. drawHistogram() was used as a private
 helper method to help the paintComponent() method
@@ -250,7 +263,8 @@ helper method to help the paintComponent() method
 
 ## PIXELS PACKAGE
 
-Pixel - This interface represents a pixel that can have multiple values.
+### Pixel
+This interface represents a pixel that can have multiple values.
 Its implementations inherit the following methods:
 - brighten(int val) - brightens the pixel by a value (positive or negative)
 - setColor(int index) - channels the pixel based on an index that correlates to
@@ -267,7 +281,8 @@ Its implementations inherit the following methods:
 inclusive. This method was added to the Pixel interface and made public so it
 is easily accessible by the ImageProcessingModel
 
-RGBPixel - RGBPixel implements the Pixel interface and represents a pixel that
+### RGBPixel 
+RGBPixel implements the Pixel interface and represents a pixel that
 is contains red, blue and green values. These colors are held in the colors array
 where index 0 = red, index 1 = green, and index 2 = blue. RGBPixel implements all of
 its inherited methods along with:
@@ -287,7 +302,8 @@ its inherited methods along with:
 - hashCode - Overrides the hashCode() method
 
 
-Posn - Posn represents a cell or pixel in a kernel. It has a row, column and a
+### Posn 
+Posn represents a cell or pixel in a kernel. It has a row, column and a
 multiple. It has only one method. This class was made to ensure a cleaner design and produce
 more readable code with less duplication.
 - isValid(int height, int width) - Confirms whether this pixel is valid, based on the
