@@ -1,4 +1,6 @@
 # Photo Editor Application
+
+Photo Editor Application with the following image manupilation features:
 * Blurring
 * Sharpening
 * Brightening
