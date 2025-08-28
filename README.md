@@ -1,6 +1,11 @@
 # Photo Editor Application
 
-Photo Editor Application with the following image manupilation features:
+- Designed and programmed a user-friendly GUI for a Photo Editor Application, featuring image manipulation tools such as blurring, sharpening, brightening, flipping, and filtering, including grayscale, sepia, and RGB filters.
+- Applied object-oriented design principles and the model-view-controller (MVC) pattern to create a flexible, scalable and maintainable codebase, ensuring a clear separation between software components. 
+- Enabled support for loading and saving images in multiple file formats, including PNG, JPG, JPEG, and PPM.
+
+
+Includes the following image manupilation features:
 * Blurring
 * Sharpening
 * Brightening
